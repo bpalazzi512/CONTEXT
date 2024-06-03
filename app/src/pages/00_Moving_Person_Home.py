@@ -14,7 +14,7 @@ SideBarLinks()
 st.title(f"Welcome back {st.session_state['name']}")
 st.write('')
 st.write('')
-st.write('### Explore suitable countries for you based on your prefernces')
+st.write('### Explore suitable?')
 
 
 # Set page title
