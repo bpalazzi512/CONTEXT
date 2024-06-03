@@ -29,7 +29,7 @@ if st.button('Act as a Moving Company',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'moving_company'
     st.session_state['name'] = 'Fontemoves'
-    st.switch_page('pages/10_Moving_Company_Home.py')
+    st.switch_page('pages/31_Moving_Company_Home.py')
 
 if st.button('Act as a Country Administrator', 
             type = 'primary', 
