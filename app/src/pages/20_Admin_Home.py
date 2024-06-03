@@ -9,7 +9,7 @@ st.set_page_config(layout = 'wide')
 
 SideBarLinks()
 
-st.title(f'Welcome back {st.session_state['name']} Admin')
+st.title(f"Welcome back {st.session_state['name']} Admin")
 
 if st.button('Update ML Models', 
              type='primary',
