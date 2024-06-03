@@ -15,7 +15,7 @@ st.title('CONTEXT')
 st.write('\n\n')
 st.write('### HI! As which user would you like to log in?')
 
-if st.button("Act as John, a Person Thinking About Moving Abroad", 
+if st.button("Act a Person Thinking About Moving Abroad", 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
