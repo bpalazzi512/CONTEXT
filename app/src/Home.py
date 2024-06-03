@@ -21,7 +21,7 @@ if st.button("Act a Person Thinking About Moving Abroad",
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'moving_person'
     st.session_state['name'] = 'John'
-    st.switch_page('pages/00_Pol_Strat_Home.py')
+    st.switch_page('pages/00_Moving_Person_Home.py')
 
 if st.button('Act as a Moving Company', 
             type = 'primary', 
@@ -29,7 +29,7 @@ if st.button('Act as a Moving Company',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'moving_company'
     st.session_state['name'] = 'Fontemoves'
-    st.switch_page('pages/10_USAID_Worker_Home.py')
+    st.switch_page('pages/10_Moving_Company_Home.py')
 
 if st.button('Act as a Country Administrator', 
             type = 'primary', 
