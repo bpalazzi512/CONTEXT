@@ -9,12 +9,10 @@ def HomeNav():
 def AboutPageNav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
-# def RankingPageNav():
-#     st.sidebar.page_link("pages/31_Ranking.py", label="Ranking", icon="🏆")
 
 #### ------------------------ Examples for Role of moving_person ------------------------
 def MovingNav():
-    st.sidebar.page_link("pages/00_Moving_Person_Home.py", label="Moving Person Home", icon='👤')
+    st.sidebar.page_link("pages/00_Moving_Person_Home.py", label="Country Ranking", icon='🏆')
 
 
 ## ------------------------ Examples for Role of usaid_worker ------------------------

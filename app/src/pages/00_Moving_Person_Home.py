@@ -20,14 +20,19 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.header("How much do you care about the following categories?")
-    # Create sliders
-    warm_weather = st.slider("Warm weather", 0, 100, 50)
-    robust_public_transport = st.slider("Robust public transport", 0, 100, 50)
-    good_public_education = st.slider("Good public education", 0, 100, 50)
-    safety = st.slider("Safety", 0, 100, 50)
+    col3, col4 = st.columns(2)
+    with col3:
+        # Create sliders
+        warm_weather = st.slider("Warm weather", 0, 100, 50)
+        robust_public_transport = st.slider("Robust public transport", 0, 100, 50)
+        good_public_education = st.slider("Good public education", 0, 100, 50)
+        safety = st.slider("Safety", 0, 100, 50)
 
-    # More categories placeholder
-    st.markdown("Cont. (more categories)")
+    with col4:
+        warm_weather = st.slider("aaa", 0, 100, 50)
+        robust_public_transport = st.slider("bbb", 0, 100, 50)
+        good_public_education = st.slider("ccc", 0, 100, 50)
+        safety = st.slider("ddd", 0, 100, 50)
 
 with col2:
 # Country Ranking
