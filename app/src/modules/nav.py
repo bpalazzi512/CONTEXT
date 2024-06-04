@@ -9,12 +9,12 @@ def HomeNav():
 def AboutPageNav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
-def RankingPageNav():
-    st.sidebar.page_link("pages/31_Ranking.py", label="Ranking", icon="🏆")
+# def RankingPageNav():
+#     st.sidebar.page_link("pages/31_Ranking.py", label="Ranking", icon="🏆")
 
 #### ------------------------ Examples for Role of pol_strat_advisor ------------------------
 def PolStratAdvHomeNav():
-    st.sidebar.page_link("pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon='👤')
+    st.sidebar.page_link("pages/00_Moving_Person_Home.py", label="Moving Person Home", icon='👤')
 
 def WorldBankVizNav():
     st.sidebar.page_link("pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon='🏦')
@@ -60,19 +60,19 @@ def SideBarLinks(show_home=False):
     if st.session_state["authenticated"]:
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
-        if st.session_state['role'] == 'pol_strat_advisor':
+        if st.session_state['role'] == 'moving_person':
             PolStratAdvHomeNav()
             WorldBankVizNav()
             MapDemoNav()
 
         # If the user role is usaid worker, show the Api Testing page
-        if st.session_state['role'] == 'usaid_worker':
+        if st.session_state['role'] == 'moving_company':
             PredictionNav()
             ApiTestNav() 
             ClassificationNav()
         
         # If the user is an administrator, give them access to the administrator pages
-        if st.session_state['role'] == 'administrator':
+        if st.session_state['role'] == 'country_admin':
             AdminPageNav()
 
     # Always show the About page at the bottom of the list of links
