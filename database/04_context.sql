@@ -15,7 +15,7 @@ CREATE TABLE states (
     stateName VARCHAR(50)
 );
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) NOT NULL,
     id INT UNIQUE NOT NULL,
     age INT NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS user (
     FOREIGN KEY (homeStateID) REFERENCES states(id)
 );
 
-CREATE TABLE IF NOT EXISTS country (
+CREATE TABLE IF NOT EXISTS countries(
     id INT UNIQUE NOT NULL,
     name VARCHAR(50) UNIQUE NOT NULL,
     area int,
@@ -42,13 +42,13 @@ CREATE TABLE IF NOT EXISTS country (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS countryRanking (
+CREATE TABLE IF NOT EXISTS countryRankings (
     countryID int NOT NULL,
     rankingNum int,
     id INT UNIQUE NOT NULL,
 
     PRIMARY KEY(id),
-    FOREIGN KEY (countryID) REFERENCES country(id)
+    FOREIGN KEY (countryID) REFERENCES countries(id)
 );
 
 
@@ -57,11 +57,11 @@ CREATE TABLE IF NOT EXISTS rankings (
     rankingID INT UNIQUE NOT NULL,
 
     PRIMARY KEY(rankingID, userID),
-    FOREIGN KEY (userID) REFERENCES user(id),
-    FOREIGN KEY (rankingID) REFERENCES countryRanking(id)
+    FOREIGN KEY (userID) REFERENCES users(id),
+    FOREIGN KEY (rankingID) REFERENCES countryRankings(id)
 );
 
-CREATE TABLE IF NOT EXISTS mover (
+CREATE TABLE IF NOT EXISTS movers (
     id INT UNIQUE NOT NULL,
     email VARCHAR(50) NOT NULL,
     phone int NOT NULL,
@@ -72,17 +72,17 @@ CREATE TABLE IF NOT EXISTS mover (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS moverContact (
+CREATE TABLE IF NOT EXISTS moverContacts (
     userID int NOT NULL,
     moverID int NOT NULL,
     dateContacted datetime NOT NULL,
 
     PRIMARY KEY (userID, moverID),
-    FOREIGN KEY (userID) REFERENCES user(id),
-    FOREIGN KEY (moverID) REFERENCES mover(id)
+    FOREIGN KEY (userID) REFERENCES users(id),
+    FOREIGN KEY (moverID) REFERENCES movers(id)
 );
 
-CREATE TABLE IF NOT EXISTS countryAdmin (
+CREATE TABLE IF NOT EXISTS countryAdmins (
     id INT UNIQUE NOT NULL,
     firstName VARCHAR(50),
     lastName VARCHAR(50),
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS countryAdmin (
     countryID int UNIQUE,
 
     PRIMARY KEY(id),
-    FOREIGN KEY (countryID) REFERENCES country(id)
+    FOREIGN KEY (countryID) REFERENCES countries(id)
 );
 
 CREATE TABLE IF NOT EXISTS route (
@@ -101,21 +101,21 @@ CREATE TABLE IF NOT EXISTS route (
 
     PRIMARY KEY (fromStateID, toCountryID, moverID),
     FOREIGN KEY (fromStateID) REFERENCES states(id),
-    FOREIGN KEY (toCountryID) REFERENCES country(id),
-    FOREIGN KEY (moverID) REFERENCES mover(id)
+    FOREIGN KEY (toCountryID) REFERENCES countries(id),
+    FOREIGN KEY (moverID) REFERENCES movers(id)
 
 );
 
-CREATE TABLE IF NOT EXISTS dependant (
+CREATE TABLE IF NOT EXISTS dependants (
     age int NOT NULL,
     dependeeID int NOT NULL,
     id int UNIQUE NOT NULL,
 
     PRIMARY KEY(id),
-    FOREIGN KEY (dependeeID) REFERENCES user(id)
+    FOREIGN KEY (dependeeID) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS language (
+CREATE TABLE IF NOT EXISTS languages (
     id int UNIQUE NOT NULL,
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
@@ -127,6 +127,6 @@ CREATE TABLE IF NOT EXISTS speaks (
     percentage int,
 
     PRIMARY KEY(languageID, countryID),
-    FOREIGN KEY (languageID) REFERENCES language(id),
-    FOREIGN KEY (countryID) REFERENCES country(id)
+    FOREIGN KEY (languageID) REFERENCES languages(id),
+    FOREIGN KEY (countryID) REFERENCES countries(id)
 )

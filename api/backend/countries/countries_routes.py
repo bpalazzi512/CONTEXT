@@ -10,7 +10,7 @@ countries = Blueprint('countries', __name__)
 
 # Get all countries from the DB
 @countries.route('/countries', methods=['GET'])
-def get_customers():
+def get_countries():
     current_app.logger.info('countries_routes.py: GET /countries')
     cursor = db.get_db().cursor()
     cursor.execute('select id, name, bio, from countries')
@@ -31,7 +31,7 @@ def get_country(countryID):
     cursor = db.get_db().cursor()
     cursor.execute('SELECT id, name, area, population, \
                    happinessindex, railwayLength, unemploymentRate, bio, \
-                   tips from country where id = {0}'.format(countryID))
+                   tips from countries where id = {0}'.format(countryID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -51,7 +51,7 @@ def edit_country():
     country_id = country_info['id']
     tips = country_info('tips')
 
-    query = 'UPDATE country SET tips = %s where id = %s'
+    query = 'UPDATE countries SET tips = %s where id = %s'
     data = (tips, country_id)
     cursor = db.get_db().cursor()
     r = cursor.execute(query, data)
@@ -63,9 +63,9 @@ def edit_country():
 def get_country_languages(countryID):
     current_app.logger.info('GET /countries/<userID> route')
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT language.id, language.name, speaks.percentage \
+    cursor.execute('SELECT l.id, l.name, s.percentage \
                    from language l join speaks s on l.id = s.languageID \
-                   join country c on c.id = s.countryID where c.id = {0}'.format(countryID))
+                   join countries c on c.id = s.countryID where c.id = {0}'.format(countryID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()

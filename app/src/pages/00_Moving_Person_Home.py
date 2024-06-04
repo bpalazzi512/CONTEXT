@@ -53,6 +53,7 @@ with col2:
             if st.button(f'View Full Country Page {index + 1}', 
              type='primary',
              use_container_width=True):
+                #st.session_state['countryID'] = IDK
                 st.switch_page('pages/22_Country_Page.py')
 
 # Interactive Map
