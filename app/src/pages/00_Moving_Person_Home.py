@@ -16,10 +16,6 @@ st.write('')
 st.write('')
 st.write('### Explore suitable countries based on your preferences')
 
-
-# Set page title
-# st.set_page_config(page_title="Country Ranking Page")
-
 # How much do you care about the following categories?
 st.header("How much do you care about the following categories?")
 
