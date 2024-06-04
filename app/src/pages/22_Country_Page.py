@@ -22,7 +22,7 @@ if st.button('Back',
 # Country Name
 st.title("The Netherlands")
 
-# Placeholder for Image (Replace 'image_url' with the actual image URL or file path)
+#Image
 image_url = 'https://i.natgeofe.com/k/4a509698-ab53-4581-af61-4c4808a81a76/netherlands-tulip-fields_16x9.jpg?w=1200'
 st.image(image_url, caption="A windmill in a tulip field", use_column_width=True)
 
