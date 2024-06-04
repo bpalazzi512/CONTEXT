@@ -14,6 +14,9 @@ def AboutPageNav():
 def MovingNav():
     st.sidebar.page_link("pages/00_Moving_Person_Home.py", label="Country Ranking", icon='🏆')
 
+def UserProfile():
+    st.sidebar.page_link("pages/24_User_Profile.py", label="Update Profile", icon='👤')
+
 
 ## ------------------------ Examples for Role of moving_company ------------------------
 def MoverNav():
@@ -47,6 +50,7 @@ def SideBarLinks(show_home=False):
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state['role'] == 'moving_person':
+            UserProfile()
             MovingNav()
 
         # If the user role is usaid worker, show the Api Testing page
