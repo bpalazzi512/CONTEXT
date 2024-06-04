@@ -27,6 +27,9 @@ def MoverNav():
 def AdminPageNav():
     st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon='🖥️')
 
+def AdminProfileNav():
+    st.sidebar.page_link("pages/25_Admin_Profile.py", label="Update Profile", icon='👤')
+
 # --------------------------------Links Function -----------------------------------------------
 def SideBarLinks(show_home=False):
     """
@@ -59,6 +62,7 @@ def SideBarLinks(show_home=False):
         
         # If the user is an administrator, give them access to the administrator pages
         if st.session_state['role'] == 'country_admin':
+            AdminProfileNav()
             AdminPageNav()
 
     # Always show the About page at the bottom of the list of links
