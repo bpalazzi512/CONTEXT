@@ -50,6 +50,10 @@ with col2:
     for index, row in df.iterrows():
         with st.expander(f"#{index+1} - {row['Country']}"):
             st.write(row['Bio'])
+            if st.button(f'View Full Country Page {index + 1}', 
+             type='primary',
+             use_container_width=True):
+                st.switch_page('pages/22_Country_Page.py')
 
 # Interactive Map
 st.header("Interactive Map")
