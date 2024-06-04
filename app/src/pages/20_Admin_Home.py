@@ -1,4 +1,5 @@
 import logging
+import requests
 logger = logging.getLogger()
 
 import streamlit as st
@@ -11,7 +12,11 @@ SideBarLinks()
 
 st.title(f"Welcome back {st.session_state['name']} Admin")
 
-if st.button('Update ML Models', 
-             type='primary',
-             use_container_width=True):
-  st.switch_page('pages/21_ML_Model_Mgmt.py')
+st.write('## Edit Country Bio:')
+
+bio = st.text_area('Country Bio', 'Grab from database', height=200, placeholder='Start of bio...')
+
+st.write('## Edit Country Extra Info:')
+tips = st.text_area('Country Extra Info', 'Grab from database', height=500, placeholder='Start of extra info...')
+
+
