@@ -35,9 +35,8 @@ with col2:
 
     # Sample data for country ranking
     data = {
-        "Country": ["The Netherlands", "Country 2", "Country 3", "Country 4", "Country 5"],
-        "Bio": ["Start of bio...", "...", "...", "...", "..."],
-        "Cost": ["$47,000", "...", "...", "...", "..."]
+        "Country": ["Country 1", "Country 2", "Country 3", "Country 4", "Country 5", "Country 6", "Country 7", "Country 8"],
+        "Bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "..."],
     }
 
     df = pd.DataFrame(data)
@@ -46,7 +45,6 @@ with col2:
     for index, row in df.iterrows():
         with st.expander(f"#{index+1} - {row['Country']}"):
             st.write(row['Bio'])
-            st.write(f"Projected Annual Cost: {row['Cost']}")
 
 # Interactive Map
 st.header("Interactive Map")
