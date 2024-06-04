@@ -65,5 +65,5 @@ def add_route():
             st.success("New route added successfully!")
 
 # Button to add a new route
-if st.button('Add New Route'):
+if st.button('Add New Route / Update Existing'):
     add_route()

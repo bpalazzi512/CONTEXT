@@ -2,6 +2,7 @@ altair
 pandas
 streamlit
 streamlit-extras
+streamlit-modal
 world-bank-data
 matplotlib
 numpy
