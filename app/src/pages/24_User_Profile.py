@@ -27,6 +27,23 @@ home_state = st.selectbox("Home State", ["", "Alabama", "Alaska", "Arizona", "Ar
                                          "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", 
                                          "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], index=5)
 
+languages = [
+    "Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Azerbaijani", "Basque", "Belarusian", "Bengali", "Bosnian",
+    "Bulgarian", "Catalan", "Cebuano", "Chichewa", "Chinese", "Corsican", "Croatian", "Czech", "Danish", "Dutch",
+    "English", "Esperanto", "Estonian", "Filipino", "Finnish", "French", "Frisian", "Galician", "Georgian", "German",
+    "Greek", "Gujarati", "Haitian Creole", "Hausa", "Hawaiian", "Hebrew", "Hindi", "Hmong", "Hungarian", "Icelandic",
+    "Igbo", "Indonesian", "Irish", "Italian", "Japanese", "Javanese", "Kannada", "Kazakh", "Khmer", "Kinyarwanda",
+    "Korean", "Kurdish (Kurmanji)", "Kyrgyz", "Lao", "Latin", "Latvian", "Lithuanian", "Luxembourgish", "Macedonian",
+    "Malagasy", "Malay", "Malayalam", "Maltese", "Maori", "Marathi", "Mongolian", "Myanmar (Burmese)", "Nepali",
+    "Norwegian", "Odia (Oriya)", "Pashto", "Persian", "Polish", "Portuguese", "Punjabi", "Romanian", "Russian",
+    "Samoan", "Scots Gaelic", "Serbian", "Sesotho", "Shona", "Sindhi", "Sinhala", "Slovak", "Slovenian", "Somali",
+    "Spanish", "Sundanese", "Swahili", "Swedish", "Tajik", "Tamil", "Tatar", "Telugu", "Thai", "Turkish", "Turkmen",
+    "Ukrainian", "Urdu", "Uyghur", "Uzbek", "Vietnamese", "Welsh", "Xhosa", "Yiddish", "Yoruba", "Zulu"
+]
+
+# Language dropdown
+language = st.selectbox("Preferred Language", languages, index=20)
+
 # Save button
 if st.button("Save"):
     # Logic to save the user profile information
@@ -38,5 +55,6 @@ if st.button("Save"):
     st.write("Phone Number:", phone_number)
     st.write("Age:", age)
     st.write("Home State:", home_state)
+    st.write("Language:", language)
 
 
