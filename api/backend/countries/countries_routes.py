@@ -18,11 +18,11 @@ def get_countries():
     cursor.execute('SELECT * FROM countries')
 
     # grab the column headers from the returned data
-    column_headers = [x[0] for x in cursor.description]
+    # column_headers = [x[0] for x in cursor.description]
 
     # create an empty dictionary object to use in 
     # putting column headers together with data
-    json_data = []
+    # json_data = []
 
     # fetch all the data from the cursor
     theData = cursor.fetchall()
@@ -43,15 +43,19 @@ def get_country_info(countryID):
     current_app.logger.info('GET /countries/<userID> route')
     cursor = db.get_db().cursor()
     cursor.execute('SELECT * from countries where id = {0}'.format(countryID))
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
+     # fetch all the data from the cursor
     theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
+    current_app.logger.info(f'theData = {theData}')
+
+    # for each of the rows, zip the data elements together with
+    # the column headers. 
+    # for row in theData:
+    #     json_data.append(dict(zip(column_headers, row)))
+
+    # return jsonify(json_data)
+    return jsonify(theData)
+
+    
 
 # Put (edit) a section of country as admin 
 @countries.route('/country/<countryID>', methods=['PUT'])
@@ -76,7 +80,7 @@ def get_country_languages(countryID):
     cursor = db.get_db().cursor()
     cursor.execute('SELECT l.id, l.name, s.percentage \
                    from language l join speaks s on l.id = s.languageID \
-                   join countries c on c.id = s.countryID where c.id = {0}'.format(countryID))
+                   join countries c on c.id = s.countryID where c.id = ' + str(countryID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
