@@ -5,6 +5,7 @@ from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from backend.db_connection import db
 #from backend.ml_models.model01 import predict
+from dotenv import load_dotenv
 
 countries = Blueprint('countries', __name__)
 
@@ -13,7 +14,7 @@ countries = Blueprint('countries', __name__)
 def get_countries():
     current_app.logger.info('countries_routes.py: GET /countries')
     cursor = db.get_db().cursor()
-    cursor.execute('select id, name, bio, from countries')
+    cursor.execute('select id, name, bio from countries')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
