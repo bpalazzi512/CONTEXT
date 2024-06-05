@@ -2,7 +2,7 @@ USE context;
 
 -- REAL DATA
 
-INSERT INTO countries (id, name, avg_temp, cost_of_life, healthcare_index, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_address)
+INSERT INTO countries (id, name, avg_temp, cost_of_life, healthcare_index, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_link)
 VALUES
 (0, 'Malta',19.58,55.1,53.59,1700,'English, Spanish','','','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
 (1, 'Cyprus',18.95,57.1,53.74,136,'Greek','', 'English','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
