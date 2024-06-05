@@ -14,7 +14,7 @@ countries = Blueprint('countries', __name__)
 def get_countries():
     current_app.logger.info('countries_routes.py: GET /countries')
     cursor = db.get_db().cursor()
-    cursor.execute('select id, name, bio from countries')
+    cursor.execute('select * from countries')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
