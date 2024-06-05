@@ -29,8 +29,6 @@ except:
   st.write("**Important**: Could not connect to sample api, so using dummy data.")
   data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
-
-st.dataframe(data)
 # Country Name
 country_name = data[0]['name']
 st.title(country_name)
