@@ -42,7 +42,7 @@ def get_countries():
 def get_country_info(countryID):
     current_app.logger.info('GET /countries/<userID> route')
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT * from countries where id = {0}'.format(countryID))
+    cursor.execute('SELECT * from countries where id = '+ str(countryID))
      # fetch all the data from the cursor
     theData = cursor.fetchall()
     current_app.logger.info(f'theData = {theData}')

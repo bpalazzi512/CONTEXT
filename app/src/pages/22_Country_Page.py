@@ -6,6 +6,8 @@ import plotly.express as px
 import streamlit as st
 from modules.nav import SideBarLinks
 from streamlit_modal import Modal
+import requests
+import json
 
 # Show appropriate sidebar links for the role of the currently logged in user
 st.set_page_config(layout='wide')
@@ -19,8 +21,19 @@ if st.button('Back',
              use_container_width=True):
     st.switch_page('pages/00_Moving_Person_Home.py')
 
+
+data = {} 
+try:
+  data = requests.get('http://api:4000/c/countries/0').json()
+except:
+  st.write("**Important**: Could not connect to sample api, so using dummy data.")
+  data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+
+
+st.dataframe(data)
 # Country Name
-st.title("The Netherlands")
+country_name = data[0]['name']
+st.title(country_name)
 
 #Image
 image_url = 'https://i.natgeofe.com/k/4a509698-ab53-4581-af61-4c4808a81a76/netherlands-tulip-fields_16x9.jpg?w=1200'
