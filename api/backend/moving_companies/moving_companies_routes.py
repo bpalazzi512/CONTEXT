@@ -59,27 +59,45 @@ def get_country(moverID):
     return the_response
 
 # Delete a route
+@moving_company.route('/moving_company/<int:route_id>', methods=['DELETE'])
+def delete_route(route_id):
+    # Log the incoming request
+    current_app.logger.info(f'Request to delete route with ID: {route_id}')
+    
+    # Construct the SQL query to delete the route
+    query = 'DELETE FROM products WHERE id = ?'
+    
+    # Execute the query
+    cursor = db.get_db().cursor()
+    cursor.execute(query, (route_id,))
+    db.get_db().commit()
+    
+    # Check if a row was deleted
+    if cursor.rowcount == 0:
+        return 'No route found with the specified ID.', 404
+    
+    return 'Route deleted successfully!', 200
 
 # Post (add) a new route
-@moving_company.route('/moving_company/<moverID>', methods=['POST'])
-def add_new_product(moverID):
+@moving_company.route('/moving_company', methods=['POST'])
+def add_route():
     
     # collecting data from the request object 
     the_data = request.json
     current_app.logger.info(the_data)
 
     #extracting the variable
-    name = the_data['product_name']
-    description = the_data['product_description']
-    price = the_data['product_price']
-    category = the_data['product_category']
+    cost = the_data['cost']
+    fromStateID = ['fromStateID']
+    toCountryID =['toCountryID']
+    moverID = ['moverID']
 
     # Constructing the query
-    query = 'insert into products (product_name, description, category, list_price) values ("'
-    query += name + '", "'
-    query += description + '", "'
-    query += category + '", '
-    query += str(price) + ')'
+    query = 'insert into products (cost, fromStateID, toCountryID, moverID) values ("'
+    query += str(cost) + '", "'
+    query += str(fromStateID) + '", "'
+    query += str(toCountryID) + '", '
+    query += str(moverID) + ')'
     current_app.logger.info(query)
 
     # executing and committing the insert statement 
@@ -88,8 +106,5 @@ def add_new_product(moverID):
     db.get_db().commit()
     
     return 'Success!'
-# Post (add) a country to a moving company's list of movable locations
-
-# Delete a state from a moving company's list of movable states 
 
 # Get a list of all users (name, email, phone) that contacts a moving company by date
