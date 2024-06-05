@@ -12,19 +12,29 @@ countries = Blueprint('countries', __name__)
 # # Get all countries from the DB
 @countries.route('/countries', methods=['GET'])
 def get_countries():
-    current_app.logger.info('countries_routes.py: GET /countries')
+    # get a cursor object from the database
     cursor = db.get_db().cursor()
-    query = 'SELECT COUNT(*) FROM countries'
-    cursor.execute(query)
-    row_headers = [x[0] for x in cursor.description]
+    # use cursor to query the database for a list of products
+    cursor.execute('SELECT * FROM countries')
+
+    # grab the column headers from the returned data
+    column_headers = [x[0] for x in cursor.description]
+
+    # create an empty dictionary object to use in 
+    # putting column headers together with data
     json_data = []
+
+    # fetch all the data from the cursor
     theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
+    current_app.logger.info(f'theData = {theData}')
+
+    # for each of the rows, zip the data elements together with
+    # the column headers. 
+    # for row in theData:
+    #     json_data.append(dict(zip(column_headers, row)))
+
+    # return jsonify(json_data)
+    return jsonify(theData)
 
 
 # Get a selected country's details from a countryID
@@ -60,7 +70,7 @@ def edit_country():
     return 'customer updated!'
 
 # Get a list of all the languages for a country
-@countries.route('/country/<countryID>/', methods=['GET'])
+@countries.route('/country/<countryID>/language', methods=['GET'])
 def get_country_languages(countryID):
     current_app.logger.info('GET /countries/<userID> route')
     cursor = db.get_db().cursor()
