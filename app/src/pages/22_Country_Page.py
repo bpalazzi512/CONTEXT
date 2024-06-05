@@ -13,8 +13,18 @@ import json
 st.set_page_config(layout='wide')
 SideBarLinks()
 
-st.title("Country Page: The Netherlands")
-st.write("Welcome to the country page for The Netherlands!")
+country_data = {} 
+try:
+  country_data = requests.get('http://api:4000/c/countries/0').json()
+except:
+  st.write("**Important**: Could not connect to sample api, so using dummy data.")
+  country_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+
+# Country Name
+country_name = country_data[0]['name']
+
+st.title(f"Country Page: {country_name}")
+st.write(f"Welcome to the country page for {country_name}!")
 
 if st.button('Back', 
              type='primary',
@@ -22,48 +32,48 @@ if st.button('Back',
     st.switch_page('pages/00_Moving_Person_Home.py')
 
 
-data = {} 
-try:
-  data = requests.get('http://api:4000/c/countries/0').json()
-except:
-  st.write("**Important**: Could not connect to sample api, so using dummy data.")
-  data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
-
-# Country Name
-country_name = data[0]['name']
-st.title(country_name)
-
 #Image
-image_url = 'https://i.natgeofe.com/k/4a509698-ab53-4581-af61-4c4808a81a76/netherlands-tulip-fields_16x9.jpg?w=1200'
+image_url = country_data[0]['img_link']
 st.image(image_url, caption="A windmill in a tulip field", use_column_width=True)
 
 # Country Bio
 st.subheader("Bio")
-st.markdown("""
-The Netherlands is a country located in Western Europe with a rich cultural heritage and a strong tradition of tolerance and innovation. Known for its flat landscape, extensive canal systems, windmills, tulip fields, and cycling routes, the Netherlands offers a unique blend of natural beauty and urban sophistication.
-""")
+st.markdown(country_data[0]['bio'])
 
 # Tips and Extra Info
 st.subheader("Tips / Extra Info")
-st.markdown("""
-- **Cultural Quirks**: The Dutch are known for their directness and openness, which can sometimes come across as blunt to newcomers.
-- **How to Find Work**: The Netherlands has a strong job market, particularly in industries like technology, engineering, and finance. Websites like LinkedIn and Indeed, as well as local job boards, can be very helpful.
-- **Public Transport**: The country boasts an efficient public transportation system, including trains, buses, trams, and ferries, making it easy to travel both within and between cities.
-- **Weather**: The weather can be quite variable, so it's a good idea to always carry an umbrella or raincoat.
-- **Language**: While Dutch is the official language, English is widely spoken, especially in urban areas and among younger people.
-""")
+st.markdown(country_data[0]['tips'])
 
 # Mover Data Table
 st.markdown("## Explore Compatible Movers to this Destination")
-data = {
+
+user_data = {}
+
+try:
+   user_data = requests.get('http://api:4000/u/users/12345').json()
+except:
+  st.write("**Important**: Could not connect to sample api, so using dummy data.")
+  user_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+
+stateID = user_data[0]['homeState']
+countryID = country_data[0]['id']
+
+mover_data = {}
+
+try:
+   mover_data = requests.get(f'http://api:4000/mv/moving_company/{stateID}/{countryID}').json()
+except:
+  st.write("**Important**: Could not connect to sample api, so using dummy data.")
+  mover_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+
+dataEX = {
     "Mover Name": ["Fontemoves", "Speedy Movers", "Global Transport"],
     "Quote": ["$3000", "$3200", "$3100"],
     "Stars": ["⭐⭐⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐⭐"]
 }
 
 # Create a DataFrame
-df = pd.DataFrame(data)
-
+df = pd.DataFrame(mover_data)
 
 # Function to display the table with buttons
 def display_movers_with_buttons(df):
