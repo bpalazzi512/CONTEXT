@@ -7,7 +7,7 @@ CREATE SCHEMA IF NOT EXISTS context DEFAULT CHARACTER SET latin1 ;
 USE context ;
 
 -- DROP DATABASE IF EXISTS context;
--- CREATE DATABASE IF NOT EXISTS context; 
+-- CREATE DATABASE IF NOT EXISTS context;
 -- USE context;
 
 CREATE TABLE IF NOT EXISTS states (
@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS countries(
     population int,
     happinessIndex DECIMAL(5, 1),
     railwayLength int,
-    umemploymentRate DECIMAL(5, 1),
-    bio MULTILINESTRING,
-    tips MULTILINESTRING,
+    unemploymentRate DECIMAL(5, 1),
+    bio VARCHAR(500),
+    tips VARCHAR(500),
 
     PRIMARY KEY (id)
 );
@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS rankings (
 CREATE TABLE IF NOT EXISTS movers (
     id INT UNIQUE NOT NULL,
     email VARCHAR(50) NOT NULL,
-    phone int NOT NULL,
-    bio MULTILINESTRING,
+    phone VARCHAR(50) NOT NULL,
+    bio VARCHAR(500),
     stars int,
     numReviews int,
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS countryAdmins (
     id INT UNIQUE NOT NULL,
     firstName VARCHAR(50),
     lastName VARCHAR(50),
-    bio MULTILINESTRING,
+    bio VARCHAR(500),
     countryID int UNIQUE,
 
     PRIMARY KEY(id),
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS speaks (
     PRIMARY KEY(languageID, countryID),
     FOREIGN KEY (languageID) REFERENCES languages(id),
     FOREIGN KEY (countryID) REFERENCES countries(id)
-)
+);
 
 
 
