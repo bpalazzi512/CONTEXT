@@ -26,7 +26,7 @@ def get_countries():
 
 # Get a selected country's details from a countryID
 @countries.route('/countries/<countryID>', methods=['GET'])
-def get_country(countryID):
+def get_country_info(countryID):
     current_app.logger.info('GET /countries/<userID> route')
     cursor = db.get_db().cursor()
     cursor.execute('SELECT id, name, area, population, \

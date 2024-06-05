@@ -16,7 +16,7 @@ last_name = st.text_input("Last Name", value="Smith")
 email = st.text_input("Email", "jsmith@gmail.com")
 phone_number = st.text_input("Phone Number", value="123-456-7890")
 age = st.number_input("Age", min_value=0, max_value=120, step=1, value=43)
-home_state = st.selectbox("Home State", ["", "Alabama", "Alaska", "Arizona", "Arkansas", "California", 
+home_state = st.selectbox("Home State", ["Alabama", "Alaska", "Arizona", "Arkansas", "California", 
                                          "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", 
                                          "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", 
                                          "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
@@ -25,7 +25,7 @@ home_state = st.selectbox("Home State", ["", "Alabama", "Alaska", "Arizona", "Ar
                                          "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", 
                                          "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
                                          "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", 
-                                         "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], index=5)
+                                         "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], index=43, placeholder="Select a state")
 
 languages = [
     "Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Azerbaijani", "Basque", "Belarusian", "Bengali", "Bosnian",
@@ -42,7 +42,7 @@ languages = [
 ]
 
 # Language dropdown
-language = st.selectbox("Preferred Language", languages, index=20)
+language = st.selectbox("Preferred Language", languages, index=20, placeholder="Select a language")
 
 # Save button
 if st.button("Save"):

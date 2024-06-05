@@ -26,7 +26,7 @@ def get_routes(stateID, countryID):
 
 # Get a list of all the countryIDs a moving company can move to
 @moving_company.route('/moving_company/<moverID>/countries', methods=['GET'])
-def get_country(moverID):
+def get_mover_country(moverID):
     current_app.logger.info('GET /moving_company/<moverID> route')
     cursor = db.get_db().cursor()
     cursor.execute('SELECT countryID, c.name \
