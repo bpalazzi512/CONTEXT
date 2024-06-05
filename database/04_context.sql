@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS countries(
     population int,
     happinessIndex DECIMAL(5, 1),
     railwayLength int,
-    umemlpoymentRate DECIMAL(5, 1),
+    umemploymentRate DECIMAL(5, 1),
     bio MULTILINESTRING,
     tips MULTILINESTRING,
 
@@ -130,3 +130,7 @@ CREATE TABLE IF NOT EXISTS speaks (
     FOREIGN KEY (languageID) REFERENCES languages(id),
     FOREIGN KEY (countryID) REFERENCES countries(id)
 )
+
+
+
+

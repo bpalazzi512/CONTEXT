@@ -1,4 +1,4 @@
-USE 'context';
+USE context;
 
 -- Insert data into states table
 INSERT INTO states (id, stateName) VALUES
