@@ -9,12 +9,13 @@ from dotenv import load_dotenv
 
 countries = Blueprint('countries', __name__)
 
-# Get all countries from the DB
+# # Get all countries from the DB
 @countries.route('/countries', methods=['GET'])
 def get_countries():
     current_app.logger.info('countries_routes.py: GET /countries')
     cursor = db.get_db().cursor()
-    cursor.execute('select * from countries')
+    query = 'SELECT COUNT(*) FROM countries'
+    cursor.execute(query)
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -25,14 +26,13 @@ def get_countries():
     the_response.mimetype = 'application/json'
     return the_response
 
+
 # Get a selected country's details from a countryID
 @countries.route('/countries/<countryID>', methods=['GET'])
 def get_country_info(countryID):
     current_app.logger.info('GET /countries/<userID> route')
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT id, name, area, population, \
-                   happinessindex, railwayLength, unemploymentRate, bio, \
-                   tips from countries where id = {0}'.format(countryID))
+    cursor.execute('SELECT * from countries where id = {0}'.format(countryID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()

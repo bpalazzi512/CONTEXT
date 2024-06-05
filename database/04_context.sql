@@ -31,13 +31,21 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS countries(
     id INT UNIQUE NOT NULL,
     name VARCHAR(50) UNIQUE NOT NULL,
-    area int,
-    population int,
+    -- area int,
+    -- population int,
     happinessIndex DECIMAL(5, 1),
     railwayLength int,
     unemploymentRate DECIMAL(5, 1),
-    bio VARCHAR(500),
-    tips VARCHAR(500),
+    avg_temp DECIMAL(5, 2),
+    cost_of_life DECIMAL(5, 1),
+    healthcare_index DECIMAL(5, 2),
+    pop_density INT,
+    official_lang VARCHAR(1024),
+    minority_lang VARCHAR(1024),
+    widely_spoken_lang VARCHAR(1024),
+    bio VARCHAR(1024),
+    tips VARCHAR(1024),
+    img_link VARCHAR(1024),
 
     PRIMARY KEY (id)
 );
