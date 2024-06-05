@@ -78,7 +78,7 @@ def get_country_languages(countryID):
     return the_response
 
 # Put (edit) the displayed top country rankings
-@countries.route('/countries', methods=['PUT'])
+@countries.route('/countries/rankings', methods=['PUT'])
 def update_rankings():
     current_app.logger.info('PUT /countries route')
     ranking_info = request.json
