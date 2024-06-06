@@ -4,6 +4,7 @@ logger = logging.getLogger()
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+import requests
 from modules.nav import SideBarLinks
 
 st.set_page_config(layout = 'wide')
@@ -40,7 +41,7 @@ with col2:
 
     # Sample data for country ranking
     data = {
-        "Country": ["Belgium", "Italy", "Country 3", "Country 4", "Country 5", "Country 6", "Country 7", "Country 8"],
+        "Country": ["Belgium", "Italy", "Hungary", "Greece", "France", "Spain", "Finland", "Netherlands"],
         "Bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "..."],
     }
 
@@ -53,8 +54,15 @@ with col2:
             if st.button(f'View Full Country Page {index + 1}', 
              type='primary',
              use_container_width=True):
-                st.session_state['country_name'] = df.get[0][index]
-                st.switch_page('pages/22_Country_Page.py')
+                country_name = row['Country']
+                st.write(country_name)
+                try:
+                    data = {} 
+                    data = requests.get('http://api:4000/c/country/' + country_name).json() #get countryid
+                    st.session_state['countryID'] = data[0]['id'] 
+                    st.switch_page('pages/22_Country_Page.py')
+                except Exception as e:
+                    st.write(f"An error occurred: {e}")
 
 # Interactive Map
 st.header("Interactive Map")

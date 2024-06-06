@@ -15,7 +15,7 @@ SideBarLinks()
 
 country_data = {} 
 try:
-  country_data = requests.get('http://api:4000/c/countries/0').json()
+  country_data = requests.get('http://api:4000/c/countries/').json()
 except:
   st.write("**Important**: Could not connect to sample api, so using dummy data.")
   country_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
