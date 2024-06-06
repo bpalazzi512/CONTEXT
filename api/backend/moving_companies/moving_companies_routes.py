@@ -93,9 +93,9 @@ def add_route():
 
     #extracting the variable
     cost = the_data['cost']
-    fromStateID = ['fromStateID']
-    toCountryID =['toCountryID']
-    moverID = ['moverID']
+    fromStateID = the_data['fromStateID']
+    toCountryID = the_data['toCountryID']
+    moverID = the_data['moverID']
 
     # Constructing the query
     query = 'insert into products (cost, fromStateID, toCountryID, moverID) values ("'
@@ -103,6 +103,47 @@ def add_route():
     query += str(fromStateID) + '", "'
     query += str(toCountryID) + '", '
     query += str(moverID) + ')'
+    current_app.logger.info(query)
+
+    # executing and committing the insert statement 
+    cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    
+    return 'Success!'
+
+    # email VARCHAR(255) NOT NULL,
+    # id INT UNIQUE NOT NULL,
+    # age INT NOT NULL,
+    # phone VARCHAR(50) NOT NULL,
+    # firstName VARCHAR(50) NOT NULL,
+    # lastName VARCHAR(50) NOT NULL,
+    # homeStateID int NOT NULL,
+# Post (add) user to moverContacts 
+@moving_company.route('/userContact', methods=['POST'])
+def add_route():
+    # collecting data from the request object 
+    the_data = request.json
+    current_app.logger.info(the_data)
+
+    #extracting the variable
+    email = the_data['email']
+    id = the_data['id']
+    age = the_data['age']
+    phone = the_data['photo']
+    firstName = the_data['firstName']
+    lastName = the_data['lastName']
+    homeStateID = the_data['homeStateID']
+
+    # Constructing the query
+    query = 'insert into products (cost, fromStateID, toCountryID, moverID) values ("'
+    query += email + '", "'
+    query += str(id) + '", "'
+    query += str(age) + '", '
+    query += phone + ')'
+    query += firstName + ')'
+    query += lastName + ')'
+    query += str(homeStateID) + ')'
     current_app.logger.info(query)
 
     # executing and committing the insert statement 
