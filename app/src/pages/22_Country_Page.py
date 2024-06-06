@@ -13,9 +13,11 @@ import json
 st.set_page_config(layout='wide')
 SideBarLinks()
 
+countryID = st.session_state['countryID']
+
 country_data = {} 
 try:
-  country_data = requests.get('http://api:4000/c/countries/').json()
+  country_data = requests.get(f'http://api:4000/c/countries/{countryID}' ).json()
 except:
   st.write("**Important**: Could not connect to sample api, so using dummy data.")
   country_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
