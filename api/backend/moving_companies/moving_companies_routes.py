@@ -121,7 +121,7 @@ def add_route():
     # homeStateID int NOT NULL,
 # Post (add) user to moverContacts 
 @moving_company.route('/userContact', methods=['POST'])
-def add_route():
+def add_user_contact():
     # collecting data from the request object 
     the_data = request.json
     current_app.logger.info(the_data)

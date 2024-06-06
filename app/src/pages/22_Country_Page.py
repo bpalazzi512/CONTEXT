@@ -79,18 +79,24 @@ except:
 # Create a DataFrame
 df = pd.DataFrame(mover_data)
 
+
 # Function to display the table with buttons
 def display_movers_with_buttons(df):
-    for index, row in df.iterrows():
-        cols = st.columns(len(row) + 1)
-        cols[0].write(row["moverName"])
-        cols[1].write(row["cost"])
-        cols[2].write(row["stars"] * "⭐")
-        button_ph = cols[3].empty()
-        if button_ph.button("Contact Mover", key=index):
-            modal = Modal(key="success", title="The Mover Has been Succesfully Contacted!")
-            with modal.container():
-                st.markdown("Expect to hear from them shortly")
+  header_cols = st.columns([3, 2, 1, 2])
+  header_cols[0].write("**Mover Name**")
+  header_cols[1].write("**Cost**")
+  header_cols[2].write("**Stars**")
+  header_cols[3].write("**Contact**")
+  for index, row in df.iterrows():
+    cols = st.columns([3, 2, 1, 2])
+    cols[0].write(row["moverName"])
+    cols[1].write('$' + str(row["cost"]))
+    cols[2].write(row["stars"] * "⭐")
+    button_ph = cols[3].empty()
+    if button_ph.button("Contact Mover", key=index):
+      modal = Modal(key="success", title="The Mover Has been Succesfully Contacted!")
+      with modal.container():
+        st.markdown("Expect to hear from them shortly")
             
 
 # Display the DataFrame as a custom table with buttons
