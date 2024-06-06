@@ -51,21 +51,43 @@ def get_country_info(countryID):
     return jsonify(theData)
 
     
-# Put (edit) a section of country as admin 
-@countries.route('/country/<countryID>', methods=['PUT'])
-def edit_country():
-    current_app.logger.info('PUT /countries route')
-    country_info = request.json
-    # current_app.logger.info(cust_info)
-    country_id = country_info['id']
-    tips = country_info('tips')
+# # Put (edit) a section of country as admin 
+# @countries.route('/country/bio/<countryID>', methods=['PUT'])
+# def edit_country_bio(countryID):
+#     try:
+#         country_info = request.json
+#         bio = country_info['bio']  # Extract the bio text from the JSON data
 
-    query = 'UPDATE countries SET tips = %s where id = %s'
-    data = (tips, country_id)
-    cursor = db.get_db().cursor()
-    r = cursor.execute(query, data)
-    db.get_db().commit()
-    return 'customer updated!'
+#         query = 'UPDATE countries SET bio = %s WHERE id = %s'
+#         data = (bio, countryID)
+#         cursor = db.get_db().cursor()
+#         cursor.execute(query, data)
+#         db.get_db().commit()
+#         return jsonify({"message": "Country bio updated successfully!"}), 200
+#     except Exception as e:
+#         return jsonify({"error": "An error occurred"}), 500
+    
+
+@countries.route('/country/tips/<countryID>', methods = ['PUT'])
+def update_country_tips(countryID):
+    try:
+        connection = db.get_db()
+        cursor = connection.cursor()
+        the_data = request.json
+        text = the_data['text']
+        query = 'UPDATE countries SET tips = %s WHERE post_id = %s'
+        current_app.logger.info(f'Updating post with countryID: {countryID}')
+        cursor.execute(query, (text, countryID))
+        connection.commit()
+        if cursor.rowcount == 0:
+            return make_response(jsonify({"error": "Post not found"}), 404)
+        return make_response(jsonify({"message": "Post updated successfully"}), 200)
+    except Exception as e:
+        current_app.logger.error(f"Error updating post with post_id: {countryID}, error: {e}")
+        return make_response(jsonify({"error": "Internal server error"}), 500)
+    finally:
+        if cursor:
+            cursor.close()
 
 # Get a list of all the languages for a country
 @countries.route('/country/<countryID>/language', methods=['GET'])

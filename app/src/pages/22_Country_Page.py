@@ -59,7 +59,7 @@ except:
   st.write("**Important**: Could not connect to sample api, so using dummy data.")
   user_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
-stateID = user_data[0]['homeState']
+stateID = user_data[0]['homeStateID']
 countryID = country_data[0]['id']
 
 mover_data = {}
@@ -88,7 +88,7 @@ def display_movers_with_buttons(df):
         cols[2].write(row["Stars"])
         button_ph = cols[3].empty()
         if button_ph.button("Contact Mover", key=index):
-            modal = Modal(key="success", title=f"{row['Mover Name']} Has Been Contacted!")
+            modal = Modal(key="success", title="The Mover Has been Succesfully Contacted!")
             with modal.container():
                 st.markdown("Expect to hear from them shortly")
             
