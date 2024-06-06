@@ -67,7 +67,7 @@ def get_country_info(countryID):
 #     except Exception as e:
 #         return jsonify({"error": "An error occurred"}), 500
     
-
+# Put (edit) tips of a country as admin
 @countries.route('/country/tips/<countryID>', methods = ['PUT'])
 def update_country_tips(countryID):
     try:

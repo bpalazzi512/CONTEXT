@@ -4,6 +4,7 @@ logger = logging.getLogger()
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+import requests
 from modules.nav import SideBarLinks
 
 st.set_page_config(layout = 'wide')
@@ -29,6 +30,9 @@ st.title(f"Routes for {st.session_state['name']}")
 st.table(df)
 
 
+def del_route():
+    return 1
+
 def add_route():
     with st.form(key='new_route_form'):
         # make origin selectbox with all 50 states listed alphabetically  
@@ -51,7 +55,7 @@ def add_route():
                                      'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'])
         rate = st.text_input('Rate')
         submit_button = st.form_submit_button(label='Add Route')
-        
+        api_url = "http://api:4000/mv/moving_company"
         if submit_button:
             new_data = {
                 "Origin": [origin],
@@ -59,11 +63,20 @@ def add_route():
                 "Load": [load],
                 "Rate": [rate]
             }
+            response = requests.post(api_url, json = new_data)
+            if response.status_code == 201 or response.status_code == 200:
+                st.success("Post submitted successfully!")
+            else:
+                st.error("Failed to submit post. Please try again.")
             new_df = pd.DataFrame(new_data)
             global df
             df = pd.concat([df, new_df], ignore_index=True)
             st.success("New route added successfully!")
 
+
 # Button to add a new route
 if st.button('Add New Route / Update Existing'):
     add_route()
+
+if st.button('Delete Route'):
+    del_route()
