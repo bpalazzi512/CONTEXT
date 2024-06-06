@@ -8,6 +8,7 @@ import numpy as np
 import logging
 
 
+
 def train():
   """
   You could have a function that performs training from scratch as well as testing (see below).

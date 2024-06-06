@@ -14,7 +14,7 @@ SideBarLinks()
 st.title('Prediction with Regression')
 
 # create a 2 column layout
-col1, col2 = st.columns(2)
+col1, col2, col3, col4, col5 = st.columns(5)
 
 # add one number input for variable 1 into column 1
 with col1:
@@ -25,6 +25,21 @@ with col1:
 with col2:
   var_02 = st.number_input('Variable 02:',
                            step=1)
+  # add one number input for variable 1 into column 1
+with col3:
+  var_03 = st.number_input('Variable 03:',
+                           step=1)
+
+# add another number input for variable 2 into column 2
+with col4:
+  var_04 = st.number_input('Variable 04:',
+                           step=1)
+  # add one number input for variable 1 into column 1
+with col5:
+  var_05 = st.number_input('Variable 05:',
+                           step=1)
+
+  
 
 logger.info(f'var_01 = {var_01}')
 logger.info(f'var_02 = {var_02}')
@@ -34,9 +49,9 @@ logger.info(f'var_02 = {var_02}')
 if st.button('Calculate Prediction',
              type='primary',
              use_container_width=True):
-  
+  results = []
   try:
-    results = requests.get(f'http://api:4000/c/ML/{var_01}/{var_02}').json()
+    results = requests.get(f'http://api:4000/c/ML/{var_01}/{var_02}/{var_03}/{var_04}/{var_05}').json()
   except:
     st.write("**Important**: Could not connect to sample api, so using dummy data.")
   st.dataframe(results)

@@ -4,7 +4,7 @@ import numpy as np
 countries = "Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden"
 eu_countries = countries.split(", ")
 
-df_crime_input = pd.read_csv("Phase 3/Data/crime_training.csv")
+df_crime_input = pd.read_csv("api/backend/ml_models/crime_training.csv")
 
 def add_bias_column(X):
     """
@@ -58,7 +58,6 @@ def train(df_crime):
     df_crime_dummies = df_crime_scaled.join(pd.get_dummies(df_crime_scaled["country"]))
     
     crime_arr = np.array(df_crime_dummies.drop(columns=["country"]))
-
 
     X_left = crime_arr[:, 0:1]
     X_right = crime_arr[:, 2:]
