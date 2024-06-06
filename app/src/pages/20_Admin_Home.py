@@ -44,8 +44,8 @@ bio = st.text_area('Country Bio', bio_txt, height=200, placeholder='Start of bio
 
 # Save button
 if st.button("Save Bio"):
+    requests.put('http://api:4000/c/countries/bio/{countryID}/{bio}')
     st.success("Section updated successfully!")
-    # push to database
 
 st.write('## Edit Country Extra Info:')
 tips_txt = country_data[0]['tips']
@@ -53,7 +53,7 @@ tips = st.text_area('Country Extra Info', tips_txt, height=500, placeholder='Sta
 
 # Save button
 if st.button("Save Tips"):
+    requests.put('http://api:4000/c/countries/tips/{countryID}/{tips}')
     st.success("Section updated successfully!")
-    # push to database
 
 
