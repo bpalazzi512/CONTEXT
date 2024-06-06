@@ -36,7 +36,7 @@ if st.button('Back',
 
 #Image
 image_url = country_data[0]['img_link']
-st.image(image_url, caption="A windmill in a tulip field", use_column_width=True)
+st.image(image_url, use_column_width=True)
 
 # Country Bio
 st.subheader("Bio")
@@ -62,15 +62,15 @@ except:
 stateID = user_data[0]['homeStateID']
 countryID = country_data[0]['id']
 
-mover_data = {}
+# mover_data = {}
 
-try:
-   mover_data = requests.get(f'http://api:4000/mv/moving_company/{stateID}/{countryID}').json()
-except:
-  st.write("**Important**: Could not connect to sample api, so using dummy data.")
-  mover_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+# try:
+#    mover_data = requests.get(f'http://api:4000/mv/moving_company/{stateID}/{countryID}').json()
+# except:
+#   st.write("**Important**: Could not connect to sample api, so using dummy data.")
+#   mover_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
-dataEX = {
+mover_data = {
     "Mover Name": ["Fontemoves", "Speedy Movers", "Global Transport"],
     "Quote": ["$3000", "$3200", "$3100"],
     "Stars": ["⭐⭐⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐⭐"]
