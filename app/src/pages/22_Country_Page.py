@@ -59,12 +59,8 @@ except:
   st.write("**Important**: Could not connect to sample api, so using dummy data.")
   user_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
-
 stateID = user_data[0]['homeStateID']
 countryID = country_data[0]['id']
-# st.write(stateID)
-# st.write(countryID)
-
 
 mover_data = {}
 
@@ -81,24 +77,9 @@ except:
 # }
 
 # Create a DataFrame
-
 df = pd.DataFrame(mover_data)
-#st.dataframe(mover_data)
 
-# # Function to display the table with buttons
-# def display_movers_with_buttons(df):
-#     for index, row in df.iterrows():
-#         cols = st.columns(len(row) + 1)
-#         cols[0].write(row["Mover Name"])
-#         cols[1].write(row["Quote"])
-#         cols[2].write(row["Stars"])
-#         button_ph = cols[3].empty()
-#         if button_ph.button("Contact Mover", key=index):
-#             modal = Modal(key="success", title="The Mover Has been Succesfully Contacted!")
-#             with modal.container():
-#                 st.markdown("Expect to hear from them shortly")
-
-                # Function to display the table with buttons
+# Function to display the table with buttons
 def display_movers_with_buttons(df):
     for index, row in df.iterrows():
         cols = st.columns(len(row) + 1)

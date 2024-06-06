@@ -12,7 +12,7 @@ moving_company = Blueprint('moving_company', __name__)
 def get_routes(stateID, countryID):
     current_app.logger.info('moving_company.py: GET /moving_comapny')
     cursor = db.get_db().cursor()
-    cursor.execute('select m.id, r.cost, m.stars from movers m join routes r on m.id = r.moverID \
+    cursor.execute('select * from movers m join routes r on m.id = r.moverID \
                    where r.fromStateID = ' + str(stateID) + ' and r.toCountryID = ' + str(countryID))
     json_data = []
     theData = cursor.fetchall()
