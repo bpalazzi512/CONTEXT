@@ -12,6 +12,9 @@ def AboutPageNav():
 def TestAPI():
     st.sidebar.page_link("pages/12_API_Test.py", label="testAPI", icon="🧠")
 
+def PredictionNav():
+    st.sidebar.page_link("pages/02_ML1.py", label="Prediction", icon='📈')
+
 
 #### ------------------------ Examples for Role of moving_person ------------------------
 def MovingNav():
@@ -51,6 +54,8 @@ def SideBarLinks(show_home=False):
         # Show the Home page link (the landing page)
         HomeNav()
         TestAPI()
+        PredictionNav()
+        
 
     # Show the other page navigators depending on the users' role.
     if st.session_state["authenticated"]:

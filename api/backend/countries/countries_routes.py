@@ -4,10 +4,23 @@
 from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from backend.db_connection import db
-#from backend.ml_models.model01 import predict
+from backend.ml_models.model import line_of_best_fit
 from dotenv import load_dotenv
 
 countries = Blueprint('countries', __name__)
+
+@countries.route('/ML/<var01>/<var02>', methods=['GET'])
+def predict_value(var01, var02):
+    current_app.logger.info(f'var01 = {var01}')
+    current_app.logger.info(f'var02 = {var02}')
+
+    returnVal = line_of_best_fit(var01, var02)
+    return_dict = {'result': returnVal}
+
+    the_response = make_response(jsonify(return_dict))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
 
 # # Get all countries from the DB
 @countries.route('/countries', methods=['GET'])
