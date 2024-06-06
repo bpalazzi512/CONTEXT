@@ -4,7 +4,7 @@ USE context;
 
 INSERT INTO countries (id, name, avg_temp, cost_of_life, healthcare_index, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_link)
 VALUES
-(0, 'Malta',19.58,55.1,53.59,1700,'English, Spanish','','','Malta is a beautiful island country located in the Mediterranean Sea. It is known for its rich history, stunning architecture, and vibrant culture.','Explore the charming streets of Valletta, visit the ancient temples of Ħaġar Qim, and relax on the picturesque beaches of Gozo.','https://assets.vogue.com/photos/599365b2f0b0e21484d3436e/master/w_2560%2Cc_limit/00-lede-a-travel-guide-to-malta.jpg'),
+(0, 'Malta',19.58,55.1,53.59,1700,'English, Spanish','','','Malta is a beautiful island country located in the Mediterranean Sea. It is known for its rich history, stunning architecture, and vibrant culture.','Explore the charming streets of Valletta, visit the ancient temples of Hagar Qim, and relax on the picturesque beaches of Gozo.','https://assets.vogue.com/photos/599365b2f0b0e21484d3436e/master/w_2560%2Cc_limit/00-lede-a-travel-guide-to-malta.jpg'),
 (1, 'Cyprus',18.95,57.1,53.74,136,'Greek','', 'English','Cyprus is a Mediterranean island known for its beautiful beaches, ancient ruins, and rich cultural heritage. It offers a perfect blend of history, nature, and relaxation.','Visit the UNESCO World Heritage site of Paphos, explore the stunning Troodos Mountains, and indulge in delicious Cypriot cuisine.','https://www.travelandleisure.com/thmb/_HcHZ4Gr8jbDJ5vcHYzR7a4lXvA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TAL-kourion-archaeological-site-CYPRUS0124-3e8854b03a754966a1a11e4b6dd356c3.jpg'),
 (2, 'Portugal',15.85,46.6,54.95,111,'Portuguese','', 'English','Portugal is a charming country located on the Iberian Peninsula. It is famous for its beautiful coastline, historic cities, and warm hospitality.','Discover the historic neighborhoods of Lisbon, explore the vineyards of the Douro Valley, and relax on the stunning beaches of the Algarve.','https://images.winalist.com/blog/wp-content/uploads/2023/06/26110037/AdobeStock_79650880-1-1500x1000.jpeg'),
 (3, 'Greece',14.26,54.2,52.5,78,'Greek','', '','Greece is a country with a rich history and stunning natural beauty. It is known for its ancient ruins, beautiful islands, and delicious cuisine.','Explore the iconic Acropolis in Athens, relax on the breathtaking beaches of Santorini, and indulge in traditional Greek dishes like moussaka and souvlaki.','https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Parthenon_%2830276156187%29.jpg/1200px-Parthenon_%2830276156187%29.jpg'),
@@ -562,10 +562,4 @@ INSERT INTO routes (fromStateID, toCountryID, moverID, cost) VALUES
 (4, 4, 4, 8000),
 (1, 10, 2, 2000),
 (5, 5, 5, 9000);
-
-
-
-
-
-
 
