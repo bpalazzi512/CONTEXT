@@ -59,17 +59,12 @@ def train(df_crime):
     
     crime_arr = np.array(df_crime_dummies.drop(columns=["country"]))
 
-    
-    
 
     X_left = crime_arr[:, 0:1]
     X_right = crime_arr[:, 2:]
 
-    
-
     X = np.hstack((X_left, X_right))
     
-
     y = crime_arr[:, 1:2]
     
     regression = line_of_best_fit(X, y)

@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS rankings (
 
 CREATE TABLE IF NOT EXISTS movers (
     id INT UNIQUE NOT NULL,
+    moverName VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     phone VARCHAR(50) NOT NULL,
     bio VARCHAR(500),

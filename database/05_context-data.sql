@@ -531,12 +531,12 @@ INSERT INTO rankings (userID, rankingID) VALUES
 (5, 5);
 
 -- -- Insert data into movers table
-INSERT INTO movers (id, email, phone, bio, stars, numReviews) VALUES
-(1, 'mover1@example.com', '6789012345', 'bio', 5, 100),
-(2, 'mover2@example.com', '7890123456', 'bio', 4, 50),
-(3, 'mover3@example.com', '8901234567', 'bio', 3, 30),
-(4, 'mover4@example.com', '9012345678', 'bio', 5, 200),
-(5, 'mover5@example.com', '1234567890', 'bio', 4, 70);
+INSERT INTO movers (id, moverName, email, phone, bio, stars, numReviews) VALUES
+(1, 'Fontemoves', 'mover1@example.com', '6789012345', 'bio', 5, 100),
+(2, 'Gerbamoves', 'mover2@example.com', '7890123456', 'bio', 4, 50),
+(3, 'Mover 3', 'mover3@example.com', '8901234567', 'bio', 3, 30),
+(4, 'Mover 4', 'mover4@example.com', '9012345678', 'bio', 5, 200),
+(5, 'Mover 5', 'mover5@example.com', '1234567890', 'bio', 4, 70);
 
 -- -- Insert data into moverContacts table
 INSERT INTO moverContacts (userID, moverID, dateContacted) VALUES
