@@ -1,10 +1,18 @@
 import pandas as pd
 import numpy as np
+import requests
 
 countries = "Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden"
 eu_countries = countries.split(", ")
 
-df_crime_input = pd.read_csv("api/backend/ml_models/crime_training.csv")
+crime_data = {}
+
+try:
+   crime_data = requests.get('http://api:4000/c/countries/ML/crime_training').json()
+except:
+ crime_data = {"country": ["Dummy Country"], "year": [2000], "amount": [456]}
+ 
+df_crime_input = pd.DataFrame(crime_data)
 
 def add_bias_column(X):
     """
