@@ -20,7 +20,19 @@ def get_user_info(userID):
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
 
+# Get a country admin's profile rom userID
+@users.route('/admins/<userID>', methods=['GET'])
+def get_admin_info(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * from countryAdmins where id = '+ str(userID))
+     # fetch all the data from the cursor
+    theData = cursor.fetchall()
+    current_app.logger.info(f'theData = {theData}')
+    return jsonify(theData)
 
 # Put (edit) users profile 
 
 # Put (edit) country admin profile 
+
+
+
