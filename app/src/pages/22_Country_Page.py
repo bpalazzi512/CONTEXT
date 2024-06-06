@@ -49,8 +49,10 @@ st.markdown("## Explore Compatible Movers to this Destination")
 
 user_data = {}
 
+id = st.session_state['id']
+
 try:
-   user_data = requests.get('http://api:4000/u/users/12345').json()
+   user_data = requests.get(f'http://api:4000/u/users/{id}').json()
 except:
   st.write("**Important**: Could not connect to sample api, so using dummy data.")
   user_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}

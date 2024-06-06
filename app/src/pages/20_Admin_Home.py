@@ -10,17 +10,37 @@ st.set_page_config(layout = 'wide')
 
 SideBarLinks()
 
+user_data = {}
+adminID = st.session_state['id']
+
+try:
+   user_data = requests.get(f'http://api:4000/u/admins/{adminID}').json()
+except:
+  st.write("**Important**: Could not connect to sample api, so using dummy data.")
+  user_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+
+countryID = user_data[0]['countryID']
+
+country_data = {} 
+try:
+  country_data = requests.get(f'http://api:4000/c/countries/{countryID}').json()
+except:
+  st.write("**Important**: Could not connect to sample api, so using dummy data.")
+  country_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+
+country_name = country_data[0]['name']
+
 # Country Name
-st.title("The Netherlands | Admin")
+st.title(f"{country_name} | Admin")
 
 #Image
-image_url = 'https://i.natgeofe.com/k/4a509698-ab53-4581-af61-4c4808a81a76/netherlands-tulip-fields_16x9.jpg?w=1200'
-st.image(image_url, caption="A windmill in a tulip field", use_column_width=True)
+image_url = country_data[0]['img_link']
+st.image(image_url, use_column_width=True)
 
 
 st.write('## Edit Country Bio:')
-
-bio = st.text_area('Country Bio', 'Grab from database', height=200, placeholder='Start of bio...')
+bio_txt = country_data[0]['bio']
+bio = st.text_area('Country Bio', bio_txt, height=200, placeholder='Start of bio...')
 
 # Save button
 if st.button("Save Bio"):
@@ -28,7 +48,8 @@ if st.button("Save Bio"):
     # push to database
 
 st.write('## Edit Country Extra Info:')
-tips = st.text_area('Country Extra Info', 'Grab from database', height=500, placeholder='Start of extra info...')
+tips_txt = country_data[0]['tips']
+tips = st.text_area('Country Extra Info', tips_txt, height=500, placeholder='Start of extra info...')
 
 # Save button
 if st.button("Save Tips"):
