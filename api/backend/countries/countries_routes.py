@@ -56,7 +56,6 @@ def get_country_info(countryID):
     return jsonify(theData)
 
     
-
 # Put (edit) a section of country as admin 
 @countries.route('/country/<countryID>', methods=['PUT'])
 def edit_country():

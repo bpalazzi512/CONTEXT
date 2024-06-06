@@ -40,7 +40,7 @@ with col2:
 
     # Sample data for country ranking
     data = {
-        "Country": ["Country 1", "Country 2", "Country 3", "Country 4", "Country 5", "Country 6", "Country 7", "Country 8"],
+        "Country": ["Belgium", "Italy", "Country 3", "Country 4", "Country 5", "Country 6", "Country 7", "Country 8"],
         "Bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "..."],
     }
 
@@ -53,7 +53,7 @@ with col2:
             if st.button(f'View Full Country Page {index + 1}', 
              type='primary',
              use_container_width=True):
-                #st.session_state['countryID'] = IDK
+                st.session_state['country_name'] = df.get[0][index]
                 st.switch_page('pages/22_Country_Page.py')
 
 # Interactive Map
