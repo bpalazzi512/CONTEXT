@@ -30,6 +30,8 @@ st.title(f"Routes for {st.session_state['name']}")
 st.table(df)
 
 
+userID = st.session_state['id']
+
 def del_route():
     return 1
 
@@ -55,15 +57,16 @@ def add_route():
                                      'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'])
         rate = st.text_input('Rate')
         submit_button = st.form_submit_button(label='Add Route')
-        api_url = "http://api:4000/mv/moving_company"
+
         if submit_button:
             new_data = {
+                "MoverID" : st.session_state['id'],
                 "Origin": [origin],
                 "Destination": [destination],
                 "Load": [load],
                 "Rate": [rate]
             }
-            response = requests.post(api_url, json = new_data)
+            response = requests.post("http://api:4000/mv/add_route", json=new_data)
             if response.status_code == 201 or response.status_code == 200:
                 st.success("Post submitted successfully!")
             else:

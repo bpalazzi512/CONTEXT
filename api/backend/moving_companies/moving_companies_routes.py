@@ -84,7 +84,7 @@ def delete_route(route_id):
     return 'Route deleted successfully!', 200
 
 # Post (add) a new route
-@moving_company.route('/moving_company', methods=['POST'])
+@moving_company.route('/add_route', methods=['POST'])
 def add_route():
     
     # collecting data from the request object 
@@ -92,14 +92,16 @@ def add_route():
     current_app.logger.info(the_data)
 
     #extracting the variable
-    cost = the_data['cost']
-    fromStateID = the_data['fromStateID']
-    toCountryID = the_data['toCountryID']
-    moverID = the_data['moverID']
+    cost = the_data['Rate']
+    load = the_data['Load']
+    fromStateID = the_data['Origin']
+    toCountryID = the_data['Destination']
+    moverID = the_data['MoverID']
 
     # Constructing the query
-    query = 'insert into products (cost, fromStateID, toCountryID, moverID) values ("'
+    query = 'insert into products (cost, load, fromStateID, toCountryID, moverID) values ("'
     query += str(cost) + '", "'
+    query += str(load) + '", "'
     query += str(fromStateID) + '", "'
     query += str(toCountryID) + '", '
     query += str(moverID) + ')'
@@ -119,6 +121,8 @@ def add_route():
     # firstName VARCHAR(50) NOT NULL,
     # lastName VARCHAR(50) NOT NULL,
     # homeStateID int NOT NULL,
+
+
 # Post (add) user to moverContacts 
 @moving_company.route('/userContact', methods=['POST'])
 def add_user_contact():
@@ -150,7 +154,8 @@ def add_user_contact():
     cursor = db.get_db().cursor()
     cursor.execute(query)
     db.get_db().commit()
-    
+
     return 'Success!'
+
 
 # Get a list of all users (name, email, phone) that contacts a moving company by date
