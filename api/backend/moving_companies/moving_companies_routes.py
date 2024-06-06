@@ -13,17 +13,22 @@ def get_routes(stateID, countryID):
     current_app.logger.info('moving_company.py: GET /moving_comapny')
     cursor = db.get_db().cursor()
     cursor.execute('select m.id, r.cost, m.stars from movers m join routes r on m.id = r.moverID \
-                   where r.stateID = {0}'.format(stateID) + 'and r.countryID = {1}'.format(countryID))
-    row_headers = [x[0] for x in cursor.description]
+                   where r.fromStateID = ' + str(stateID) + ' and r.toCountryID = ' + str(countryID))
     json_data = []
     theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
 
+    return jsonify(theData)
+
+# # # Get all countries from the DB
+# @countries.route('/countries', methods=['GET'])
+# def get_countries():
+#     # get a cursor object from the database
+#     cursor = db.get_db().cursor()
+#     # use cursor to query the database for a list of products
+#     cursor.execute('SELECT * FROM countries')
+#     theData = cursor.fetchall()
+#     current_app.logger.info(f'theData = {theData}')
+#     return jsonify(theData)
 # Get a list of all the countryIDs a moving company can move to
 @moving_company.route('/moving_company/<moverID>/countries', methods=['GET'])
 def get_mover_country(moverID):

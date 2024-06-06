@@ -13,8 +13,8 @@ VALUES
 (6, 'Croatia',11.96,46.9,52.4,71,'Croatian','','English','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
 (7, 'France',11.65,66,55.31,117,'French','Corsican language, Basque language, Breton language','Occitan language','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
 (8, 'Hungary',11.5,43.4,49.97,109,'Hungarian','Croatian','','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
-(9, 'Bulgaria',11.35,38.7,47.02,61,'Bulgarian','','','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
-(10, 'Belgium',10.67,63,53.99,383,'Dutch, French, German','','English','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
+(9, 'Bulgaria',11.35,38.7,47.02,61,'Bulgarian','','','empty bio','empty tips','https://biovox.eu/wp-content/uploads/2020/09/belgian-flag-over-ghent.jpg'),
+(10, 'Belgium',10.67,63,53.99,383,'Dutch, French, German','','English','BELGIUM IS SO COOL!!!','empty tips','https://biovox.eu/wp-content/uploads/2020/09/belgian-flag-over-ghent.jpg'),
 (11, 'Netherlands',10.49,64.3,54.63,424,'Dutch','Dutch Low Saxon, Dutch Sign Language, Limburgish, Sinte Romani, Yiddish','English','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
 (12, 'Romania',10.18,38.8,48.84,83,'Romanian','Armenian, German, Hungarian, Romani, Russian, Serbian, Slovak, Tatar, Turkish, Ukrainian','','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
 (13, 'Luxembourg',10.02,65.3,56.31,253,'French, German, Luxembourgish','','English, Portuguese','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
@@ -29,7 +29,7 @@ VALUES
 (22, 'Lithuania',7.38,48.4,49.87,42,'Lithuanian','','Polish, Russian','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
 (23, 'Latvia',6.87,51.4,50.39,28,'Latvian','','Russian','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
 (24, 'Estonia',6.34,53,51.41,29,'Estonian','','Russian','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
-(25, 'Sweden',3.23,62.2,56.29,24,'Swedish','Finnish, Meänkieli, Sami, Yiddish, Romani','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
+(25, 'Sweden',3.23,62.2,56.29,24,'Swedish','Finnish, Meänkieli, Sami, Yiddish, Romani', '', 'empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg'),
 (26, 'Finland',2.46,65.5,60.53,16,'Finnish, Swedish','Sami','','empty bio','empty tips','https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm-1200-80.jpg');
 
 INSERT INTO states (id, stateName)
@@ -503,13 +503,7 @@ VALUES
 -- FAKE DATA
 
 
--- Insert data into states table
-INSERT INTO states (id, stateName) VALUES
-(1, 'California'),
-(2, 'Texas'),
-(3, 'New York'),
-(4, 'Florida'),
-(5, 'Illinois');
+
 
 -- Insert data into users table
 INSERT INTO users (email, id, age, phone, firstName, lastName, homeStateID) VALUES
@@ -537,7 +531,7 @@ INSERT INTO rankings (userID, rankingID) VALUES
 (5, 5);
 
 -- -- Insert data into movers table
-INSERT INTO movers (id, companyName, email, phone, bio, stars, numReviews) VALUES
+INSERT INTO movers (id, email, phone, bio, stars, numReviews) VALUES
 (1, 'mover1@example.com', '6789012345', 'bio', 5, 100),
 (2, 'mover2@example.com', '7890123456', 'bio', 4, 50),
 (3, 'mover3@example.com', '8901234567', 'bio', 3, 30),
@@ -561,9 +555,17 @@ INSERT INTO countryAdmins (id, firstName, lastName, bio, countryID) VALUES
 (5, 'Eva', 'Blue', 'bio', 5);
 
 -- -- Insert data into route table
-INSERT INTO route (fromStateID, toCountryID, moverID, cost) VALUES
+INSERT INTO routes (fromStateID, toCountryID, moverID, cost) VALUES
 (1, 1, 1, 5000),
 (2, 2, 2, 6000),
 (3, 3, 3, 7000),
 (4, 4, 4, 8000),
+(1, 10, 2, 2000),
 (5, 5, 5, 9000);
+
+
+
+
+
+
+
