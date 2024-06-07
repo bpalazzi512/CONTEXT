@@ -544,12 +544,12 @@ VALUES
 
 
 -- Insert data into users table
-INSERT INTO users (email, id, age, phone, firstName, lastName, homeStateID) VALUES
-('john.doe@example.com', 1, 28, '1234567890', 'John', 'Doe', 1),
-('jane.smith@example.com', 2, 34, '2345678901', 'Jane', 'Smith', 2),
-('mike.jones@example.com', 3, 45, '3456789012', 'Mike', 'Jones', 3),
-('emily.johnson@example.com', 4, 22, '4567890123', 'Emily', 'Johnson', 4),
-('chris.lee@example.com', 5, 39, '5678901234', 'Chris', 'Lee', 5);
+INSERT INTO users (email, id, age, phone, firstName, lastName, homeStateID, moveLoad) VALUES
+('john.doe@example.com', 1, 28, '1234567890', 'John', 'Doe', 1, 'Full Household'),
+('jane.smith@example.com', 2, 34, '2345678901', 'Jane', 'Smith', 2, 'Excess Baggage'),
+('mike.jones@example.com', 3, 45, '3456789012', 'Mike', 'Jones', 3, 'Full Household'),
+('emily.johnson@example.com', 4, 22, '4567890123', 'Emily', 'Johnson', 4, 'Vehicle Only'),
+('chris.lee@example.com', 5, 39, '5678901234', 'Chris', 'Lee', 5, 'Vehicle Only');
 
 
 -- -- Insert data into countryRankings table

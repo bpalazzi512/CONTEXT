@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
     homeStateID int NOT NULL,
+    moveLoad ENUM('Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only') NOT NULL
 
     PRIMARY KEY(id),
     FOREIGN KEY (homeStateID) REFERENCES states(id)

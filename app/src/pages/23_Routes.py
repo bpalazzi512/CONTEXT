@@ -66,6 +66,7 @@ def add_route():
                 "Load": [load],
                 "Rate": [rate]
             }
+            st.write("hello")
             try: 
                 response = requests.post("http://api:4000/mv/add_route", json=new_data)
             except:
