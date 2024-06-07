@@ -9,7 +9,7 @@ from streamlit_modal import Modal
 import requests
 import json
 from datetime import datetime
-
+import time
 # Show appropriate sidebar links for the role of the currently logged in user
 st.set_page_config(layout='wide')
 SideBarLinks()
@@ -80,7 +80,6 @@ except:
 # Create a DataFrame
 df = pd.DataFrame(mover_data)
 
-
 # Function to display the table with buttons
 def display_movers_with_buttons(df):
   header_cols = st.columns([3, 2, 1, 2])
@@ -97,10 +96,10 @@ def display_movers_with_buttons(df):
     if button_ph.button("Contact Mover", key=index):
       data = {"userID" : st.session_state['id'], 
               "moverID" : row["id"],
-              "dateContacted" : str(datetime.now().date()),
+              "dateContacted" : (time.strftime('%Y-%m-%d %H:%M:%S')),
               "contacted" : '0'}
       try:
-        requests.post('http://api:4000/mv/userContacts', json=data)
+        requests.post('http://api:4000/mv/userContact', json=data)
         modal = Modal(key="success", title="The Mover Has been Succesfully Contacted!")
       except:
         modal = Modal(key="something went wrong!", title="ERROR!")
