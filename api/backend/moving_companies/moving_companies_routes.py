@@ -169,7 +169,7 @@ def delete_mover_contact(userID, moverID):
 def get_users(moverID):
     current_app.logger.info('moverContact.py: GET /moverContact')
     cursor = db.get_db().cursor()
-    cursor.execute(f'select u.id, u.firstName, u.lastName, u.email, u.email, mc.dateContacted \
+    cursor.execute(f'select u.id, u.firstName, u.lastName, u.email, u.phone, mc.dateContacted \
                    from users u join moverContacts mc on u.id = mc.userID \
                    where mc.moverID = {moverID} order by mc.dateContacted desc')
     theData = cursor.fetchall()
