@@ -60,7 +60,7 @@ def display_customers(df):
         for index, checked in checkbox_states.items():
             if checked:
                 user_id = df.at[index, 'id']
-                response = requests.delete(f'http://api:4000/mv/moverContact/{user_id}/{moverID}')
+                response = requests.delete(f'http://api:4000/mv/userContact/{user_id}/{moverID}')
                 if response.status_code == 200:
                     st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
                 else:
