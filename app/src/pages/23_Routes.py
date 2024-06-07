@@ -66,7 +66,10 @@ def add_route():
                 "Load": [load],
                 "Rate": [rate]
             }
-            response = requests.post("http://api:4000/mv/add_route", json=new_data)
+            try: 
+                response = requests.post("http://api:4000/mv/add_route", json=new_data)
+            except:
+                st.write("Did not add!")
             if response.status_code == 201 or response.status_code == 200:
                 st.success("Post submitted successfully!")
             else:

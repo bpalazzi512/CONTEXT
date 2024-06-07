@@ -70,7 +70,7 @@ def delete_route(route_id):
     current_app.logger.info(f'Request to delete route with ID: {route_id}')
     
     # Construct the SQL query to delete the route
-    query = 'DELETE FROM products WHERE id = ?'
+    query = 'DELETE FROM routes WHERE id =' + str(route_id)
     
     # Execute the query
     cursor = db.get_db().cursor()
@@ -99,7 +99,7 @@ def add_route():
     moverID = the_data['MoverID']
 
     # Constructing the query
-    query = 'insert into products (cost, load, fromStateID, toCountryID, moverID) values ("'
+    query = 'insert into routes (cost, load, fromStateID, toCountryID, moverID) values ("'
     query += str(cost) + '", "'
     query += str(load) + '", "'
     query += str(fromStateID) + '", "'
@@ -131,23 +131,17 @@ def add_user_contact():
     current_app.logger.info(the_data)
 
     #extracting the variable
-    email = the_data['email']
-    id = the_data['id']
-    age = the_data['age']
-    phone = the_data['photo']
-    firstName = the_data['firstName']
-    lastName = the_data['lastName']
-    homeStateID = the_data['homeStateID']
+    userID = the_data['userID']
+    moverID = the_data['moverID']
+    dateContacted = the_data['dateContacted']
 
     # Constructing the query
-    query = 'insert into products (cost, fromStateID, toCountryID, moverID) values ("'
-    query += email + '", "'
-    query += str(id) + '", "'
-    query += str(age) + '", '
-    query += phone + ')'
-    query += firstName + ')'
-    query += lastName + ')'
-    query += str(homeStateID) + ')'
+    query = 'insert into moverContacts (userID, moverID, dateContacted) values ("'
+    query += str(userID) + '", "'
+    query += str(moverID) + '", '
+    query += str(dateContacted) + ')'
+
+   
     current_app.logger.info(query)
 
     # executing and committing the insert statement 
@@ -157,5 +151,26 @@ def add_user_contact():
 
     return 'Success!'
 
+# Delete a user from moverContact
+@moving_company.route('/userContact/<userID>/<moverID>', methods=['DELETE'])
+def delete_mover_contact(userID, moverID):
+    #user_id = request.args.get('userID')
+    #mover_id = request.args.get('moverID')
+    
+    cursor = db.get_db().cursor()
+    cursor.execute(f'DELETE FROM moverContacts WHERE userID = {userID} AND moverID = {moverID}')
+    db.get_db().commit()
+    
+    return jsonify({"message": "Mover contact deleted successfully"}), 200
+
 
 # Get a list of all users (name, email, phone) that contacts a moving company by date
+@moving_company.route('/moverContact/<moverID>', methods=['GET'])
+def get_users(moverID):
+    current_app.logger.info('moverContact.py: GET /moverContact')
+    cursor = db.get_db().cursor()
+    cursor.execute(f'select u.id, u.firstName, u.lastName, u.email, u.email, mc.dateContacted \
+                   from users u join moverContacts mc on u.id = mc.userID \
+                   where mc.moverID = {moverID} order by mc.dateContacted desc')
+    theData = cursor.fetchall()
+    return jsonify(theData)
