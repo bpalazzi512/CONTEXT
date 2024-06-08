@@ -59,7 +59,7 @@ def display_routes(df):
             if response.status_code == 200:
                 st.success(f"Edited {route_id}")
             else:
-                st.error(f"Please change something or ensure cost is a number {route_id}")
+                st.error(f"Please change something or ensure cost is a number")
 
 # Page Title
 st.title(f"Routes for {st.session_state['name']}")
