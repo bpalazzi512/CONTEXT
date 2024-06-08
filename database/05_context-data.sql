@@ -1,7 +1,7 @@
 USE context;
 
 -- REAL DATA!
- 
+
 INSERT INTO countries (id, name, avg_temp, cost_of_life, healthcare_index, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_link)
 VALUES
 (1, 'Malta',19.58,55.1,53.59,1700,'English, Spanish','','','Malta is a beautiful island country located in the Mediterranean Sea. It is known for its rich history, stunning architecture, and vibrant culture.','Explore the charming streets of Valletta, visit the ancient temples of Hagar Qim, and relax on the picturesque beaches of Gozo.','https://assets.vogue.com/photos/599365b2f0b0e21484d3436e/master/w_2560%2Cc_limit/00-lede-a-travel-guide-to-malta.jpg'),
