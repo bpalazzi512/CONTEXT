@@ -2,6 +2,7 @@ USE context;
 
 -- REAL DATA!
 
+
 INSERT INTO countries (id, name, education, avg_temp, cost_of_life, healthcare_index, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_link)
 VALUES
 (1, 'Malta', 2524.5, 19.58,55.1,53.59,1700,'English, Spanish','','','Malta is a beautiful island country located in the Mediterranean Sea. It is known for its rich history, stunning architecture, and vibrant culture.','Explore the charming streets of Valletta, visit the ancient temples of Hagar Qim, and relax on the picturesque beaches of Gozo.','https://assets.vogue.com/photos/599365b2f0b0e21484d3436e/master/w_2560%2Cc_limit/00-lede-a-travel-guide-to-malta.jpg'),
@@ -15,22 +16,142 @@ VALUES
 (9, 'Hungary',19540.6,11.5,43.4,49.97,109,'Hungarian','Croatian','','Hungary is a country located in Central Europe. It is known for its rich history, stunning architecture, and thermal baths.','Explore the historic city of Budapest, visit the beautiful Lake Balaton, and indulge in traditional Hungarian dishes like goulash and chimney cake.','https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Budapest_Hungarian_Parliament_%2831363963556%29.jpg/800px-Budapest_Hungarian_Parliament_%2831363963556%29.jpg'),
 (10, 'Bulgaria',9457.8,11.35,38.7,47.02,61,'Bulgarian','','','Bulgaria is a country located in Southeast Europe. It is known for its beautiful landscapes, rich history, and vibrant culture.','Explore the historic city of Sofia, visit the stunning Rila Monastery, and enjoy the beautiful beaches of the Black Sea coast.',''),
 (11, 'Belgium',105815.4,10.67,63,53.99,383,'Dutch, French, German','','English', 'Belgium is a small country known for its delicious chocolates, waffles, and beers. It is home to beautiful medieval cities, stunning architecture, and vibrant cultural festivals.','Explore the historic city of Bruges, indulge in Belgian chocolates and waffles, and visit the famous Atomium in Brussels.','https://media.timeout.com/images/105237873/image.jpg'),
-(12, 'Netherlands',10.49,64.3,54.63,424,'Dutch','Dutch Low Saxon, Dutch Sign Language, Limburgish, Sinte Romani, Yiddish','English','The Netherlands is a country known for its picturesque canals, windmills, and tulip fields. It is famous for its cycling culture, vibrant cities, and rich artistic heritage.','Explore the beautiful city of Amsterdam, visit the historic windmills of Kinderdijk, and admire the colorful tulip fields in Keukenhof.','https://fullsuitcase.com/wp-content/uploads/2020/12/Two-days-in-Amsterdam-Netherlands.jpg.webp'),
-(13, 'Romania',10.18,38.8,48.84,83,'Romanian','Armenian, German, Hungarian, Romani, Russian, Serbian, Slovak, Tatar, Turkish, Ukrainian','','Romania is a country located in Eastern Europe. It is known for its stunning landscapes, medieval castles, and vibrant folklore.','Explore the historic city of Bucharest, visit the famous Bran Castle, and hike in the beautiful Carpathian Mountains.','https://cdn-v2.theculturetrip.com/1200x675/wp-content/uploads/2021/05/bran-castle.webp'),
-(14, 'Luxembourg',10.02,65.3,56.31,253,'French, German, Luxembourgish','','English, Portuguese','Luxembourg is a small country known for its picturesque landscapes, medieval castles, and rich cultural heritage. It is one of the wealthiest countries in the world.','Explore the charming city of Luxembourg, visit the beautiful Vianden Castle, and enjoy the scenic hiking trails in Mullerthal.','https://worldwildschooling.com/wp-content/uploads/2022/02/PXL_20211125_132742813-Edit-1024x678.jpg'),
-(15, 'Slovenia',9.86,49.3,53.13,105,'Slovene','Hungarian, Italian, Croatian','','Slovenia is a country located in Central Europe. It is known for its stunning landscapes, charming towns, and outdoor activities.','Explore the beautiful Lake Bled, visit the historic city of Ljubljana, and hike in the breathtaking Julian Alps.',''),
-(16, 'Ireland',9.73,66.5,55.19,72,'Irish, English','', '', 'Ireland is a country known for its stunning landscapes, rich history, and vibrant culture. It is famous for its ancient castles, traditional music, and friendly locals.','Explore the scenic Ring of Kerry, visit the historic Blarney Castle, and enjoy a pint of Guinness in a traditional Irish pub.',''),
-(17, 'Germany',9.59,62.7,55.98,233,'German','Danish, Lower Sorbian, North Frisian, Romani','','Germany is a country known for its rich history, stunning architecture, and vibrant cultural scene. It is famous for its castles, beer festivals, and automotive engineering.','Explore the historic city of Berlin, visit the fairy-tale Neuschwanstein Castle, and indulge in traditional German sausages and beer.',''),
-(18, 'Denmark',8.9,75.2,55.46,138,'Danish','German','','Denmark is a country known for its beautiful coastline, historic cities, and high quality of life. It is famous for its design, cycling culture, and hygge lifestyle.','Explore the colorful streets of Copenhagen, visit the iconic Little Mermaid statue, and enjoy a bike ride along the Danish Riviera.',''),
-(19, 'Slovakia',8.83,47.9,51.7,118,'Slovak','Bulgarian, Czech, German, Hungarian, Polish, Romani, Rusyn, Serbian, Ukrainian','','Slovakia is a country located in Central Europe. It is known for its stunning landscapes, medieval castles, and thermal spas.','Explore the historic city of Bratislava, hike in the Tatra Mountains, and relax in the healing waters of the High Tatras.',''),
-(20, 'Poland',8.78,41.9,49.25,120,'Polish','German, Lithuanian, Belarusian, Czech, Hebrew, Yiddish, Lemko, Karaim, Armenian, Romani, Russian, Slovak, Tatar, Ukrainian','English','Poland is a country located in Central Europe. It is known for its rich history, stunning architecture, and hearty cuisine.','Explore the historic city of Krakow, visit the Auschwitz-Birkenau Memorial and Museum, and indulge in traditional Polish pierogi and vodka.',''),
-(21, 'Czech Republic',8.6,48.6,53,133,'Czech','Belarusian','','The Czech Republic is a country located in Central Europe. It is known for its beautiful architecture, historic castles, and world-famous beer.','Explore the charming city of Prague, visit the stunning Karlstejn Castle, and enjoy a glass of Czech beer in a traditional pub.',''),
-(22, 'Austria',7.44,66.8,54.69,107,'German','Slovene, Czech, Hungarian, Slovak, Romani, Serbian','English','Austria is a country located in the heart of Europe. It is known for its stunning alpine landscapes, historic cities, and rich cultural heritage.','Explore the imperial city of Vienna, visit the picturesque Salzburg, and enjoy outdoor activities in the Austrian Alps.','https://content.r9cdn.net/rimg/dimg/a8/ce/6d1490d1-city-64466-16510215367.jpg?width=1366&height=768&xhint=1426&yhint=1115&crop=true'),
-(23, 'Lithuania',7.38,48.4,49.87,42,'Lithuanian','','Polish, Russian','Lithuania is a country located in the Baltic region of Europe. It is known for its beautiful landscapes, historic castles, and rich cultural heritage.','Explore the historic city of Vilnius, visit the stunning Trakai Castle, and enjoy the beautiful beaches of the Curonian Spit.',''),
-(24, 'Latvia',6.87,51.4,50.39,28,'Latvian','','Russian','Latvia is a country located in the Baltic region of Europe. It is known for its beautiful landscapes, historic architecture, and vibrant cultural scene.','Explore the charming streets of Riga, visit the stunning Rundale Palace, and relax on the sandy beaches of Jurmala.',''),
-(25, 'Estonia',6.34,53,51.41,29,'Estonian','','Russian','Estonia is a country located in Northern Europe. It is known for its beautiful landscapes, medieval architecture, and advanced digital society.','Explore the charming streets of Tallinn, visit the picturesque Lahemaa National Park, and relax on the pristine beaches of Saaremaa.',''),
-(26, 'Sweden',3.23,62.2,56.29,24,'Swedish','Finnish, Meänkieli, Sami, Yiddish, Romani', '','Sweden is a country located in Northern Europe. It is known for its stunning landscapes, modern design, and high quality of life.','Explore the beautiful city of Stockholm, visit the stunning archipelago of Gothenburg, and experience the unique Sami culture in Swedish Lapland.',''),
-(27, 'Finland',2.46,65.5,60.53,16,'Finnish, Swedish','Sami','','Finland is a country located in Northern Europe. It is known for its beautiful landscapes, saunas, and the Northern Lights.','Explore the vibrant city of Helsinki, visit the stunning lakes of Lakeland, and experience the magical winter wonderland of Lapland.','');
+(12, 'Netherlands',154748.9,10.49,64.3,54.63,424,'Dutch','Dutch Low Saxon, Dutch Sign Language, Limburgish, Sinte Romani, Yiddish','English','The Netherlands is a country known for its picturesque canals, windmills, and tulip fields. It is famous for its cycling culture, vibrant cities, and rich artistic heritage.','Explore the beautiful city of Amsterdam, visit the historic windmills of Kinderdijk, and admire the colorful tulip fields in Keukenhof.','https://fullsuitcase.com/wp-content/uploads/2020/12/Two-days-in-Amsterdam-Netherlands.jpg.webp'),
+(13, 'Romania',	25942.5,10.18,38.8,48.84,83,'Romanian','Armenian, German, Hungarian, Romani, Russian, Serbian, Slovak, Tatar, Turkish, Ukrainian','','Romania is a country located in Eastern Europe. It is known for its stunning landscapes, medieval castles, and vibrant folklore.','Explore the historic city of Bucharest, visit the famous Bran Castle, and hike in the beautiful Carpathian Mountains.','https://cdn-v2.theculturetrip.com/1200x675/wp-content/uploads/2021/05/bran-castle.webp'),
+(14, 'Luxembourg',9123.3,10.02,65.3,56.31,253,'French, German, Luxembourgish','','English, Portuguese','Luxembourg is a small country known for its picturesque landscapes, medieval castles, and rich cultural heritage. It is one of the wealthiest countries in the world.','Explore the charming city of Luxembourg, visit the beautiful Vianden Castle, and enjoy the scenic hiking trails in Mullerthal.','https://worldwildschooling.com/wp-content/uploads/2022/02/PXL_20211125_132742813-Edit-1024x678.jpg'),
+(15, 'Slovenia',8710.8,9.86,49.3,53.13,105,'Slovene','Hungarian, Italian, Croatian','','Slovenia is a country located in Central Europe. It is known for its stunning landscapes, charming towns, and outdoor activities.','Explore the beautiful Lake Bled, visit the historic city of Ljubljana, and hike in the breathtaking Julian Alps.',''),
+(16, 'Ireland',21128.7,9.73,66.5,55.19,72,'Irish, English','', '', 'Ireland is a country known for its stunning landscapes, rich history, and vibrant culture. It is famous for its ancient castles, traditional music, and friendly locals.','Explore the scenic Ring of Kerry, visit the historic Blarney Castle, and enjoy a pint of Guinness in a traditional Irish pub.',''),
+(17, 'Germany',665035.2,9.59,62.7,55.98,233,'German','Danish, Lower Sorbian, North Frisian, Romani','','Germany is a country known for its rich history, stunning architecture, and vibrant cultural scene. It is famous for its castles, beer festivals, and automotive engineering.','Explore the historic city of Berlin, visit the fairy-tale Neuschwanstein Castle, and indulge in traditional German sausages and beer.',''),
+(18, 'Denmark',77810.0,8.9,75.2,55.46,138,'Danish','German','','Denmark is a country known for its beautiful coastline, historic cities, and high quality of life. It is famous for its design, cycling culture, and hygge lifestyle.','Explore the colorful streets of Copenhagen, visit the iconic Little Mermaid statue, and enjoy a bike ride along the Danish Riviera.',''),
+(19, 'Slovakia',16267.5,8.83,47.9,51.7,118,'Slovak','Bulgarian, Czech, German, Hungarian, Polish, Romani, Rusyn, Serbian, Ukrainian','','Slovakia is a country located in Central Europe. It is known for its stunning landscapes, medieval castles, and thermal spas.','Explore the historic city of Bratislava, hike in the Tatra Mountains, and relax in the healing waters of the High Tatras.',''),
+(20, 'Poland',90781.7,8.78,41.9,49.25,120,'Polish','German, Lithuanian, Belarusian, Czech, Hebrew, Yiddish, Lemko, Karaim, Armenian, Romani, Russian, Slovak, Tatar, Ukrainian','English','Poland is a country located in Central Europe. It is known for its rich history, stunning architecture, and hearty cuisine.','Explore the historic city of Krakow, visit the Auschwitz-Birkenau Memorial and Museum, and indulge in traditional Polish pierogi and vodka.',''),
+(21, 'Czech Republic',37095.7,8.6,48.6,53,133,'Czech','Belarusian','','The Czech Republic is a country located in Central Europe. It is known for its beautiful architecture, historic castles, and world-famous beer.','Explore the charming city of Prague, visit the stunning Karlstejn Castle, and enjoy a glass of Czech beer in a traditional pub.',''),
+(22, 'Austria',	74627.4,7.44,66.8,54.69,107,'German','Slovene, Czech, Hungarian, Slovak, Romani, Serbian','English','Austria is a country located in the heart of Europe. It is known for its stunning alpine landscapes, historic cities, and rich cultural heritage.','Explore the imperial city of Vienna, visit the picturesque Salzburg, and enjoy outdoor activities in the Austrian Alps.','https://content.r9cdn.net/rimg/dimg/a8/ce/6d1490d1-city-64466-16510215367.jpg?width=1366&height=768&xhint=1426&yhint=1115&crop=true'),
+(23, 'Lithuania',7802.6,7.38,48.4,49.87,42,'Lithuanian','','Polish, Russian','Lithuania is a country located in the Baltic region of Europe. It is known for its beautiful landscapes, historic castles, and rich cultural heritage.','Explore the historic city of Vilnius, visit the stunning Trakai Castle, and enjoy the beautiful beaches of the Curonian Spit.',''),
+(24, 'Latvia',5077.4,6.87,51.4,50.39,28,'Latvian','','Russian','Latvia is a country located in the Baltic region of Europe. It is known for its beautiful landscapes, historic architecture, and vibrant cultural scene.','Explore the charming streets of Riga, visit the stunning Rundale Palace, and relax on the sandy beaches of Jurmala.',''),
+(25, 'Estonia',3286.7,6.34,53,51.41,29,'Estonian','','Russian','Estonia is a country located in Northern Europe. It is known for its beautiful landscapes, medieval architecture, and advanced digital society.','Explore the charming streets of Tallinn, visit the picturesque Lahemaa National Park, and relax on the pristine beaches of Saaremaa.',''),
+(26, 'Sweden',129332.2,3.23,62.2,56.29,24,'Swedish','Finnish, Meänkieli, Sami, Yiddish, Romani', '','Sweden is a country located in Northern Europe. It is known for its stunning landscapes, modern design, and high quality of life.','Explore the beautiful city of Stockholm, visit the stunning archipelago of Gothenburg, and experience the unique Sami culture in Swedish Lapland.',''),
+(27, 'Finland',	55496.7,2.46,65.5,60.53,16,'Finnish, Swedish','Sami','','Finland is a country located in Northern Europe. It is known for its beautiful landscapes, saunas, and the Northern Lights.','Explore the vibrant city of Helsinki, visit the stunning lakes of Lakeland, and experience the magical winter wonderland of Lapland.','');
+
+-- Railway lengths update statements
+UPDATE countries SET railwayLength = 3607 WHERE name = 'Belgium';
+UPDATE countries SET railwayLength = 1600 WHERE name = 'Bulgaria';
+UPDATE countries SET railwayLength = 9394 WHERE name = 'Czech Republic';
+UPDATE countries SET railwayLength = 6376 WHERE name = 'Denmark';
+UPDATE countries SET railwayLength = 92313 WHERE name = 'Germany';
+UPDATE countries SET railwayLength = 382 WHERE name = 'Estonia';
+UPDATE countries SET railwayLength = 1748 WHERE name = 'Ireland';
+UPDATE countries SET railwayLength = 1117 WHERE name = 'Greece';
+UPDATE countries SET railwayLength = 27489 WHERE name = 'Spain';
+UPDATE countries SET railwayLength = 102814 WHERE name = 'France';
+UPDATE countries SET railwayLength = 812 WHERE name = 'Croatia';
+UPDATE countries SET railwayLength = 46143 WHERE name = 'Italy';
+UPDATE countries SET railwayLength = 0 WHERE name = 'Cyprus';
+UPDATE countries SET railwayLength = 541 WHERE name = 'Latvia';
+UPDATE countries SET railwayLength = 382 WHERE name = 'Lithuania';
+UPDATE countries SET railwayLength = 389 WHERE name = 'Luxembourg';
+UPDATE countries SET railwayLength = 7945 WHERE name = 'Hungary';
+UPDATE countries SET railwayLength = 0 WHERE name = 'Malta';
+UPDATE countries SET railwayLength = 3055 WHERE name = 'Netherlands';
+UPDATE countries SET railwayLength = 12371 WHERE name = 'Austria';
+UPDATE countries SET railwayLength = 23646 WHERE name = 'Poland';
+UPDATE countries SET railwayLength = 4419 WHERE name = 'Portugal';
+UPDATE countries SET railwayLength = 5616 WHERE name = 'Romania';
+UPDATE countries SET railwayLength = 645 WHERE name = 'Slovenia';
+UPDATE countries SET railwayLength = 3168 WHERE name = 'Slovakia';
+UPDATE countries SET railwayLength = 4572 WHERE name = 'Finland';
+UPDATE countries SET railwayLength = 12879 WHERE name = 'Sweden';
+
+
+-- Happiness Index update statements
+UPDATE countries SET happinessIndex = 19.997142857142858 WHERE name = 'Austria';
+UPDATE countries SET happinessIndex = 19.94857142857143 WHERE name = 'Belgium';
+UPDATE countries SET happinessIndex = 18.485714285714284 WHERE name = 'Bulgaria';
+UPDATE countries SET happinessIndex = 19.431428571428572 WHERE name = 'Croatia';
+UPDATE countries SET happinessIndex = 19.874285714285715 WHERE name = 'Cyprus';
+UPDATE countries SET happinessIndex = 18.931428571428572 WHERE name = 'Czech Republic';
+UPDATE countries SET happinessIndex = 19.685714285714287 WHERE name = 'Denmark';
+UPDATE countries SET happinessIndex = 19.994285714285713 WHERE name = 'Estonia';
+UPDATE countries SET happinessIndex = 19.897142857142857 WHERE name = 'Finland';
+UPDATE countries SET happinessIndex = 19.914285714285715 WHERE name = 'France';
+UPDATE countries SET happinessIndex = 20.0 WHERE name = 'Greece';
+UPDATE countries SET happinessIndex = 19.994285714285713 WHERE name = 'Hungary';
+UPDATE countries SET happinessIndex = 20.002857142857142 WHERE name = 'Ireland';
+UPDATE countries SET happinessIndex = 19.242857142857144 WHERE name = 'Italy';
+UPDATE countries SET happinessIndex = 19.642857142857142 WHERE name = 'Latvia';
+UPDATE countries SET happinessIndex = 18.5 WHERE name = 'Lithuania';
+UPDATE countries SET happinessIndex = 19.76571428571429 WHERE name = 'Luxembourg';
+UPDATE countries SET happinessIndex = 19.545714285714286 WHERE name = 'Malta';
+UPDATE countries SET happinessIndex = 19.87142857142857 WHERE name = 'Netherlands';
+UPDATE countries SET happinessIndex = 19.691428571428574 WHERE name = 'Poland';
+UPDATE countries SET happinessIndex = 19.80857142857143 WHERE name = 'Portugal';
+UPDATE countries SET happinessIndex = 19.24 WHERE name = 'Romania';
+UPDATE countries SET happinessIndex = 18.537142857142857 WHERE name = 'Slovakia';
+UPDATE countries SET happinessIndex = 19.897142857142857 WHERE name = 'Slovenia';
+UPDATE countries SET happinessIndex = 20.0 WHERE name = 'Spain';
+UPDATE countries SET happinessIndex = 20.0 WHERE name = 'Sweden';
+
+-- Calculating averages and updating the average Leisure field
+
+UPDATE countries SET leisure = (82.0 + 74.5 + 74.2 + 63.7 + 59.6 + 55.1 + 36.2) / 7 WHERE name = 'Belgium';
+UPDATE countries SET leisure = (42.6 + 31.0 + 28.4 + 21.7 + 15.0 + 10.0 + 4.5) / 7 WHERE name = 'Bulgaria';
+UPDATE countries SET leisure = (85.9 + 73.0 + 71.9 + 66.9 + 60.2 + 48.8 + 29.4) / 7 WHERE name = 'Czech Republic';
+UPDATE countries SET leisure = (91.5 + 86.6 + 82.9 + 84.1 + 77.4 + 74.3 + 64.8) / 7 WHERE name = 'Denmark';
+UPDATE countries SET leisure = NULL WHERE name = 'Germany';  -- No data provided
+UPDATE countries SET leisure = (86.9 + 79.5 + 75.4 + 70.1 + 56.8 + 45.9 + 26.2) / 7 WHERE name = 'Estonia';
+UPDATE countries SET leisure = (85.9 + 81.4 + 79.5 + 71.7 + 66.9 + 49.3 + 33.4) / 7 WHERE name = 'Ireland';
+UPDATE countries SET leisure = (69.6 + 61.7 + 47.7 + 43.8 + 36.0 + 22.3 + 10.3) / 7 WHERE name = 'Greece';
+UPDATE countries SET leisure = (86.3 + 79.1 + 69.8 + 66.5 + 59.8 + 50.6 + 29.0) / 7 WHERE name = 'Spain';
+UPDATE countries SET leisure = (83.0 + 71.1 + 69.3 + 62.8 + 53.7 + 47.2 + 27.7) / 7 WHERE name = 'France';
+UPDATE countries SET leisure = (78.5 + 63.8 + 50.3 + 41.1 + 27.9 + 20.3 + 7.8) / 7 WHERE name = 'Croatia';
+UPDATE countries SET leisure = (70.9 + 58.8 + 46.4 + 45.4 + 34.1 + 24.2 + 9.6) / 7 WHERE name = 'Italy';
+UPDATE countries SET leisure = (68.4 + 56.6 + 50.3 + 44.0 + 31.1 + 22.2 + 8.8) / 7 WHERE name = 'Cyprus';
+UPDATE countries SET leisure = (63.6 + 59.8 + 52.4 + 45.6 + 36.3 + 26.7 + 13.7) / 7 WHERE name = 'Latvia';
+UPDATE countries SET leisure = (73.9 + 68.3 + 63.2 + 48.9 + 41.5 + 33.3 + 13.1) / 7 WHERE name = 'Lithuania';
+UPDATE countries SET leisure = (93.8 + 88.8 + 82.7 + 80.4 + 76.3 + 79.5 + 62.8) / 7 WHERE name = 'Luxembourg';
+UPDATE countries SET leisure = (72.6 + 52.0 + 47.8 + 46.2 + 35.3 + 26.0 + 14.9) / 7 WHERE name = 'Hungary';
+UPDATE countries SET leisure = (67.3 + 58.0 + 50.2 + 43.7 + 27.7 + 19.2 + 8.6) / 7 WHERE name = 'Malta';
+UPDATE countries SET leisure = (90.9 + 86.9 + 82.1 + 77.0 + 71.4 + 65.3 + 52.7) / 7 WHERE name = 'Netherlands';
+UPDATE countries SET leisure = (82.8 + 75.6 + 68.9 + 58.5 + 54.4 + 48.5 + 30.6) / 7 WHERE name = 'Austria';
+UPDATE countries SET leisure = (85.6 + 73.3 + 68.5 + 55.9 + 43.6 + 31.7 + 18.2) / 7 WHERE name = 'Poland';
+UPDATE countries SET leisure = (86.9 + 76.8 + 72.0 + 61.6 + 48.2 + 38.7 + 20.1) / 7 WHERE name = 'Portugal';
+UPDATE countries SET leisure = (45.1 + 38.7 + 33.3 + 23.0 + 13.1 + 8.7 + 4.2) / 7 WHERE name = 'Romania';
+UPDATE countries SET leisure = (76.3 + 73.9 + 75.7 + 63.0 + 52.0 + 47.6 + 29.2) / 7 WHERE name = 'Slovenia';
+UPDATE countries SET leisure = (73.8 + 60.1 + 52.3 + 41.8 + 33.6 + 21.8 + 6.7) / 7 WHERE name = 'Slovakia';
+UPDATE countries SET leisure = (82.3 + 82.5 + 82.8 + 81.9 + 69.6 + 58.7 + 42.5) / 7 WHERE name = 'Finland';
+UPDATE countries SET leisure = (85.0 + 75.7 + 76.4 + 74.5 + 63.7 + 62.0 + 47.3) / 7 WHERE name = 'Sweden';
+
+-- Update statements for square kilometers (square_kilos)
+
+UPDATE countries SET square_kilos = 83879 WHERE name = 'Austria';
+UPDATE countries SET square_kilos = 30528 WHERE name = 'Belgium';
+UPDATE countries SET square_kilos = 110994 WHERE name = 'Bulgaria';
+UPDATE countries SET square_kilos = 56594 WHERE name = 'Croatia';
+UPDATE countries SET square_kilos = 9251 WHERE name = 'Cyprus';
+UPDATE countries SET square_kilos = 78866 WHERE name = 'Czech Republic';
+UPDATE countries SET square_kilos = 42933 WHERE name = 'Denmark';
+UPDATE countries SET square_kilos = 45227 WHERE name = 'Estonia';
+UPDATE countries SET square_kilos = 338424 WHERE name = 'Finland';
+UPDATE countries SET square_kilos = 551695 WHERE name = 'France';
+UPDATE countries SET square_kilos = 131957 WHERE name = 'Greece';
+UPDATE countries SET square_kilos = 357386 WHERE name = 'Germany';
+UPDATE countries SET square_kilos = 93028 WHERE name = 'Hungary';
+UPDATE countries SET square_kilos = 70273 WHERE name = 'Ireland';
+UPDATE countries SET square_kilos = 301340 WHERE name = 'Italy';
+UPDATE countries SET square_kilos = 64589 WHERE name = 'Latvia';
+UPDATE countries SET square_kilos = 65300 WHERE name = 'Lithuania';
+UPDATE countries SET square_kilos = 2586 WHERE name = 'Luxembourg';
+UPDATE countries SET square_kilos = 316 WHERE name = 'Malta';
+UPDATE countries SET square_kilos = 41543 WHERE name = 'Netherlands';
+UPDATE countries SET square_kilos = 312696 WHERE name = 'Poland';
+UPDATE countries SET square_kilos = 92212 WHERE name = 'Portugal';
+UPDATE countries SET square_kilos = 238397 WHERE name = 'Romania';
+UPDATE countries SET square_kilos = 20273 WHERE name = 'Slovakia';
+UPDATE countries SET square_kilos = 20273 WHERE name = 'Slovenia';
+UPDATE countries SET square_kilos = 505992 WHERE name = 'Spain';
+UPDATE countries SET square_kilos = 450295 WHERE name = 'Sweden';
+
+
 
 INSERT INTO states (id, stateName)
 VALUES

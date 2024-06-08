@@ -6,6 +6,7 @@ import plotly.express as px
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
+from ml_models.cos_model import CosineSimilarityModel as csm
 
 st.set_page_config(layout = 'wide')
 
@@ -59,6 +60,11 @@ with col1:
     if st.button("Save and Generate Ranking"):
         data = {"weather": warm_weather, "transport": robust_public_transport, "education": good_public_education, "safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "COL": cost_of_living, "userID": userID}
         requests.put('http://api:4000/ml/sliders', json=data)
+        csm.find_closest_country(userID)
+
+        country_number
+        country_name
+
         st.success("Section updated successfully!")
 
 
