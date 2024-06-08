@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS moverContacts (
     userID int NOT NULL,
     moverID int NOT NULL,
     routeID int NOT NULL,
-    dateContacted datetime NOT NULL,
+    dateContacted datetime default CURRENT_TIMESTAMP,
 
     PRIMARY KEY (userID, moverID, routeID),
     FOREIGN KEY (userID) REFERENCES users(id),

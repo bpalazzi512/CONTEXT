@@ -77,7 +77,7 @@ def get_country(moverID):
 
 
 # Post (add) user to moverContacts 
-@moving_company.route('/userContacts', methods=['POST'])
+@moving_company.route('/userContact', methods=['POST'])
 def add_user_contact():
     # collecting data from the request object 
     the_data = request.json
@@ -86,15 +86,14 @@ def add_user_contact():
     #extracting the variable
     userID = the_data['userID']
     moverID = the_data['moverID']
-    dateContacted = the_data['dateContacted']
+    routeID = the_data['routeID']
 
     # Constructing the query
-    query = 'insert into moverContacts (userID, moverID, dateContacted) values ("'
-    query += str(userID) + '", "'
-    query += str(moverID) + '", '
-    query += dateContacted + ')'
+    query = 'insert into moverContacts (userID, moverID, routeID) values ('
+    query += str(userID) + ', '
+    query += str(moverID) + ', '
+    query += str(routeID) + ')'
 
-    current_app.logger.info(dateContacted)
     current_app.logger.info(userID)
     current_app.logger.info(query)
 
