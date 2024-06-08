@@ -23,6 +23,19 @@ def get_crime_prediction(country, year):
     country = country[0].upper() + country[1:].lower()
     return [model.predict(country, int(year))]
 
+@machine_learning.route('crime/predict/<country>', methods=['GET'])
+def get_crime_prediction_years(country):
+    model = CrimeModel()
+    country = country[0].upper() + country[1:].lower()
+    years = []
+    values = []
+    for year in range(2024, 2030):
+        years.append(year)
+        values.append(model.predict(country, int(year)))
+    
+    return jsonify({"Year" : years, "Predicted Number of Crimes (Per 100k People)" : values})
+
+
 
 
 """
