@@ -35,6 +35,10 @@ with col1:
         leisure = st.slider("Lots of Activites", 0, 100, 50)
         cost_of_living = st.slider("Cost of Living", 0, 100, 50)
 
+    # Save and Generate Ranking
+    
+
+userID = st.session_state['id']
 
 with col2:
     with st.container(border=True, height=600):
@@ -42,25 +46,27 @@ with col2:
 
         # Fallback data for country ranking
         data = {
-            "Country": ["Belgium", "Italy", "Hungary", "Greece", "France", "Spain", "Austria", "Netherlands", "Latvia", "Sweeden", 'Denmark'],
-            "Bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "..."],
+            "name": ["Belgium", "Italy", "Hungary", "Greece", "France", "Spain", "Austria", "Netherlands", "Latvia", "Sweeden", 'Denmark'],
+            "bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "..."],
         }
 
         try:
             # Get country ranking data
-            data = requests.get('http://api:4000/c/countries').json()
-
+            data = requests.get(f'http://api:4000/u/users/{userID}/rankings').json()
+        except:
+            st.write("**Important**: Could not connect to sample api, so using dummy data.")
 
         df = pd.DataFrame(data)
 
         # Display ranking
         for index, row in df.iterrows():
-            with st.expander(f"#{index+1} - {row['Country']}"):
-                st.write(row['Bio'])
-                if st.button(f'View Full Country Page {index + 1}', 
+            country_name = row['countryName']
+            country_bio = row['bio']
+            with st.expander(f"#{index+1} - {country_name}"):
+                st.write(country_bio)
+                if st.button(f'View Page for {country_name}', 
                 type='primary',
                 use_container_width=True):
-                    country_name = row['Country']
                     st.write(country_name)
                     try:
                         data = {} 
