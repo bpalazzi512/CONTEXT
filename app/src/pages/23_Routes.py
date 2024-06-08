@@ -39,8 +39,8 @@ def display_routes(df):
         cols = st.columns([3, 4, 4, 2, 2, 2])
         cols[0].write(row["stateName"])
         cols[1].write(row["name"])
-        cols[2].selectbox('', ['Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], index=0, key=f"moveL_{index}")
-        cols[3].text_input('', row['cost'], key=f"cost_{index}")
+        load = cols[2].selectbox('', ['Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], index=0, key=f"moveL_{index}")
+        cost = cols[3].text_input('', row['cost'], key=f"cost_{index}")
         edit_buttons[index] = cols[4].button('Update', key=f"edit_{index}")
         del_buttons[index] = cols[5].button('Delete', key=f"del_{index}")
         route_id = df['id'][index]
@@ -53,12 +53,13 @@ def display_routes(df):
                 st.error(f"Failed delete route {route_id}")
 
         if edit_buttons[index]:
-            data = {"moveLoad": cols[2].value, "cost": cols[3].value, "id": str(route_id)}
+            data = {"moveLoad": load, "cost": cost, "id": str(route_id)}
+            
             response = requests.put(f'http://api:4000/r/routes_edit', json=data)
             if response.status_code == 200:
                 st.success(f"Edited {route_id}")
             else:
-                st.error(f"Failed to edit {route_id}")
+                st.error(f"Please change something or ensure cost is a number {route_id}")
 
 # Page Title
 st.title(f"Routes for {st.session_state['name']}")
