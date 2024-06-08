@@ -7,6 +7,7 @@ from backend.db_connection import db
 from backend.countries.countries_routes import countries
 from backend.moving_companies.moving_companies_routes import moving_company
 from backend.users.users_routes import users
+from backend.machine_learning.machine_learning_routes import machine_learning
 import os
 from dotenv import load_dotenv
 
@@ -62,6 +63,8 @@ def create_app():
     app.register_blueprint(countries,   url_prefix='/c')
     app.register_blueprint(moving_company,    url_prefix='/mv')
     app.register_blueprint(users, url_prefix='/u')
+    app.register_blueprint(machine_learning, url_prefix='/ml')
+
 
     # Don't forget to return the app object
     return app
