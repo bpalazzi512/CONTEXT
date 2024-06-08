@@ -107,7 +107,8 @@ st.title(f"Routes for {st.session_state['name']}")
 display_routes(df)
 
 userID = st.session_state['id']
-
+origin = "test"
+destination = "test"
 def add_route():
     #with st.form(key='new_route_form'):
         origin = st.selectbox('Origin', ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 

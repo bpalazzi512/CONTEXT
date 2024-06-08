@@ -9,15 +9,6 @@ from dotenv import load_dotenv
 
 countries = Blueprint('countries', __name__)
 
-@countries.route('/countries', methods=['GET'])
-def get_countries():
-    # get a cursor object from the database
-    cursor = db.get_db().cursor()
-    # use cursor to query the database for a list of products
-    cursor.execute('SELECT * FROM countries')
-    theData = cursor.fetchall()
-    current_app.logger.info(f'theData = {theData}')
-    return jsonify(theData)
 
 #get countryID given country name
 @countries.route('/get_countryID/<country>', methods=['GET'])
