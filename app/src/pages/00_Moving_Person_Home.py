@@ -60,10 +60,15 @@ with col1:
     if st.button("Save and Generate Ranking"):
         data = {"weather": warm_weather, "transport": robust_public_transport, "education": good_public_education, "safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "COL": cost_of_living, "userID": userID}
         requests.put('http://api:4000/ml/sliders', json=data)
-        csm.find_closest_country(userID)
+        ranking_dict = csm.find_closest_country(userID)
 
-        country_number
-        country_name
+        # for loop which inserts each number and country id into the database
+        for i in range(1, len(ranking_dict)+1):
+            # get country id from country name
+            rankingNum = i
+            countryName = ranking_dict[str(i)]
+            userID = requests.get(f'http://api:4000/c/getCountryID/{countryName}')
+            requests.put('http://api:4000/u/rankings', json=data)
 
         st.success("Section updated successfully!")
 
