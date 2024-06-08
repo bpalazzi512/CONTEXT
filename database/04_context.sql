@@ -101,6 +101,7 @@ CREATE TABLE IF NOT EXISTS routes (
     fromStateID int NOT NULL,
     toCountryID int NOT NULL,
     moverID int NOT NULL,
+    load ENUM('Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only') NOT NULL,
     cost int,
     id int NOT NULL,
 
