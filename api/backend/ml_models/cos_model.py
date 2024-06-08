@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import StandardScaler
+import requests
 
 class CosineSimilarityModel:
 
@@ -19,14 +20,15 @@ class CosineSimilarityModel:
         Parameters:
             db: Database connection object
         """
-        cursor = db.get_db().cursor()
-        cursor.execute('SELECT * FROM countries')
-        theData = cursor.fetchall()
-
-        columns = [desc[0] for desc in cursor.description]
+        # Fetch the data from the API
+        data = {}
+        try:
+            data = requests.get('http://api:4000/c/countries')
+        except:
+            pass
 
         # Create DataFrame from the fetched data
-        data = pd.DataFrame(theData, columns=columns)
+        data = pd.DataFrame(data)
 
         self.merged_df = data
         self.feats = data.columns[1:-1]
@@ -81,7 +83,7 @@ class CosineSimilarityModel:
             percentiles[feature] = self.translate_to_percentiles(user_input[feature], feature)
         return percentiles
 
-    def find_closest_country(self, user_pref, top_n=5):
+    def find_closest_country(self, userID, top_n=5):
         """
         Find the top N closest countries based on user preferences.
 
@@ -92,8 +94,16 @@ class CosineSimilarityModel:
         Returns:
             list: List of the top N closest country matches
         """
+
+        preference_data = {}
+        try:
+            preference_data = requests.get(f'http://api:4000/ml/sliders/{userID}')
+        except:
+            pass
+
+
         # Translate user inputs to percentiles
-        user_percentiles = self.get_user_percentiles(user_pref)
+        user_percentiles = self.get_user_percentiles(preference_data)
 
         # Create DataFrame from user percentiles
         user_df = pd.DataFrame([user_percentiles])
