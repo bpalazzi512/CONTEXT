@@ -37,33 +37,38 @@ with col1:
 
 
 with col2:
-# Country Ranking
-    st.header("Country Ranking")
+    with st.container(border=True, height=600):
+        st.header("Country Ranking")
 
-    # Sample data for country ranking
-    data = {
-        "Country": ["Belgium", "Italy", "Hungary", "Greece", "France", "Spain", "Austria", "Netherlands"],
-        "Bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "..."],
-    }
+        # Fallback data for country ranking
+        data = {
+            "Country": ["Belgium", "Italy", "Hungary", "Greece", "France", "Spain", "Austria", "Netherlands", "Latvia", "Sweeden", 'Denmark'],
+            "Bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "..."],
+        }
 
-    df = pd.DataFrame(data)
+        try:
+            # Get country ranking data
+            data = requests.get('http://api:4000/c/countries').json()
 
-    # Display ranking
-    for index, row in df.iterrows():
-        with st.expander(f"#{index+1} - {row['Country']}"):
-            st.write(row['Bio'])
-            if st.button(f'View Full Country Page {index + 1}', 
-             type='primary',
-             use_container_width=True):
-                country_name = row['Country']
-                st.write(country_name)
-                try:
-                    data = {} 
-                    data = requests.get('http://api:4000/c/country/' + country_name).json() #get countryid
-                    st.session_state['countryID'] = data[0]['id'] 
-                    st.switch_page('pages/22_Country_Page.py')
-                except Exception as e:
-                    st.write(f"An error occurred: {e}")
+
+        df = pd.DataFrame(data)
+
+        # Display ranking
+        for index, row in df.iterrows():
+            with st.expander(f"#{index+1} - {row['Country']}"):
+                st.write(row['Bio'])
+                if st.button(f'View Full Country Page {index + 1}', 
+                type='primary',
+                use_container_width=True):
+                    country_name = row['Country']
+                    st.write(country_name)
+                    try:
+                        data = {} 
+                        data = requests.get('http://api:4000/c/country/' + country_name).json() #get countryid
+                        st.session_state['countryID'] = data[0]['id'] 
+                        st.switch_page('pages/22_Country_Page.py')
+                    except Exception as e:
+                        st.write(f"An error occurred: {e}")
 
 # Interactive Map
 st.header("Interactive Map")
