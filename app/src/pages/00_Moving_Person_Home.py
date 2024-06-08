@@ -67,7 +67,10 @@ with col1:
             # get country id from country name
             rankingNum = i
             countryName = ranking_dict[str(i)]
-            userID = requests.get(f'http://api:4000/c/getCountryID/{countryName}')
+            countryID = requests.get(f'http://api:4000/c/getCountryID/{countryName}').json()[0]['id']
+            userID = st.session_state['id']
+
+            data = {"rankingNum": rankingNum, "countryID": countryID, "userID": userID}
             requests.put('http://api:4000/u/rankings', json=data)
 
         st.success("Section updated successfully!")
