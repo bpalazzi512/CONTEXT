@@ -3,9 +3,27 @@ import json
 from backend.db_connection import db
 # from backend.ml_models.model import predict
 from dotenv import load_dotenv
-from backend.ml_models.model import CrimeModel
+from backend.ml_models.cos_model import CosineSimilarityModel as csm
+import requests
 
 machine_learning = Blueprint('machine_learning', __name__)
+
+# generate the rankings for a given user
+@machine_learning.route('/rankings/<userID>/generate', methods = ['GET'])
+def generate_rankings(userID):
+    ranking_dict = csm.find_closest_country(userID)
+
+    # for loop which inserts each number and country id into the database
+    for i in range(1, len(ranking_dict)+1):
+        # get country id from country name
+        rankingNum = i
+        countryName = ranking_dict[str(i)]
+        countryID = requests.get(f'http://api:4000/c/getCountryID/{countryName}').json()[0]['id']
+
+        data = {"rankingNum": rankingNum, "countryID": countryID, "userID": userID}
+        requests.put('http://api:4000/ml/rankings', json=data)
+
+    return make_response(jsonify({"message": "Rankings generated successfully"}), 200)
 
 # returns the crime training data
 @machine_learning.route('crime/training', methods=['GET'])
