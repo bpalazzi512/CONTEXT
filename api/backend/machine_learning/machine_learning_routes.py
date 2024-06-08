@@ -3,6 +3,7 @@ import json
 from backend.db_connection import db
 # from backend.ml_models.model import predict
 from dotenv import load_dotenv
+from backend.ml_models.model import CrimeModel
 
 machine_learning = Blueprint('machine_learning', __name__)
 
@@ -14,6 +15,15 @@ def get_crime_training():
     theData = cursor.fetchall()
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
+
+
+@machine_learning.route('crime/predict/<country>/<year>', methods=['GET'])
+def get_crime_prediction(country, year):
+    model = CrimeModel()
+    country = country[0].upper() + country[1:].lower()
+    return [model.predict(country, int(year))]
+
+
 
 """
 @machine_learning.route('/ML/<v01>/<v02>/<v03>/<v04>/<v05>', methods=['GET'])
