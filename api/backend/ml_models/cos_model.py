@@ -83,7 +83,7 @@ class CosineSimilarityModel:
             percentiles[feature] = self.translate_to_percentiles(user_input[feature], feature)
         return percentiles
 
-    def find_closest_country(self, userID, top_n=5):
+    def find_closest_country(self, userID, top_n=27):
         """
         Find the top N closest countries based on user preferences.
 
@@ -100,7 +100,6 @@ class CosineSimilarityModel:
             preference_data = requests.get(f'http://api:4000/ml/sliders/{userID}')
         except:
             pass
-
 
         # Translate user inputs to percentiles
         user_percentiles = self.get_user_percentiles(preference_data)
