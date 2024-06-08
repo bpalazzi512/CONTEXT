@@ -10,7 +10,7 @@ moving_company = Blueprint('moving_company', __name__)
 # Get a list of all moving companies for a given route 
 @moving_company.route('/moving_company/<stateID>/<countryID>', methods=['GET'])
 def get_routes(stateID, countryID):
-    current_app.logger.info('moving_company.py: GET /moving_comapny')
+    current_app.logger.info('moving_company.py: GET /moving_company')
     cursor = db.get_db().cursor()
     cursor.execute('select * from movers m join routes r on m.id = r.moverID \
                    where r.fromStateID = ' + str(stateID) + ' and r.toCountryID = ' + str(countryID))
@@ -124,7 +124,7 @@ def add_route():
 
 
 # Post (add) user to moverContacts 
-@moving_company.route('/userContact', methods=['POST'])
+@moving_company.route('/userContacts', methods=['POST'])
 def add_user_contact():
     # collecting data from the request object 
     the_data = request.json
@@ -139,9 +139,10 @@ def add_user_contact():
     query = 'insert into moverContacts (userID, moverID, dateContacted) values ("'
     query += str(userID) + '", "'
     query += str(moverID) + '", '
-    query += str(dateContacted) + ')'
+    query += dateContacted + ')'
 
-   
+    current_app.logger.info(dateContacted)
+    current_app.logger.info(userID)
     current_app.logger.info(query)
 
     # executing and committing the insert statement 

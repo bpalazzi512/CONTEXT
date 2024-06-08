@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
     homeStateID int NOT NULL,
-    moveLoad ENUM('Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only') NOT NULL
+    moveLoad ENUM('Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only') NOT NULL,
 
     PRIMARY KEY(id),
     FOREIGN KEY (homeStateID) REFERENCES states(id)
@@ -54,20 +54,12 @@ CREATE TABLE IF NOT EXISTS countries(
 CREATE TABLE IF NOT EXISTS countryRankings (
     countryID int NOT NULL,
     rankingNum int,
+    userID int NOT NULL,
     id INT UNIQUE NOT NULL,
 
     PRIMARY KEY(id),
-    FOREIGN KEY (countryID) REFERENCES countries(id)
-);
-
-
-CREATE TABLE IF NOT EXISTS rankings (
-    userID INT NOT NULL,
-    rankingID INT UNIQUE NOT NULL,
-
-    PRIMARY KEY(rankingID, userID),
-    FOREIGN KEY (userID) REFERENCES users(id),
-    FOREIGN KEY (rankingID) REFERENCES countryRankings(id)
+    FOREIGN KEY (countryID) REFERENCES countries(id),
+    FOREIGN KEY (userID) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS movers (
@@ -85,11 +77,13 @@ CREATE TABLE IF NOT EXISTS movers (
 CREATE TABLE IF NOT EXISTS moverContacts (
     userID int NOT NULL,
     moverID int NOT NULL,
+    routeID int NOT NULL,
     dateContacted datetime NOT NULL,
 
-    PRIMARY KEY (userID, moverID),
+    PRIMARY KEY (userID, moverID, routeID),
     FOREIGN KEY (userID) REFERENCES users(id),
-    FOREIGN KEY (moverID) REFERENCES movers(id)
+    FOREIGN KEY (moverID) REFERENCES movers(id),
+    FOREIGN KEY (routeID) REFERENCES routes(id)
 );
 
 CREATE TABLE IF NOT EXISTS countryAdmins (
@@ -108,13 +102,11 @@ CREATE TABLE IF NOT EXISTS routes (
     toCountryID int NOT NULL,
     moverID int NOT NULL,
     cost int,
+    id int NOT NULL,
 
-    PRIMARY KEY (fromStateID, toCountryID, moverID),
+    PRIMARY KEY (id),
     FOREIGN KEY (fromStateID) REFERENCES states(id),
     FOREIGN KEY (toCountryID) REFERENCES countries(id),
     FOREIGN KEY (moverID) REFERENCES movers(id)
 
 );
-
-
-
