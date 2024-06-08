@@ -114,13 +114,8 @@ def add_route():
     
     return 'Success!'
 
-    # email VARCHAR(255) NOT NULL,
-    # id INT UNIQUE NOT NULL,
-    # age INT NOT NULL,
-    # phone VARCHAR(50) NOT NULL,
-    # firstName VARCHAR(50) NOT NULL,
-    # lastName VARCHAR(50) NOT NULL,
-    # homeStateID int NOT NULL,
+# get all routes (state, country, load, rate) of given moverID 
+
 
 
 # Post (add) user to moverContacts 
@@ -170,7 +165,7 @@ def delete_mover_contact(userID, moverID):
 def get_users(moverID):
     current_app.logger.info('moverContact.py: GET /moverContact')
     cursor = db.get_db().cursor()
-    cursor.execute(f'select u.id, u.firstName, u.lastName, u.email, u.email, mc.dateContacted \
+    cursor.execute(f'select u.id, u.firstName, u.lastName, u.email, u.phone, mc.dateContacted \
                    from users u join moverContacts mc on u.id = mc.userID \
                    where mc.moverID = {moverID} order by mc.dateContacted desc')
     theData = cursor.fetchall()

@@ -93,6 +93,7 @@ def display_movers_with_buttons(df):
     cols[1].write('$' + str(row["cost"]))
     cols[2].write(row["stars"] * "⭐")
     button_ph = cols[3].empty()
+  
     if button_ph.button("Contact Mover", key=index):
       now = datetime.utcnow()
       data = {"userID" : st.session_state['id'], 

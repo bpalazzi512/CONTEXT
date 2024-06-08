@@ -35,19 +35,21 @@ df = pd.DataFrame(data)
 checkbox_states = {}
 # Function to display the table with buttons
 def display_customers(df):
-  header_cols = st.columns([2, 2, 5, 4, 2])
+  header_cols = st.columns([2, 2, 5, 3, 4, 2])
   header_cols[0].write("**First Name**")
   header_cols[1].write("**Last Name**")
   header_cols[2].write("**Email**")
-  header_cols[3].write("**Date**")
+  header_cols[3].write("**Phone Number**")
+  header_cols[4].write("**Date**")
 
   for index, row in df.iterrows():
-    cols = st.columns([2, 2, 5, 4, 2])
+    cols = st.columns([2, 2, 5, 3, 4, 2])
     cols[0].write(row["firstName"])
     cols[1].write('$' + str(row["lastName"]))
     cols[2].write(row["email"])
-    cols[3].write('$' + str(row["dateContacted"]))
-    button_ph = cols[4].empty()
+    cols[3].write(row["phone"])
+    cols[4].write('$' + str(row["dateContacted"]))
+    button_ph = cols[5].empty()
     #cols[4].checkbox("Contacted", value=False, key=f"checkbox_{index}")
     checkbox_states[index] = cols[4].checkbox("Contacted", value=False, key=f"checkbox_{index}")
 
@@ -58,7 +60,7 @@ def display_customers(df):
         for index, checked in checkbox_states.items():
             if checked:
                 user_id = df.at[index, 'id']
-                response = requests.delete(f'http://api:4000/mv/moverContact/{user_id}/{moverID}')
+                response = requests.delete(f'http://api:4000/mv/userContact/{user_id}/{moverID}')
                 if response.status_code == 200:
                     st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
                 else:
