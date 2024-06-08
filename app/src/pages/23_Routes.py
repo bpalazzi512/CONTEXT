@@ -145,9 +145,7 @@ def add_route():
             st.write('error')
         
         route_id = requests.get('http://api:4000/r/get_count').json()
-
-
- 
+        #/get_count/<stateID>/<countryID>/<moverID>/<moveLoad>'
 
         
         #st.write(new_data)
@@ -161,17 +159,25 @@ def add_route():
                 "Load": load,
                 "Rate": rate_value
             }
-
-            try: 
-                response = requests.post("http://api:4000/r/add_route", json=new_data)
-            except:
-                st.write("Did not add!")
-            if response.status_code == 201 or response.status_code == 200:
-                st.success("Route added successfully!")
-                new_df = pd.DataFrame([new_data])
-                global df
-                df = pd.concat([df, new_df], ignore_index=True)
+            stateID =str(state_id[0]['id'])
+            countryID =str(country_id[0]['id'])
+            moveID = str(st.session_state['id'])
+            #string 
+            count_repeates = requests.get(f'http://api:4000/r/get_count/{stateID}/{countryID}/{moveID}/{load}').json()
+            if count_repeates[0]['count'] > 1:
+                st.error("Route already exists! just update price!")
             else:
-                st.error("Failed to add route. Please try again.")
+
+                try: 
+                    response = requests.post("http://api:4000/r/add_route", json=new_data)
+                except:
+                    st.write("Did not add!")
+                if response.status_code == 201 or response.status_code == 200:
+                        st.success("Route added successfully!")
+                        new_df = pd.DataFrame([new_data])
+                        global df
+                        df = pd.concat([df, new_df], ignore_index=True)
+                else:
+                        st.error("Failed to add route. Please try again.")
 
 add_route()
