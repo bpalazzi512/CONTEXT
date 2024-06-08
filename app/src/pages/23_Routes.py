@@ -54,8 +54,11 @@ def display_routes(df):
             st.write(row["stateName"])
             st.write(row["name"])
         with col2:
-            cols[2] = st.text_input('', moveLoad_txt,  placeholder='moveLoad',
-                                key =f"moveL_{index}")
+            cols[2] = st.selectbox('', ['Full Household', 'Part Household', 
+                                     'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], 
+                                     key =f"moveL_{index}")
+            #cols[2] = st.text_input('', moveLoad_txt,  placeholder='moveLoad',
+                                #key =f"moveL_{index}")
         with col3:
             cols[3] = st.text_input('', cost_txt, placeholder='cost', 
                                key =f"cost_{index}")
@@ -76,8 +79,8 @@ def display_routes(df):
         if edit_buttons[index]:
             data = {"moveLoad" : cols[2], # moveLoad input
                     "cost" : cols[3], # cost input
-                    "id" : str(route_id)} # routeID 
-            response = requests.put(f'http://api:4000/r/routes_edit', json = data)
+                    "id" : str(route_id)} # routeID
+            response = requests.put(f'http://api:4000/r/routes_edit', json=data)
             if response.status_code == 200:
                 st.success(f"edited {route_id}")
             else:
@@ -99,12 +102,9 @@ def display_routes(df):
 st.title(f"Routes for {st.session_state['name']}")
 display_routes(df)
 
-
-
 userID = st.session_state['id']
 
-def del_route():
-    return 1
+
 def add_route():
     with st.form(key='new_route_form'):
         # make origin selectbox with all 50 states listed alphabetically  
@@ -155,5 +155,4 @@ def add_route():
 if st.button('Add New Route / Update Existing'):
     add_route()
 
-if st.button('Delete Route'):
-    del_route()
+
