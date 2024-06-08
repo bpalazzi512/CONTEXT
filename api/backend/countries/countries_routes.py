@@ -63,13 +63,6 @@ def get_country_info(countryID):
      # fetch all the data from the cursor
     theData = cursor.fetchall()
     current_app.logger.info(f'theData = {theData}')
-
-    # for each of the rows, zip the data elements together with
-    # the column headers. 
-    # for row in theData:
-    #     json_data.append(dict(zip(column_headers, row)))
-
-    # return jsonify(json_data)
     return jsonify(theData)
 
     

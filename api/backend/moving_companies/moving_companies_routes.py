@@ -115,7 +115,17 @@ def add_route():
     return 'Success!'
 
 # get all routes (state, country, load, rate) of given moverID 
-
+@moving_company.route('/routes/<moverID>', methods=['GET'])
+def get_routes(moverID):
+    current_app.logger.info('moverContact.py: GET /moverContact')
+    cursor = db.get_db().cursor()
+    cursor.execute(f'select s.name, c.name, u.load, r.cost \
+                   from users u join states s on u.homeStateID = s.id \
+                   join routes r on s.id = r.fromStateID \
+                   join countries c on c.id = r.toCountryID \
+                   where r.moverID = {moverID}')
+    theData = cursor.fetchall()
+    return jsonify(theData)
 
 
 # Post (add) user to moverContacts 
