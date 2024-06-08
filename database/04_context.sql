@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS countries(
     official_lang VARCHAR(1024),
     minority_lang VARCHAR(1024),
     widely_spoken_lang VARCHAR(1024),
+    education DOUBLE,
     bio VARCHAR(1024),
     tips VARCHAR(1024),
     img_link VARCHAR(1024),
