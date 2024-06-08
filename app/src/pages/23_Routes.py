@@ -132,22 +132,23 @@ def add_route():
  
         submit_button = st.button(label='Add Route')
         try:
-            country_name = requests.get(f'http://api:4000/c/get_countryID/{origin}').json()
+            country_id = requests.get(f'http://api:4000/c/get_countryID/{origin}').json()
         except:
             st.write('error')
         
         try:
-            state_name = requests.get(f'http://api:4000/c/get_stateID/{destination}').json()
+            state_id = requests.get(f'http://api:4000/c/get_stateID/{destination}').json()
         except:
             st.write('error')
-
-        st.write(str(country_name))
+        st.write(origin)
+        st.write(str(country_id))
+        st.write(country_id[0])
 
 
         new_data = {
                 "MoverID": st.session_state['id'],
-                "Origin": state_name[0]['id'],
-                "Destination": country_name[0]['id'],
+                "Origin": state_id[0]['id'],
+                "Destination": country_id[0]['id'],
                 #"Origin": origin,
                 #"Destination": destination,
                 "Load": load,
