@@ -24,16 +24,17 @@ with col1:
     col3, col4 = st.columns(2)
     with col3:
         # Create sliders
-        warm_weather = st.slider("Warm weather", 0, 100, 50)
-        robust_public_transport = st.slider("Robust public transport", 0, 100, 50)
+        warm_weather = st.slider("Robust Public Tranport", 0, 100, 50)
+        robust_public_transport = st.slider("Safety", 0, 100, 50)
         good_public_education = st.slider("Good public education", 0, 100, 50)
-        safety = st.slider("Safety", 0, 100, 50)
+        safety = st.slider("Comprehension of Your Language", 0, 100, 50)
 
     with col4:
-        warm_weather = st.slider("aaa", 0, 100, 50)
-        robust_public_transport = st.slider("bbb", 0, 100, 50)
-        good_public_education = st.slider("ccc", 0, 100, 50)
-        safety = st.slider("ddd", 0, 100, 50)
+        pop_density = st.slider("Population Density", 0, 100, 50)
+        healthcare = st.slider("Good Public Healthcare", 0, 100, 50)
+        leisure = st.slider("Lots of Activites", 0, 100, 50)
+        cost_of_living = st.slider("Cost of Living", 0, 100, 50)
+
 
 with col2:
 # Country Ranking
@@ -41,7 +42,7 @@ with col2:
 
     # Sample data for country ranking
     data = {
-        "Country": ["Belgium", "Italy", "Hungary", "Greece", "France", "Spain", "Finland", "Netherlands"],
+        "Country": ["Belgium", "Italy", "Hungary", "Greece", "France", "Spain", "Austria", "Netherlands"],
         "Bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "..."],
     }
 
