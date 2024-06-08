@@ -29,6 +29,8 @@ def get_mc_for_route(stateID, countryID):
 #     theData = cursor.fetchall()
 #     current_app.logger.info(f'theData = {theData}')
 #     return jsonify(theData)
+
+
 # Get a list of all the countryIDs a moving company can move to
 @moving_company.route('/moving_company/<moverID>/countries', methods=['GET'])
 def get_mover_country(moverID):
@@ -63,69 +65,6 @@ def get_country(moverID):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Delete a route
-@moving_company.route('/moving_company/<int:route_id>', methods=['DELETE'])
-def delete_route(route_id):
-    # Log the incoming request
-    current_app.logger.info(f'Request to delete route with ID: {route_id}')
-    
-    # Construct the SQL query to delete the route
-    query = 'DELETE FROM routes WHERE id =' + str(route_id)
-    
-    # Execute the query
-    cursor = db.get_db().cursor()
-    cursor.execute(query, (route_id,))
-    db.get_db().commit()
-    
-    # Check if a row was deleted
-    if cursor.rowcount == 0:
-        return 'No route found with the specified ID.', 404
-    
-    return 'Route deleted successfully!', 200
-
-# Post (add) a new route
-@moving_company.route('/add_route', methods=['POST'])
-def add_route():
-    
-    # collecting data from the request object 
-    the_data = request.json
-    current_app.logger.info(the_data)
-
-    #extracting the variable
-    cost = the_data['Rate']
-    load = the_data['Load']
-    fromStateID = the_data['Origin']
-    toCountryID = the_data['Destination']
-    moverID = the_data['MoverID']
-
-    # Constructing the query
-    query = 'insert into routes (cost, load, fromStateID, toCountryID, moverID) values ("'
-    query += str(cost) + '", "'
-    query += str(load) + '", "'
-    query += str(fromStateID) + '", "'
-    query += str(toCountryID) + '", '
-    query += str(moverID) + ')'
-    current_app.logger.info(query)
-
-    # executing and committing the insert statement 
-    cursor = db.get_db().cursor()
-    cursor.execute(query)
-    db.get_db().commit()
-    
-    return 'Success!'
-
-# get all routes (state, country, load, rate) of given moverID 
-@moving_company.route('/routes/<moverID>', methods=['GET'])
-def get_routes(moverID):
-    current_app.logger.info('moverContact.py: GET /moverContact')
-    cursor = db.get_db().cursor()
-    cursor.execute(f'select s.name, c.name, u.load, r.cost \
-                   from users u join states s on u.homeStateID = s.id \
-                   join routes r on s.id = r.fromStateID \
-                   join countries c on c.id = r.toCountryID \
-                   where r.moverID = {moverID}')
-    theData = cursor.fetchall()
-    return jsonify(theData)
 
 
 # Post (add) user to moverContacts 
