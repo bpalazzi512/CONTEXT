@@ -34,7 +34,6 @@ userID = st.session_state['id']
 
 def del_route():
     return 1
-
 def add_route():
     with st.form(key='new_route_form'):
         # make origin selectbox with all 50 states listed alphabetically  
