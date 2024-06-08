@@ -16,7 +16,7 @@ def get_countryID(country):
     # get a cursor object from the database
     cursor = db.get_db().cursor()
     # use cursor to query the database for a list of products
-    cursor.execute(f'SELECT id FROM countries where name = {country}')
+    cursor.execute(f'SELECT id FROM countries where name = "{country}"')
     theData = cursor.fetchall()
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
@@ -27,7 +27,7 @@ def get_stateID(state):
     # get a cursor object from the database
     cursor = db.get_db().cursor()
     # use cursor to query the database for a list of products
-    cursor.execute(f'SELECT id FROM states where stateName = {state}')
+    cursor.execute(f'SELECT id FROM states where stateName = "{state}"')
     theData = cursor.fetchall()
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
@@ -44,16 +44,16 @@ def get_countries():
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
 
-# # Get a countries ID given name
-@countries.route('/country/<c_name>', methods=['GET'])
-def get_countryID(c_name):
-    # get a cursor object from the database
-    cursor = db.get_db().cursor()
-    # use cursor to query the database for a list of products
-    cursor.execute('SELECT id FROM countries where name = ' + ' \'' + c_name + '\'')
-    theData = cursor.fetchall()
-    current_app.logger.info(f'theData = {theData}')
-    return jsonify(theData)
+# # # Get a countries ID given name
+# @countries.route('/country/<c_name>', methods=['GET'])
+# def get_countryID(c_name):
+#     # get a cursor object from the database
+#     cursor = db.get_db().cursor()
+#     # use cursor to query the database for a list of products
+#     cursor.execute('SELECT id FROM countries where name = ' + ' \'' + c_name + '\'')
+#     theData = cursor.fetchall()
+#     current_app.logger.info(f'theData = {theData}')
+#     return jsonify(theData)
 
 
 # Get a selected country's details from a countryID
