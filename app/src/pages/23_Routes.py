@@ -152,7 +152,7 @@ def add_route():
 
 
 # Button to add a new route
-if st.button('Add New Route / Update Existing'):
+if st.button('Add New Route'):
     add_route()
 
 
