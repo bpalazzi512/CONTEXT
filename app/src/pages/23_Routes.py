@@ -107,8 +107,8 @@ st.title(f"Routes for {st.session_state['name']}")
 display_routes(df)
 
 userID = st.session_state['id']
-origin = "test"
-destination = "test"
+origin = 1
+destination = 1
 def add_route():
     #with st.form(key='new_route_form'):
         origin = st.selectbox('Origin', ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 
@@ -131,16 +131,25 @@ def add_route():
         rate_value = rate.replace("$", "")
  
         submit_button = st.button(label='Add Route')
+        try:
+            country_name = requests.get(f'http://api:4000/c/get_countryID/{origin}').json()
+        except:
+            st.write('error')
+        
+        try:
+            state_name = requests.get(f'http://api:4000/c/get_stateID/{destination}').json()
+        except:
+            st.write('error')
 
-        country_name = requests.get(f'http://api:4000/c/get_countryID/{origin}').json()
-        state_name = requests.get(f'http://api:4000/c/get_stateID/{destination}').json()
-
+        st.write(str(country_name))
 
 
         new_data = {
                 "MoverID": st.session_state['id'],
                 "Origin": state_name[0]['id'],
                 "Destination": country_name[0]['id'],
+                #"Origin": origin,
+                #"Destination": destination,
                 "Load": load,
                 "Rate": rate_value
         }
