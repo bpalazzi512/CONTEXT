@@ -95,9 +95,10 @@ def display_movers_with_buttons(df):
     button_ph = cols[3].empty()
   
     if button_ph.button("Contact Mover", key=index):
+      now = datetime.utcnow()
       data = {"userID" : st.session_state['id'], 
               "moverID" : row["id"],
-              "dateContacted" : '2023-01-01 10:00:00', #(time.strftime('%Y-%m-%d %H:%M:%S')),
+              "dateContacted" : now.strftime('%Y-%m-%d %H:%M:%S'),
               "contacted" : '0'}
       try:
         requests.post('http://api:4000/mv/userContact', json=data)
