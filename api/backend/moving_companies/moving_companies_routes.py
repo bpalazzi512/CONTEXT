@@ -9,7 +9,7 @@ moving_company = Blueprint('moving_company', __name__)
 
 # Get a list of all moving companies for a given route 
 @moving_company.route('/moving_company/<stateID>/<countryID>', methods=['GET'])
-def get_routes(stateID, countryID):
+def get_mc_with_routes(stateID, countryID):
     current_app.logger.info('moving_company.py: GET /moving_comapny')
     cursor = db.get_db().cursor()
     cursor.execute('select * from movers m join routes r on m.id = r.moverID \
@@ -115,7 +115,17 @@ def add_route():
     return 'Success!'
 
 # get all routes (state, country, load, rate) of given moverID 
-
+@moving_company.route('/routes/<moverID>', methods=['GET'])
+def get_routes(moverID):
+    current_app.logger.info('moverContact.py: GET /moverContact')
+    cursor = db.get_db().cursor()
+    cursor.execute(f'select s.name, c.name, u.load, r.cost \
+                   from users u join states s on u.homeStateID = s.id \
+                   join routes r on s.id = r.fromStateID \
+                   join countries c on c.id = r.toCountryID \
+                   where r.moverID = {moverID}')
+    theData = cursor.fetchall()
+    return jsonify(theData)
 
 
 # Post (add) user to moverContacts 
