@@ -66,12 +66,13 @@ def add_route():
     toCountryID = the_data['Destination']
     moverID = the_data['MoverID']
 
+
     # Constructing the query
-    query = 'insert into routes (cost, load, fromStateID, toCountryID, moverID) values ("'
-    query += str(cost) + '", "'
-    query += str(load) + '", "'
-    query += str(fromStateID) + '", "'
-    query += str(toCountryID) + '", '
+    query = 'insert into routes (cost, load, fromStateID, toCountryID, moverID) values ('
+    query += str(cost) + ', "'
+    query += str(load) + '", '
+    query += str(fromStateID) + ', '
+    query += str(toCountryID) + ', '
     query += str(moverID) + ')'
     current_app.logger.info(query)
 

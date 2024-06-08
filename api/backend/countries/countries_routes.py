@@ -9,8 +9,40 @@ from dotenv import load_dotenv
 
 countries = Blueprint('countries', __name__)
 
+@countries.route('/countries', methods=['GET'])
+def get_countries():
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    # use cursor to query the database for a list of products
+    cursor.execute('SELECT * FROM countries')
+    theData = cursor.fetchall()
+    current_app.logger.info(f'theData = {theData}')
+    return jsonify(theData)
 
-# # Get all countries from the DB
+#get countryID given country name
+@countries.route('/get_countryID/<country>', methods=['GET'])
+def get_countryID(country):
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    # use cursor to query the database for a list of products
+    cursor.execute(f'SELECT id FROM countries where name = {country}')
+    theData = cursor.fetchall()
+    current_app.logger.info(f'theData = {theData}')
+    return jsonify(theData)
+
+#get stateID given state name
+@countries.route('/get_stateID/<state>', methods=['GET'])
+def get_stateID(state):
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    # use cursor to query the database for a list of products
+    cursor.execute(f'SELECT id FROM states where stateName = {state}')
+    theData = cursor.fetchall()
+    current_app.logger.info(f'theData = {theData}')
+    return jsonify(theData)
+
+
+# Get all countries from the DB
 @countries.route('/countries', methods=['GET'])
 def get_countries():
     # get a cursor object from the database

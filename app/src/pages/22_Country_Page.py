@@ -39,6 +39,7 @@ if st.button('Back',
 image_url = country_data[0]['img_link']
 st.image(image_url, use_column_width=True)
 
+
 # Country Bio
 st.subheader("Bio")
 st.markdown(country_data[0]['bio'])

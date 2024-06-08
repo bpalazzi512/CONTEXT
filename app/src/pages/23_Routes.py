@@ -22,6 +22,26 @@ except:
 
 df = pd.DataFrame(data)
 
+# # init fields with random data
+# email = "test@gmail.com"
+# age = 25
+# phone = "123-456-7890"
+# first_name = "John"
+# last_name = "Doe"
+# home_state = "California"
+# move_load = "Full Household"
+
+# for index, rows in df.iterrows():
+#     email = rows['email']
+#     age = rows['age']
+#     phone = rows['phone']
+#     first_name = rows['firstName']
+#     last_name = rows['lastName']
+#     home_state = rows['homeStateID']
+#     move_load = rows['moveLoad']
+
+
+
 # Function to display the routes
 def display_routes(df):
     header_cols = st.columns([3, 4, 4, 2, 2, 2])
@@ -35,12 +55,33 @@ def display_routes(df):
     edit_buttons = {}
     del_buttons = {}
 
+
+
     for index, row in df.iterrows():
         cols = st.columns([3, 4, 4, 2, 2, 2])
-        cols[0].write(row["stateName"])
-        cols[1].write(row["name"])
-        load = cols[2].selectbox('', ['Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], index=0, key=f"moveL_{index}")
-        cost = cols[3].text_input('', row['cost'], key=f"cost_{index}")
+        load = row['moveLoad']
+        if load == 'Full Household':
+            loadIndex = 0
+        elif load == 'Part HouseHold':
+            loadIndex = 1
+        elif load == 'Personal Effects Only':
+            loadIndex = 2
+        elif load == 'Excess Baggage':
+            loadIndex = 3
+        else:
+            loadIndex = 4
+        cols[0].markdown("")
+        cols[0].markdown("")
+        cols[1].markdown("")
+        cols[1].markdown("")
+        cols[0].markdown(row['stateName'])
+        cols[1].markdown(row['name'])
+        load = cols[2].selectbox('load',['Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], index = loadIndex, key=f"moveL_{index}")
+        cost = cols[3].text_input('cost', '$' + str(row['cost']), key=f"cost_{index}")
+        cols[4].markdown("")
+        cols[4].markdown("")
+        cols[5].markdown("")
+        cols[5].markdown("")
         edit_buttons[index] = cols[4].button('Update', key=f"edit_{index}")
         del_buttons[index] = cols[5].button('Delete', key=f"del_{index}")
         route_id = df['id'][index]
@@ -68,7 +109,7 @@ display_routes(df)
 userID = st.session_state['id']
 
 def add_route():
-    with st.form(key='new_route_form'):
+    #with st.form(key='new_route_form'):
         origin = st.selectbox('Origin', ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 
                                          'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 
                                          'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 
@@ -77,25 +118,39 @@ def add_route():
                                          'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 
                                          'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 
                                          'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 
-                                         'Wisconsin', 'Wyoming'])
-        
+                                         'Wisconsin', 'Wyoming'], placeholder = "choose")
+
         destination = st.selectbox('Destination', ['Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic',
                                                    'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary',
                                                    'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands',
-                                                   'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden'])
+                                                   'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden'], placeholder = "")
         load = st.selectbox('Load', ['Full Household', 'Part Household', 
-                                     'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'])
-        rate = st.text_input('Rate')
-        submit_button = st.form_submit_button(label='Add Route')
+                                     'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], placeholder = "choose")
+        rate = st.text_input('Rate', '$')
+        rate_value = rate.replace("$", "")
+ 
+        submit_button = st.button(label='Add Route')
+
+        country_name = requests.get(f'http://api:4000/c/get_countryID/{origin}').json()
+        state_name = requests.get(f'http://api:4000/c/get_stateID/{destination}').json()
+
+
+
+        new_data = {
+                "MoverID": st.session_state['id'],
+                "Origin": state_name[0]['id'],
+                "Destination": country_name[0]['id'],
+                "Load": load,
+                "Rate": rate_value
+        }
+
+        
+        st.write(new_data)
 
         if submit_button:
-            new_data = {
-                "MoverID": st.session_state['id'],
-                "Origin": origin,
-                "Destination": destination,
-                "Load": load,
-                "Rate": rate
-            }
+            
+
+            st.write(new_data)
             try: 
                 response = requests.post("http://api:4000/r/add_route", json=new_data)
             except:
@@ -109,6 +164,4 @@ def add_route():
             else:
                 st.error("Failed to add route. Please try again.")
 
-# Button to add a new route
-if st.button('Add New Route'):
-    add_route()
+add_route()
