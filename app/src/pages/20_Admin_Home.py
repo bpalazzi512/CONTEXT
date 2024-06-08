@@ -61,34 +61,4 @@ if st.button("Save Tips"):
     st.success("Section updated successfully!")
 
 
-# # Define the CSS for the scrollable box
-# scrollable_box_css = """
-# <style>
-# .scrollable-box {
-#     height: 400px;
-#     overflow-y: scroll;
-#     padding: 10px;
-#     border: 1px solid #ccc;
-# }
-# </style>
-# """
-
-# # Apply the CSS to the app
-# st.markdown(scrollable_box_css, unsafe_allow_html=True)
-
-# # Create a scrollable box using a Streamlit container
-# with st.container():
-#     st.markdown('<div class="scrollable-box">', unsafe_allow_html=True)
-    
-#     # Add Streamlit elements inside the scrollable box
-#     for i in range(20):
-#         st.button(f"Button {i+1}")
-#         st.write(f"Content block {i+1}")
-#         st.text_area(f"Input {i+1}")
-    
-#     st.markdown('</div>', unsafe_allow_html=True)
-
-# # Additional content outside the scrollable box
-# st.write("Some other content outside the scrollable box.")
-
 

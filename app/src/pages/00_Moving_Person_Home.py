@@ -16,29 +16,51 @@ st.title(f"Welcome back {st.session_state['name']}")
 st.write('')
 st.write('')
 st.write('### Explore suitable countries based on your preferences')
+userID = st.session_state['id']
 
 col1, col2 = st.columns(2)
+
+# load user slider data 
+slider_data = {}
+try:
+    slider_data = requests.get(f'http://api:4000/ml/sliders/{userID}').json()
+except:
+    st.write("**Important**: Could not connect to sample api, so using dummy data.")
+    slider_data = {"weather": 50, "transport": 50, "education": 50, "safety": 50, "pop_density": 50, "healthcare": 50, "leisure": 50, "COL": 50}
+
+# get values from the slider data
+weather_val = int(slider_data[0]['weather'])
+transport_val = int(slider_data[0]['transport'])
+education_val =  int(slider_data[0]['education'])
+safety_val = int(slider_data[0]['safety'])
+pop_density_val = int(slider_data[0]['pop_density'])
+healthcare_val = int(slider_data[0]['healthcare'])
+leisure_val = int(slider_data[0]['leisure'])
+COL_val = int(slider_data[0]['COL'])
 
 with col1:
     st.header("How much do you care about the following categories?")
     col3, col4 = st.columns(2)
     with col3:
         # Create sliders
-        warm_weather = st.slider("Robust Public Tranport", 0, 100, 50)
-        robust_public_transport = st.slider("Safety", 0, 100, 50)
-        good_public_education = st.slider("Good public education", 0, 100, 50)
-        safety = st.slider("Comprehension of Your Language", 0, 100, 50)
+        warm_weather = st.slider("Robust Public Tranport", 0, 100, weather_val)
+        robust_public_transport = st.slider("Safety", 0, 100, transport_val)
+        good_public_education = st.slider("Good public education", 0, 100, education_val)
+        safety = st.slider("Comprehension of Your Language", 0, 100, safety_val)
 
     with col4:
-        pop_density = st.slider("Population Density", 0, 100, 50)
-        healthcare = st.slider("Good Public Healthcare", 0, 100, 50)
-        leisure = st.slider("Lots of Activites", 0, 100, 50)
-        cost_of_living = st.slider("Cost of Living", 0, 100, 50)
+        pop_density = st.slider("Population Density", 0, 100, pop_density_val)
+        healthcare = st.slider("Good Public Healthcare", 0, 100, healthcare_val)
+        leisure = st.slider("Lots of Activites", 0, 100, leisure_val)
+        cost_of_living = st.slider("Cost of Living", 0, 100, COL_val)
 
     # Save and Generate Ranking
-    
+    # Save button
+    if st.button("Save and Generate Ranking"):
+        data = {"weather": warm_weather, "transport": robust_public_transport, "education": good_public_education, "safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "COL": cost_of_living, "userID": userID}
+        requests.put('http://api:4000/ml/sliders', json=data)
+        st.success("Section updated successfully!")
 
-userID = st.session_state['id']
 
 with col2:
     with st.container(border=True, height=600):

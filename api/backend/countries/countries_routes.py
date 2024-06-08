@@ -71,11 +71,11 @@ def update_country_bio():
     finally:
         if cursor:
             cursor.close()
-    
+
+ 
 # Put (edit) tips of a country as admin
-@countries.route('/country/tips', methods = ['PUT'])
-def update_country_tips():
-    
+@countries.route('/country/tips', methods=['PUT'])
+def update_sliders():
     try:
         recieved_data = request.json
 
@@ -97,7 +97,8 @@ def update_country_tips():
         return make_response(jsonify({"error": "Internal server error"}), 500)
     finally:
         if cursor:
-            cursor.close()
+            cursor.close()           
+    
     
 
 # Get a list of all the languages for a country

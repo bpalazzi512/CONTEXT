@@ -111,3 +111,24 @@ CREATE TABLE IF NOT EXISTS routes (
     FOREIGN KEY (moverID) REFERENCES movers(id)
 
 );
+
+create table if not exists sliders (
+    weather int,
+    transport int,
+    education int,
+    safety int,
+    pop_density int,
+    healthcare int,
+    leisure int,
+    COL int,
+    userID int unique not null,
+    check (weather between 0 and 100),
+    check (transport between 0 and 100),
+    check (education between 0 and 100),
+    check (safety between 0 and 100),
+    check (pop_density between 0 and 100),
+    check (healthcare between 0 and 100),
+    check (leisure between 0 and 100),
+    check (COL between 0 and 100),
+    foreign key (userID) references users(id)
+)

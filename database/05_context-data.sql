@@ -1906,3 +1906,6 @@ insert into countryRankings (countryID, rankingNum, userID, id) values (24, 24, 
 insert into countryRankings (countryID, rankingNum, userID, id) values (25, 25, 15, 25);
 insert into countryRankings (countryID, rankingNum, userID, id) values (26, 26, 15, 26);
 insert into countryRankings (countryID, rankingNum, userID, id) values (27, 27, 15, 27);
+
+-- REMOVE THIS
+insert into sliders (weather, transport, education, safety, pop_density, healthcare, leisure, COL, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);
