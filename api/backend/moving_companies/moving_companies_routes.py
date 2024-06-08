@@ -7,6 +7,15 @@ from backend.db_connection import db
 
 moving_company = Blueprint('moving_company', __name__)
 
+# get moving company for given id
+@moving_company.route('/moving_company/<moverID>', methods=['GET'])
+def get_mover(moverID):
+    current_app.logger.info('moving_company.py: GET /moving_company')
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from movers where id = ' + str(moverID))
+    theData = cursor.fetchall()
+    return jsonify(theData)
+
 # Get a list of all moving companies for a given route 
 @moving_company.route('/moving_company/<stateID>/<countryID>', methods=['GET'])
 def get_mc_for_route(stateID, countryID):
