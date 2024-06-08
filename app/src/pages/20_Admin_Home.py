@@ -29,9 +29,10 @@ except:
   country_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
 country_name = country_data[0]['name']
+adminName = st.session_state['name']
 
 # Country Name
-st.title(f"{country_name} | Admin")
+st.title(f"{country_name} | Admin {adminName}")
 
 #Image
 image_url = country_data[0]['img_link']
