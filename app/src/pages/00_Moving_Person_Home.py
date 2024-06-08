@@ -6,7 +6,6 @@ import plotly.express as px
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
-from ml_models.cos_model import CosineSimilarityModel as csm
 
 st.set_page_config(layout = 'wide')
 
@@ -59,19 +58,10 @@ with col1:
     # Save button
     if st.button("Save and Generate Ranking"):
         data = {"weather": warm_weather, "transport": robust_public_transport, "education": good_public_education, "safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "COL": cost_of_living, "userID": userID}
-        requests.put('http://api:4000/ml/sliders', json=data)
-        ranking_dict = csm.find_closest_country(userID)
+        requests.put('http://api:4000/ml/sliders', json=data)  
 
-        # for loop which inserts each number and country id into the database
-        for i in range(1, len(ranking_dict)+1):
-            # get country id from country name
-            rankingNum = i
-            countryName = ranking_dict[str(i)]
-            countryID = requests.get(f'http://api:4000/c/getCountryID/{countryName}').json()[0]['id']
-            userID = st.session_state['id']
-
-            data = {"rankingNum": rankingNum, "countryID": countryID, "userID": userID}
-            requests.put('http://api:4000/u/rankings', json=data)
+        ranking_data = requests.get(f'http://api:4000/ml/rankings/{userID}/generate').json()
+        requests.put('http://api:4000/ml/rankings', json=ranking_data)      
 
         st.success("Section updated successfully!")
 

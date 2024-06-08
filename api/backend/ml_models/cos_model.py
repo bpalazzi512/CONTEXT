@@ -83,7 +83,7 @@ class CosineSimilarityModel:
             percentiles[feature] = self.translate_to_percentiles(user_input[feature], feature)
         return percentiles
 
-    def find_closest_country(self, userID, top_n=27):
+    def find_closest_country(self, userID=15, top_n=27):
         """
         Find the top N closest countries based on user preferences.
 
