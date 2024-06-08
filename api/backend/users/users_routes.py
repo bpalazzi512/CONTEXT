@@ -42,6 +42,17 @@ def get_user_rankings(userID):
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
 
+# Update the rankings for a given user
+@users.route('/users/rankings', methods=['PUT'])
+def update_user_rankings():
+    data = request.get_json()
+    cursor = db.get_db().cursor()
+    cursor.execute('''
+                   INSERT INTO countryRankings (userID, countryID, ranking) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE ranking = %s
+                   ''', (data['userID'], data['countryID'], data['ranking'], data['ranking']))
+    db.get_db().commit()
+    return jsonify({"message": "Rankings updated successfully!"})
+
 # Put (edit) users profile 
 
 # Put (edit) country admin profile 
