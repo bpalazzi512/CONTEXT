@@ -117,6 +117,10 @@ class CosineSimilarityModel:
         # Find the matching country
         match_countries = self.X_scaled_df.iloc[top_matches]['country'].values
 
-        # Output the result
-        return [f"match_{i + 1}: {country.title()}" for i, country in enumerate(match_countries)]
+        # Output the result as a dictionary
+        result_dict = {}
+        for i, country in enumerate(match_countries):
+            result_dict[f"match_{i + 1}"] = country.title()
+
+        return result_dict
 
