@@ -51,6 +51,15 @@ def delete_route(route_id):
     
     return 'Route deleted successfully!', 200
 
+@routes.route('/get_count', methods=["GET"])
+def get_count():
+    current_app.logger.info('moverContact.py: GET /moverContact')
+    # Execute the query
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT COUNT(*) as count FROM routes')
+    theData = cursor.fetchall()
+    return jsonify(theData)
+
 # Post (add) a new route
 @routes.route('/add_route', methods=['POST'])
 def add_route():
@@ -59,7 +68,11 @@ def add_route():
     the_data = request.json
     current_app.logger.info(the_data)
 
+    # theData = get_count()
+    
+
     #extracting the variable
+    id = the_data['id']
     cost = the_data['Rate']
     load = the_data['Load']
     fromStateID = the_data['Origin']
@@ -68,9 +81,10 @@ def add_route():
 
 
     # Constructing the query
-    query = 'insert into routes (cost, load, fromStateID, toCountryID, moverID) values ('
-    query += str(cost) + ', "'
-    query += str(load) + '", '
+    query = 'insert ignore into routes (id, cost, moveLoad, fromStateID, toCountryID, moverID) values ('
+    query += str(id) + ', '
+    query += str(cost) + ', \''
+    query += str(load) + '\', '
     query += str(fromStateID) + ', '
     query += str(toCountryID) + ', '
     query += str(moverID) + ')'
