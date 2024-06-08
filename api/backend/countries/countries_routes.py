@@ -79,6 +79,7 @@ def update_country_tips():
     try:
         recieved_data = request.json
 
+
         tips = str(recieved_data["tips"])
         countryID = int(recieved_data["countryID"])
         current_app.logger.info("Updating tips for country with countryID: " + str(countryID) + " and tips: " + tips)

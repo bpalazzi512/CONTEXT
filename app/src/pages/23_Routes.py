@@ -17,12 +17,18 @@ SideBarLinks()
 data = {}
 moverID = st.session_state['id']
 try:
-    data = requests.get(f'http://api:4000/r/routes/{moverID}').json()
+    data = requests.get(f'http://api:4000/r/all_routes/{moverID}').json()
 except:
     st.write("error!")
 
 df = pd.DataFrame(data)
 
+col1, col2= st.columns(2)
+
+
+
+moveLoad_txt = df["moveLoad"][0]
+st.write(moveLoad_txt)
 
 edit_buttons = {}
 del_buttons = {}
@@ -36,22 +42,58 @@ def display_routes(df):
 
     for index, row in df.iterrows():
         cols = st.columns([3, 4, 4, 2, 2, 2])
-        cols[0].write(row["stateName"])
-        cols[1].write(row["name"])
-        cols[2].write(row["moveLoad"])
-        cols[3].write('$' + str(row["cost"]))
-        edit_buttons[index] = cols[4].button('Edit', key = f"edit_{index}")
+
+        moveLoad_txt = df["moveLoad"][index]
+        cost_txt = df['cost'][index]
+        # with col0:
+        #     st.write(cols[0].write(row["stateName"]))
+        # with col1:
+        #     st.write(cols[1].write(row["name"]))
+        with col1:
+            col2, col3 = st.columns(2)
+            st.write(row["stateName"])
+            st.write(row["name"])
+        with col2:
+            cols[2] = st.text_input('', moveLoad_txt,  placeholder='moveLoad',
+                                key =f"moveL_{index}")
+        with col3:
+            cols[3] = st.text_input('', cost_txt, placeholder='cost', 
+                               key =f"cost_{index}")
+        #cols[2].write(row["moveLoad"])
+        #cols[3].write('$' + str(row["cost"]))
+        edit_buttons[index] = cols[4].button('Update', key = f"edit_{index}")
+        
         del_buttons[index] = cols[5].button('Delete', key = f"del_{index}")
-
-    for index, edit in edit_buttons.items():
-        if edit:
-            user_id = df.at[index, 'id']
-            response = requests.delete(f'http://api:4000/mv/userContact/{user_id}/{moverID}')
+        route_id = df['id'][index]
+    #for index, delete in del_buttons.items():
+        if del_buttons[index]:
+            response = requests.delete(f'http://api:4000/r/del_routes/{route_id}')
             if response.status_code == 200:
-                st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
+                st.success(f"Deleted route {route_id}")
             else:
-                st.error(f"Failed to delete contact for userID: {user_id}, moverID: {moverID}")
+                st.error(f"Failed delete route {route_id}")
 
+        if edit_buttons[index]:
+            data = {"moveLoad" : cols[2], # moveLoad input
+                    "cost" : cols[3], # cost input
+                    "id" : str(route_id)} # routeID 
+            response = requests.put(f'http://api:4000/r/routes_edit', json = data)
+            if response.status_code == 200:
+                st.success(f"edited {route_id}")
+            else:
+                st.error(f"Failed to edit {route_id}")
+                
+# if st.button("Save Bio"):
+#     data = {"countryID" : countryID, "bio" : bio}
+#     requests.put('http://api:4000/c/country/bio', json=data)
+#     st.success("Section updated successfully!")
+
+#     fromStateID int NOT NULL,
+#     toCountryID int NOT NULL,
+#     moverID int NOT NULL,
+#     moveLoad ENUM('Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only') NOT NULL,
+#     cost int,
+#     id int NOT NULL,
 
 # Page Title
 st.title(f"Routes for {st.session_state['name']}")

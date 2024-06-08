@@ -46,9 +46,7 @@ with col2:
             "Bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "..."],
         }
 
-        try:
-            # Get country ranking data
-            data = requests.get('http://api:4000/c/countries').json()
+
 
 
         df = pd.DataFrame(data)
