@@ -9,7 +9,7 @@ moving_company = Blueprint('moving_company', __name__)
 
 # Get a list of all moving companies for a given route 
 @moving_company.route('/moving_company/<stateID>/<countryID>', methods=['GET'])
-def get_routes(stateID, countryID):
+def get_mc_for_route(stateID, countryID):
     current_app.logger.info('moving_company.py: GET /moving_company')
     cursor = db.get_db().cursor()
     cursor.execute('select * from movers m join routes r on m.id = r.moverID \
