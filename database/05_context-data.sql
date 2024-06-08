@@ -1879,3 +1879,33 @@ insert into moverContacts (userID, moverID, dateContacted, routeID) values ('44'
 insert into moverContacts (userID, moverID, dateContacted, routeID) values ('25', '9', '2023-03-25 20:38:41', '185');
 insert into moverContacts (userID, moverID, dateContacted, routeID) values ('33', '35', '2023-07-21 08:52:47', '738');
 
+insert into countryRankings (countryID, rankingNum, userID, id) values (1, 1, 15, 1);
+insert into countryRankings (countryID, rankingNum, userID, id) values (2, 2, 15, 2);
+insert into countryRankings (countryID, rankingNum, userID, id) values (3, 3, 15, 3);
+insert into countryRankings (countryID, rankingNum, userID, id) values (4, 4, 15, 4);
+insert into countryRankings (countryID, rankingNum, userID, id) values (5, 5, 15, 5);
+insert into countryRankings (countryID, rankingNum, userID, id) values (6, 6, 15, 6);
+insert into countryRankings (countryID, rankingNum, userID, id) values (7, 7, 15, 7);
+insert into countryRankings (countryID, rankingNum, userID, id) values (8, 8, 15, 8);
+insert into countryRankings (countryID, rankingNum, userID, id) values (9, 9, 15, 9);
+insert into countryRankings (countryID, rankingNum, userID, id) values (10, 10, 15, 10);
+insert into countryRankings (countryID, rankingNum, userID, id) values (11, 11, 15, 11);
+insert into countryRankings (countryID, rankingNum, userID, id) values (12, 12, 15, 12);
+insert into countryRankings (countryID, rankingNum, userID, id) values (13, 13, 15, 13);
+insert into countryRankings (countryID, rankingNum, userID, id) values (14, 14, 15, 14);
+insert into countryRankings (countryID, rankingNum, userID, id) values (15, 15, 15, 15);
+insert into countryRankings (countryID, rankingNum, userID, id) values (16, 16, 15, 16);
+insert into countryRankings (countryID, rankingNum, userID, id) values (17, 17, 15, 17);
+insert into countryRankings (countryID, rankingNum, userID, id) values (18, 18, 15, 18);
+insert into countryRankings (countryID, rankingNum, userID, id) values (19, 19, 15, 19);
+insert into countryRankings (countryID, rankingNum, userID, id) values (20, 20, 15, 20);
+insert into countryRankings (countryID, rankingNum, userID, id) values (21, 21, 15, 21);
+insert into countryRankings (countryID, rankingNum, userID, id) values (22, 22, 15, 22);
+insert into countryRankings (countryID, rankingNum, userID, id) values (23, 23, 15, 23);
+insert into countryRankings (countryID, rankingNum, userID, id) values (24, 24, 15, 24);
+insert into countryRankings (countryID, rankingNum, userID, id) values (25, 25, 15, 25);
+insert into countryRankings (countryID, rankingNum, userID, id) values (26, 26, 15, 26);
+insert into countryRankings (countryID, rankingNum, userID, id) values (27, 27, 15, 27);
+
+-- REMOVE THIS
+insert into sliders (weather, transport, education, safety, pop_density, healthcare, leisure, COL, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);

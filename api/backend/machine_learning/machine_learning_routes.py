@@ -7,6 +7,7 @@ from backend.ml_models.model import CrimeModel
 
 machine_learning = Blueprint('machine_learning', __name__)
 
+# returns the crime training data
 @machine_learning.route('crime/training', methods=['GET'])
 def get_crime_training():
     current_app.logger.info('GET /ml/crime_training route')
@@ -17,12 +18,14 @@ def get_crime_training():
     return jsonify(theData)
 
 
+# returns the crime prediction for a given country and year
 @machine_learning.route('crime/predict/<country>/<year>', methods=['GET'])
 def get_crime_prediction(country, year):
     model = CrimeModel()
     country = country[0].upper() + country[1:].lower()
     return [model.predict(country, int(year))]
 
+# returns the crime prediction for a given country and year
 @machine_learning.route('crime/predict/<country>', methods=['GET'])
 def get_crime_prediction_years(country):
     model = CrimeModel()
@@ -34,6 +37,51 @@ def get_crime_prediction_years(country):
         values.append(model.predict(country, int(year)))
     
     return jsonify({"Year" : years, "Predicted Number of Crimes (Per 100k People)" : values})
+
+
+# returns the slider data for a given user
+@machine_learning.route('sliders/<userID>', methods=['GET'])
+def get_sliders(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute(f'SELECT * FROM sliders WHERE userID = {userID}')
+    theData = cursor.fetchall()
+    return jsonify(theData)
+
+# updates the slider data for a given user
+@machine_learning.route('/sliders', methods = ['PUT'])
+def update_country_tips():
+    
+    try:
+        recieved_data = request.json
+
+        weather = int(recieved_data["weather"])
+        transport = int(recieved_data["transport"])
+        education = int(recieved_data["education"])
+        safety = int(recieved_data["safety"])
+        pop_density = int(recieved_data["pop_density"])
+        healthcare = int(recieved_data["healthcare"])
+        leisure = int(recieved_data["leisure"])
+        cost_of_life = int(recieved_data["COL"])
+        userID = int(recieved_data["userID"])
+
+        connection = db.get_db()
+        cursor = connection.cursor()
+        
+        query = "UPDATE sliders SET weather = %s, transport = %s, education = %s, safety = %s, pop_density = %s, healthcare = %s, leisure = %s, COL = %s WHERE userID = %s"
+        current_app.logger.info(query)
+        cursor.execute(query, (weather, transport, education, safety, pop_density, healthcare, leisure, cost_of_life, userID))
+        connection.commit()
+        if cursor.rowcount == 0:
+            return make_response(jsonify({"error": "ID not found"}), 404)
+        return make_response(jsonify({"message": "Sliders updated successfully"}), 200)
+    except Exception as e:
+        current_app.logger.error(f"Error updating sliders, error: {e}")
+        return make_response(jsonify({"error": "Internal server error"}), 500)
+    finally:
+        if cursor:
+            cursor.close()
+    
+
 
 
 

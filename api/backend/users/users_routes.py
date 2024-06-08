@@ -30,6 +30,18 @@ def get_admin_info(userID):
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
 
+# Return the rankings for a given user
+@users.route('/users/<userID>/rankings', methods=['GET'])
+def get_user_rankings(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute('''
+                   SELECT countries.name as countryName, countries.bio, countries.id as countryID FROM countryRankings JOIN countries 
+                   ON countryRankings.countryID = countries.id WHERE userID = '''+ str(userID))
+    # fetch all the data from the cursor
+    theData = cursor.fetchall()
+    current_app.logger.info(f'theData = {theData}')
+    return jsonify(theData)
+
 # Put (edit) users profile 
 
 # Put (edit) country admin profile 
