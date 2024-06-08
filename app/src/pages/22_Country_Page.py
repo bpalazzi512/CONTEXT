@@ -47,6 +47,17 @@ st.markdown(country_data[0]['bio'])
 st.subheader("Tips / Extra Info")
 st.markdown(country_data[0]['tips'])
 
+st.subheader("Stats")
+try:
+  crime_prediction = requests.get(f'http://api:4000/ml/crime/predict/{country_name}').json()
+  df = pd.DataFrame(crime_prediction)
+  formatted_df = df.style.format({"Year": "{:.0f}".format, 'Predicted Number of Crimes (Per 100k People)' : "{:,.0f}".format})
+  st.dataframe(formatted_df, column_order=['Year', 'Predicted Number of Crimes (Per 100k People)'], hide_index = True)
+
+
+except:
+  st.write("Could not load crime predictions at this time")
+
 # Mover Data Table
 st.markdown("## Explore Compatible Movers to this Destination")
 
