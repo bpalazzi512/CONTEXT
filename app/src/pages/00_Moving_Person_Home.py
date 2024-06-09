@@ -66,7 +66,7 @@ with col1:
         for i in range(1, len(ranking_dict)+1):
             # get country id from country name
             rankingNum = i
-            countryName = ranking_dict["1"]
+            countryName = ranking_dict[str(i)]
             
             countryID = requests.get(f'http://api:4000/c/get_countryID/{countryName}').json()[0]['id']
             
@@ -80,17 +80,7 @@ with col2:
     with st.container(border=True, height=600):
         st.header("Country Ranking")
 
-        # Fallback data for country ranking
-        data = {
-            "name": ["Belgium", "Italy", "Hungary", "Greece", "France", "Spain", "Austria", "Netherlands", "Latvia", "Sweeden", 'Denmark'],
-            "bio": ["Start of bio...", "...", "...", "...", "...", "...", "...", "...", "...", "...", "..."],
-        }
-
-        try:
-            # Get country ranking data
-            data = requests.get(f'http://api:4000/u/users/{userID}/rankings').json()
-        except:
-            st.write("**Important**: Could not connect to sample api, so using dummy data.")
+        data = requests.get(f'http://api:4000/ml/rankings/{str(userID)}').json()
 
         df = pd.DataFrame(data)
 
