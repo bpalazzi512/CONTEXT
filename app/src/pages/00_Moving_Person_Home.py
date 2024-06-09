@@ -46,7 +46,7 @@ with col1:
         warm_weather = st.slider("High Temperature", 0, 100, weather_val)
         robust_public_transport = st.slider("Robust Transportation", 0, 100, transport_val)
         good_public_education = st.slider("Good public education", 0, 100, education_val)
-        safety = st.slider("Low Crime Rates", 0, 100, safety_val)
+        safety = st.slider("High Crime Rates", 0, 100, safety_val)
 
     with col4:
         pop_density = st.slider("Population Density", 0, 100, pop_density_val)
@@ -104,14 +104,14 @@ with col2:
                         st.write(f"An error occurred: {e}")
 
 # Interactive Map
-st.header("Interactive Map")
+# st.header("Interactive Map")
 
-# Create a sample map
-df_map = pd.DataFrame({
-    'lat': [52.3676, 48.8566, 51.5074, 40.7128, 35.6895],
-    'lon': [4.9041, 2.3522, -0.1276, -74.0060, 139.6917],
-    'name': ['Amsterdam', 'Paris', 'London', 'New York', 'Tokyo']
-})
+# # Create a sample map
+# df_map = pd.DataFrame({
+#     'lat': [52.3676, 48.8566, 51.5074, 40.7128, 35.6895],
+#     'lon': [4.9041, 2.3522, -0.1276, -74.0060, 139.6917],
+#     'name': ['Amsterdam', 'Paris', 'London', 'New York', 'Tokyo']
+# })
 
-fig = px.scatter_geo(df_map, lat='lat', lon='lon', text='name', scope='world')
-st.plotly_chart(fig, use_container_width=True)
+# fig = px.scatter_geo(df_map, lat='lat', lon='lon', text='name', scope='world')
+# st.plotly_chart(fig, use_container_width=True)
