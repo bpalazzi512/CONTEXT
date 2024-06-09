@@ -14,6 +14,8 @@ st.markdown (
     leisure activities, cost of living, and more. Whether you’re planning your retirement abroad or simply 
     exploring new possibilities, our platform equips you with the necessary information to make an informed decision.
     
+    ![logo](assets/logo.png)
+
     This app is being built as an exemplar for Northeastern University's 
     Summer 2024 Dialogue of Civilization Program titled *Data and 
     Software in International Government and Politics*.  The program is bein
