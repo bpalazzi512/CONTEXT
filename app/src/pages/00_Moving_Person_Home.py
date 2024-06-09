@@ -41,62 +41,42 @@ COL_val = int(slider_data['cost_of_life'])
 
 
 with col1:
-    st.header("How much do you care about the following categories?")
     col3, col4 = st.columns(2)
 
-    with st.container(border=True):
-        warm_weather = st.slider("High Temperature", 0, 100, weather_val)
-        weather_checkbox = st.checkbox("Include in Recommendation", value=slider_data['avg_temp_selected'], key=1)
-    
-    with st.container(border=True):
-        robust_public_transport = st.slider("Robust Transportation", 0, 100, transport_val)
-        transport_checkbox = st.checkbox("Include in Recommendation", value=slider_data['rail_density_selected'], key=2)
+    with col3:
+        with st.container(border=True):
+            warm_weather = st.slider("High Temperature", 0, 100, weather_val)
+            weather_checkbox = st.checkbox("Include in Recommendation", value=slider_data['avg_temp_selected'], key=1)
+        
+        with st.container(border=True):
+            robust_public_transport = st.slider("Robust Transportation", 0, 100, transport_val)
+            transport_checkbox = st.checkbox("Include in Recommendation", value=slider_data['rail_density_selected'], key=2)
 
-    with st.container(border=True):
-        good_public_education = st.slider("Good public education", 0, 100, education_val)
-        education_checkbox = st.checkbox("Include in Recommendation", value=slider_data['education_selected'], key=3)
+        with st.container(border=True):
+            good_public_education = st.slider("Good public education", 0, 100, education_val)
+            education_checkbox = st.checkbox("Include in Recommendation", value=slider_data['education_selected'], key=3)
 
-    with st.container(border=True):
-        safety = st.slider("High Crime Rates", 0, 100, safety_val)
-        safety_checkbox = st.checkbox("Include in Recommendation", value=slider_data['crime_safety_selected'], key=4)
-
-    with st.container(border=True):
-        pop_density = st.slider("Population Density", 0, 100, pop_density_val)
-        pop_density_checkbox = st.checkbox("Include in Recommendation", value=slider_data['pop_density_selected'], key=5)
-
-    with st.container(border=True):
-        healthcare = st.slider("Good Public Healthcare", 0, 100, healthcare_val)
-        healthcare_checkbox = st.checkbox("Include in Recommendation", value=slider_data['healthcare_selected'], key=6)
-
-    with st.container(border=True):
-        leisure = st.slider("Lots of Activites", 0, 100, leisure_val)
-        leisure_checkbox = st.checkbox("Include in Recommendation", value=slider_data['leisure_selected'], key=7)
-
-    with st.container(border=True):
-        cost_of_living = st.slider("Low Cost of Living", 0, 100, COL_val)
-        COL_checkbox = st.checkbox("Include in Recommendation", value=slider_data['cost_of_life_selected'], key=8)
+        with st.container(border=True):
+            safety = st.slider("High Crime Rates", 0, 100, safety_val)
+            safety_checkbox = st.checkbox("Include in Recommendation", value=slider_data['crime_safety_selected'], key=4)
 
 
-    #with col3:
-        # Create sliders
-        
-        
-        
-        
-        
-        
-        
-        
+    with col4:
+        with st.container(border=True):
+            pop_density = st.slider("Population Density", 0, 100, pop_density_val)
+            pop_density_checkbox = st.checkbox("Include in Recommendation", value=slider_data['pop_density_selected'], key=5)
+        with st.container(border=True):
+            healthcare = st.slider("Good Public Healthcare", 0, 100, healthcare_val)
+            healthcare_checkbox = st.checkbox("Include in Recommendation", value=slider_data['healthcare_selected'], key=6)
 
-    #with col4:
-        
-        
-        
-        
-        
-        
-        
-        
+        with st.container(border=True):
+            leisure = st.slider("Lots of Activites", 0, 100, leisure_val)
+            leisure_checkbox = st.checkbox("Include in Recommendation", value=slider_data['leisure_selected'], key=7)
+
+        with st.container(border=True):
+            cost_of_living = st.slider("Low Cost of Living", 0, 100, COL_val)
+            COL_checkbox = st.checkbox("Include in Recommendation", value=slider_data['cost_of_life_selected'], key=8)
+
         
     logger.info('WTF is happening??')
     # Save and Generate Ranking
@@ -122,7 +102,7 @@ with col1:
 
 
 with col2:
-    with st.container(border=True, height=600):
+    with st.container(border=True, height=800):
         st.header("Country Ranking")
 
         data = requests.get(f'http://api:4000/ml/rankings/{str(userID)}').json()

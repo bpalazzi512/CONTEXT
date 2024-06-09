@@ -17,12 +17,7 @@ SideBarLinks()
 
 countryID = st.session_state['countryID']
 
-country_data = {} 
-try:
-  country_data = requests.get(f'http://api:4000/c/countries/{countryID}' ).json()
-except:
-  st.write("**Important**: Could not connect to sample api, so using dummy data.")
-  country_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+country_data = requests.get(f'http://api:4000/c/countries/{countryID}' ).json()
 
 # Country Name
 country_name = country_data[0]['name']
@@ -67,6 +62,19 @@ with col1:
   formatted_df = df.style.format({"Year": "{:.0f}".format, 'Predicted Number of Crimes (Per 100k People)' : "{:,.0f}".format})
   st.dataframe(formatted_df, column_order=['Year', 'Predicted Number of Crimes (Per 100k People)'], hide_index = True)
 
+  happy = country_data[0]['happinessIndex']
+  area = country_data[0]['square_kilos']
+  official_languages = country_data[0]['official_lang'] 
+  widely_spoken_languages = country_data[0]['widely_spoken_lang']
+  population = country_data[0]['pop_density'] * area
+  avg_temp = country_data[0]['avg_temp']
+
+  st.write(f"**Area**: {area} sq km")
+  st.write(f"**Official Language(s)**: {official_languages}")
+  st.write(f"*Average Temp (C)**: {avg_temp}")
+  st.write(f"**Happiness Index**: {round(happy, 2)}")
+  st.write(f"**Population**: {population}")
+
 with col2:
   fig, ax = plt.subplots()
   ax.plot(df['Year'], df['Predicted Number of Crimes (Per 100k People)'], marker='o', linestyle='-')
@@ -76,10 +84,6 @@ with col2:
   ax.grid(True)
   
   st.pyplot(fig)
-
-
-
-
 
 
 user_data = {}
