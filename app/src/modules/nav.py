@@ -31,7 +31,7 @@ def AdminPageNav():
     st.sidebar.page_link("pages/20_Admin_Home.py", label="Edit Page", icon='🔧')
 
 def AdminViewUsers():
-    st.sidebar.page_link("pages/21_Admin_View_Users.py", label="View as User", icon='🖥️')
+    st.sidebar.page_link("pages/22_Country_Page.py", label="View as User", icon='🖥️')
 
 def AdminProfileNav():
     st.sidebar.page_link("pages/25_Admin_Profile.py", label="Update Profile", icon='👤')
