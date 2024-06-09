@@ -71,8 +71,8 @@ with col1:
 
   st.write(f"**Area**: {area} sq km")
   st.write(f"**Official Language(s)**: {official_languages}")
-  st.write(f"*Average Temp (C)**: {avg_temp}")
-  st.write(f"**Happiness Index**: {round(happy, 2)}")
+  st.write(f"**Average Temp (C)**: {avg_temp}")
+  st.write(f"**Happiness Index**: {round(happy, 2)} (European Average = 19.61)")
   st.write(f"**Population**: {population}")
 
 with col2:
