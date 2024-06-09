@@ -752,6 +752,10 @@ VALUES
 -- (1, 10, 2, 2000),
 -- (5, 5, 5, 9000);
 
+-- Sample INSERT statements for moverContacts with moverID = 2
+
+
+
 insert into movers (id, email, moverName, phone, stars, numReviews, bio) values (1, 'ebessom0@blogger.com', 'Shufflebeat', '(268) 3388397', 2, 222, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.');
 insert into movers (id, email, moverName, phone, stars, numReviews, bio) values (2, 'rcabrara1@google.pl', 'Thoughtstorm', '(861) 6074369', 5, 222, 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus.');
 insert into movers (id, email, moverName, phone, stars, numReviews, bio) values (3, 'cbalderstone2@baidu.com', 'Realbuzz', '(538) 4307208', 2, 80, 'Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.');

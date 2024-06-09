@@ -19,6 +19,7 @@ st.write('### HI! Log in as one of the following:')
 st.write("")
 
 col1, col2, col3 = st.columns(3)
+col4, col5, col6 = st.columns(3)
 #cols = st.columns([2, , 3])
 user_url = 'https://thumbs.dreamstime.com/z/portrait-young-handsome-happy-man-wearing-glasses-casual-smart-blue-clothing-yellow-color-background-square-composition-200740125.jpg'
 mover_url = 'https://i.pinimg.com/474x/97/a6/d8/97a6d89e9adc9123031ddbd64ed35d72.jpg'
@@ -26,9 +27,13 @@ admin_url = 'https://cdn-icons-png.freepik.com/512/295/295608.png'
 
 
 with col1:
-  st.image(user_url, width = 100, output_format='centered')
-  st.image(mover_url, width = 100)
-  st.image(admin_url, width = 100)
+    col4, col5, col6 = st.columns(3)
+    with col5:
+      st.image(user_url, width = 100, output_format='centered')
+      st.image(mover_url, width = 100)
+      st.image(admin_url, width = 100)
+
+
 with col2:
    st.write("**Klement Gorring** is a 62 yearold person who just retired and is **thinking about moving abroad!**")
    st.write("")
