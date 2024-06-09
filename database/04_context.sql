@@ -101,18 +101,18 @@ CREATE TABLE IF NOT EXISTS countryAdmins (
 );
 
 CREATE TABLE IF NOT EXISTS routes (
-    fromStateID int NOT NULL,
-    toCountryID int NOT NULL,
-    moverID int NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    fromStateID INT NOT NULL,
+    toCountryID INT NOT NULL,
+    moverID INT NOT NULL,
     moveLoad ENUM('Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only') NOT NULL,
-    cost int,
-    id int NOT NULL,
-
+    cost INT,
+    
     PRIMARY KEY (id),
+    UNIQUE KEY unique_route (fromStateID, toCountryID, moverID, moveLoad),
     FOREIGN KEY (fromStateID) REFERENCES states(id),
     FOREIGN KEY (toCountryID) REFERENCES countries(id),
     FOREIGN KEY (moverID) REFERENCES movers(id)
-
 );
 
 create table if not exists sliders (
