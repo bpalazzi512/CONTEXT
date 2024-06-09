@@ -37,7 +37,9 @@ with col1:
 with col2:
    st.write("**Klement Gorring** is a 62 yearold person who just retired and is **thinking about moving abroad!**")
    st.write("")
+   st.write("")
    st.write("**Thoughtstorms** is a **moving company** that helps indivudals move from the states to the EU")
+   st.write("")
    st.write("")
    st.write("**Bell Stoner** is a passionate **country admin** for Portugal and gives tips frequently")
 with col3: 
