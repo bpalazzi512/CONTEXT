@@ -28,6 +28,9 @@ def UserProfile():
 def MoverNav():
     st.sidebar.page_link("pages/31_Moving_Company_Home.py", label="Mover Home", icon='💼')
 
+def MoverPage():
+    st.sidebar.page_link("pages/01_Moving_Company.py", label= "View Page as User", icon='🖥️')
+
 
 #### ------------------------ Country Admin Role ------------------------
 def AdminPageNav():
@@ -68,6 +71,7 @@ def SideBarLinks(show_home=False):
         # If the user role is usaid worker, show the Api Testing page
         if st.session_state['role'] == 'moving_company':
             MoverNav() 
+            MoverPage()
         
         # If the user is an administrator, give them access to the administrator pages
         if st.session_state['role'] == 'country_admin':

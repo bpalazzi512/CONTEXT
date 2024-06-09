@@ -36,6 +36,8 @@ if st.button("Act a Person Thinking About Moving Abroad",
 
     st.switch_page('pages/00_Moving_Person_Home.py')
 
+
+
 if st.button('Act as a Moving Company', 
             type = 'primary', 
             use_container_width=True):
@@ -45,6 +47,14 @@ if st.button('Act as a Moving Company',
 
     id = st.session_state['id']
     st.session_state['name'] = 'Dummy Name'
+
+    #for view page session_states:
+    st.session_state['companyID'] = 2
+    st.session_state['companyName'] = 'Thoughtstorm'
+    st.session_state['countryName'] = '(COUNTRY)'
+    st.session_state['userID'] = 1
+    st.session_state['routeID'] = 1
+    st.session_state['stateName'] = '(STATE)'
 
     # make session state user name
     try:
