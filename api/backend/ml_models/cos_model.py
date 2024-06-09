@@ -59,8 +59,6 @@ class CosineSimilarityModel:
         Returns:
             float: Translated percentile value
         """
-        if (feature == "COL"):
-            feature = "cost_of_life"
         
         self.merged_df[feature] = self.merged_df[feature].astype(float)
 
@@ -117,11 +115,10 @@ class CosineSimilarityModel:
         """
 
         response = requests.get(f'http://api:4000/ml/sliders/{userID}')
-        preference_data = response.json()[0]  # Assuming the API returns JSON
+        preference_data = response.json()[0] 
 
         #return preference_data
 
-        
 
         # Translate user inputs to percentiles
         user_percentiles = self.get_user_percentiles(preference_data)
@@ -130,10 +127,6 @@ class CosineSimilarityModel:
         for feature in self.feats:
             user_percentiles_scaled[feature] = (user_percentiles[feature] - self.merged_df[feature].mean()) / self.merged_df[feature].std()
         
-
-        
-    
-    
 
         # Create DataFrame from user percentiles
        #user_df = pd.DataFrame([user_percentiles])
@@ -160,7 +153,3 @@ class CosineSimilarityModel:
 
         return result_dict
 
-# Example usage:
-# cos_model = CosineSimilarityModel()
-# result = cos_model.find_closest_country("some_user_id")
-# print(result)

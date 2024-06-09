@@ -14,10 +14,8 @@ machine_learning = Blueprint('machine_learning', __name__)
 def generate_rankings(userID):
     cos_model = csm()
     ranking_dict = cos_model.find_closest_country(userID=int(userID))
-
-    #return ranking_dict
     
-    #return ranking_dict[1]
+    return ranking_dict
     # for loop which inserts each number and country id into the database
     for i in range(1, len(ranking_dict)+1):
         # get country id from country name
