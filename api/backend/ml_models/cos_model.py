@@ -51,11 +51,17 @@ class CosineSimilarityModel:
         """
         if (feature == "COL"):
             feature = "cost_of_life"
+        
 
+
+        """
         for item in self.merged_df:
             percentiles = np.percentile(float(item[feature]), np.linspace(0, 100, num=101))
             input_percentile_value = np.percentile(float(item[feature]), user_input)
             return input_percentile_value
+        """
+    def testMethod(self) :
+        return self.merged_df
 
     def get_user_percentiles(self, user_input):
         """

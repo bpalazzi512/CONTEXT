@@ -4,6 +4,7 @@ from backend.db_connection import db
 # from backend.ml_models.model import predict
 from dotenv import load_dotenv
 from backend.ml_models.cos_model import CosineSimilarityModel as csm
+from backend.ml_models.model import CrimeModel
 import requests
 
 machine_learning = Blueprint('machine_learning', __name__)
@@ -35,6 +36,13 @@ def get_crime_training():
     theData = cursor.fetchall()
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
+
+
+@machine_learning.route('ranking/test', methods=["GET"])
+def get_test_route():
+    #model = csm()
+    return jsonify({"dict" : 4})
+
 
 
 # returns the crime prediction for a given country and year
