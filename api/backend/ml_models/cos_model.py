@@ -16,7 +16,7 @@ class CosineSimilarityModel:
         data = pd.DataFrame(data)
 
         self.merged_df = data
-        self.feats = data.columns[1:-1]
+        self.feats = data.columns[1::]
         self.scaler = StandardScaler()
         self.X_scaled_df = self._scale_features(data)
 
@@ -33,7 +33,7 @@ class CosineSimilarityModel:
         X = df[self.feats]
         X_scaled = self.scaler.fit_transform(X)
         X_scaled_df = pd.DataFrame(X_scaled, columns=self.feats)
-        X_scaled_df['name'] = df['name']
+        X_scaled_df['0name'] = df['0name']
         X_scaled_df = X_scaled_df.dropna()
         return X_scaled_df
 
@@ -49,9 +49,13 @@ class CosineSimilarityModel:
         Returns:
             float: Translated percentile value
         """
-        percentiles = np.percentile(self.merged_df[feature], np.linspace(0, 100, num=101))
-        input_percentile_value = np.percentile(self.merged_df[feature], user_input)
-        return input_percentile_value
+        if (feature == "COL"):
+            feature = "cost_of_life"
+
+        for item in self.merged_df:
+            percentiles = np.percentile(float(item[feature]), np.linspace(0, 100, num=101))
+            input_percentile_value = np.percentile(float(item[feature]), user_input)
+            return input_percentile_value
 
     def get_user_percentiles(self, user_input):
         """
@@ -63,10 +67,13 @@ class CosineSimilarityModel:
         Returns:
             dict: Dictionary of translated percentiles
         """
+
         percentiles = {}
-        for feature in user_input:
-            percentiles[feature] = self.translate_to_percentiles(user_input=user_input[feature], feature=feature)
-        return percentiles
+        for item in user_input:
+            for feature in item:
+                percentiles[feature] = self.translate_to_percentiles(user_input=feature, feature=feature)
+            return percentiles
+
 
     def find_closest_country(self, userID, top_n=27):
         """
