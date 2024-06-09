@@ -46,8 +46,10 @@ def display_customers(df):
     profit = 0
     for index, row in df.iterrows():
         cols = st.columns([2, 2, 5, 3, 3, 3])
-        cols[0].write(row["firstName"])
-        cols[1].write(row["lastName"])
+        first = row["firstName"]
+        last = row["lastName"]
+        cols[0].write(f"**{first}**")
+        cols[1].write(f"**{last}**")
 
         stateName = row['stateName']
         countryName = row['name']
