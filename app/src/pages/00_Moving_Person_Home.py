@@ -1,5 +1,5 @@
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 import pandas as pd
 import plotly.express as px
@@ -26,13 +26,13 @@ try:
     slider_data = requests.get(f'http://api:4000/ml/sliders/{userID}').json()
 except:
     st.write("**Important**: Could not connect to sample api, so using dummy data.")
-    slider_data = {"avg_temp": 50, "rail_density": 50, "education": 50, "safety": 50, "pop_density": 50, "healthcare": 50, "leisure": 50, "COL": 50}
+    slider_data = {"avg_temp": 50, "rail_density": 50, "education": 50, "crime_safety": 50, "pop_density": 50, "healthcare": 50, "leisure": 50, "COL": 50}
 
 # get values from the slider data
 weather_val = int(slider_data[0]['avg_temp'])
 transport_val = int(slider_data[0]['rail_density'])
 education_val =  int(slider_data[0]['education'])
-safety_val = 100 - int(slider_data[0]['crime_safety'])
+safety_val =  int(slider_data[0]['crime_safety'])
 pop_density_val = int(slider_data[0]['pop_density'])
 healthcare_val = int(slider_data[0]['healthcare'])
 leisure_val = int(slider_data[0]['leisure'])
@@ -43,25 +43,35 @@ with col1:
     col3, col4 = st.columns(2)
     with col3:
         # Create sliders
-        warm_weather = st.slider("Temperature", 0, 100, weather_val)
-        robust_public_transport = st.slider("Rail Transportation", 0, 100, transport_val)
+        warm_weather = st.slider("High Temperature", 0, 100, weather_val)
+        robust_public_transport = st.slider("Robust Transportation", 0, 100, transport_val)
         good_public_education = st.slider("Good public education", 0, 100, education_val)
-        safety = st.slider("Amount of Crime", 0, 100, safety_val)
+        safety = st.slider("Low Crime Rates", 0, 100, safety_val)
 
     with col4:
         pop_density = st.slider("Population Density", 0, 100, pop_density_val)
         healthcare = st.slider("Good Public Healthcare", 0, 100, healthcare_val)
         leisure = st.slider("Lots of Activites", 0, 100, leisure_val)
-        cost_of_living = st.slider("Cost of Living", 0, 100, COL_val)
-
+        cost_of_living = st.slider("Low Cost of Living", 0, 100, COL_val)
+    logger.info('WTF is happening??')
     # Save and Generate Ranking
     # Save button
     if st.button("Save and Generate Ranking"):
         data = {"avg_temp": warm_weather, "rail_density": robust_public_transport, "education": good_public_education, "crime_safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "cost_of_life": cost_of_living, "userID": userID}
         requests.put('http://api:4000/ml/sliders', json=data)  
         
-        ranking_data = requests.get(f'http://api:4000/ml/rankings/{str(userID)}/generate').json()
-        requests.put('http://api:4000/ml/rankings', json=ranking_data)      
+        ranking_dict = requests.get(f'http://api:4000/ml/rankings/{str(userID)}/generate').json()
+        logger.info(f'ranking_dict = {ranking_dict}')
+        # for loop which inserts each number and country id into the database
+        for i in range(1, len(ranking_dict)+1):
+            # get country id from country name
+            rankingNum = i
+            countryName = ranking_dict["1"]
+            
+            countryID = requests.get(f'http://api:4000/c/get_countryID/{countryName}').json()[0]['id']
+            
+            data = {"rankingNum": int(rankingNum), "countryID": int(countryID), "userID": int(userID)}
+            requests.put('http://api:4000/ml/rankings', json=data)      
 
         st.success("Section updated successfully!")
 
@@ -86,8 +96,9 @@ with col2:
 
         # Display ranking
         for index, row in df.iterrows():
-            country_name = row['countryName']
-            country_bio = row['bio']
+            current_country = requests.get('http://api:4000/c/countries/' + str(row['countryID'])).json()
+            country_name = current_country[0]['name']
+            country_bio = current_country[0]['bio']
             with st.expander(f"#{index+1} - {country_name}"):
                 st.write(country_bio)
                 if st.button(f'View Page for {country_name}', 

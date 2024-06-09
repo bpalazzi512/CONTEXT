@@ -16,21 +16,6 @@ def generate_rankings(userID):
     ranking_dict = cos_model.find_closest_country(userID=int(userID))
     
     return ranking_dict
-    # for loop which inserts each number and country id into the database
-    for i in range(1, len(ranking_dict)+1):
-        # get country id from country name
-        rankingNum = i
-        countryName = ranking_dict[i]
-        
-        
-        countryID = requests.get(f'http://api:4000/c/get_countryID/{countryName}').json()[0]['id']
-        
-
-        data = {"rankingNum": int(rankingNum), "countryID": int(countryID), "userID": int(userID)}
-        requests.put('http://api:4000/ml/rankings', json=data)
-        return data
-
-    return make_response(jsonify({"message": "Rankings generated successfully"}), 200)
 
 # Put (edit) the displayed top country rankings
 @machine_learning.route('/rankings', methods=['PUT'])
@@ -39,14 +24,15 @@ def update_rankings():
     ranking_info = request.json
     current_app.logger.info(ranking_info)
     country_id = ranking_info["countryID"]
-    user_id = ranking_info['userID']
+    user_id = ranking_info["userID"]
     rank = ranking_info['rankingNum']
 
+    connection = db.get_db()
+    cursor = connection.cursor()
+
     query = 'UPDATE countryRankings SET rankingNum = %s where countryID = %s AND userID = %s'
-    data = (rank, country_id, user_id)
-    cursor = db.get_db().cursor()
-    r = cursor.execute(query, data)
-    db.get_db().commit()
+    cursor.execute(query, (str(rank), str(country_id), str(user_id)))
+    connection.commit()
     return 'ranking updated!'
 
 # returns the crime training data
@@ -129,6 +115,14 @@ def update_country_tips():
     finally:
         if cursor:
             cursor.close()
+
+# returns the ranking data for a given user
+@machine_learning.route('rankings/<userID>', methods=['GET'])
+def get_rankings(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute(f'SELECT rankingNum, countryID FROM countryRankings WHERE userID = {userID}')
+    theData = cursor.fetchall()
+    return jsonify(theData)
     
 
 
