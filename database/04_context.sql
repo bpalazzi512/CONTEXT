@@ -118,7 +118,7 @@ create table if not exists sliders (
     weather int,
     transport int,
     education int,
-    safety int,
+    crime_safety int,
     pop_density int,
     healthcare int,
     leisure int,
@@ -127,7 +127,7 @@ create table if not exists sliders (
     check (weather between 0 and 100),
     check (transport between 0 and 100),
     check (education between 0 and 100),
-    check (safety between 0 and 100),
+    check (crime_safety between 0 and 100),
     check (pop_density between 0 and 100),
     check (healthcare between 0 and 100),
     check (leisure between 0 and 100),
@@ -135,5 +135,5 @@ create table if not exists sliders (
     foreign key (userID) references users(id)
 )
 
-insert into sliders (weather, transport, education, safety, pop_density, healthcare, leisure, COL, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);
+insert into sliders (weather, transport, education, crime_safety, pop_density, healthcare, leisure, COL, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);
 

@@ -76,7 +76,7 @@ def update_country_tips():
         weather = int(recieved_data["weather"])
         transport = int(recieved_data["transport"])
         education = int(recieved_data["education"])
-        safety = int(recieved_data["safety"])
+        safety = int(recieved_data["crime_safety"])
         pop_density = int(recieved_data["pop_density"])
         healthcare = int(recieved_data["healthcare"])
         leisure = int(recieved_data["leisure"])
@@ -86,7 +86,7 @@ def update_country_tips():
         connection = db.get_db()
         cursor = connection.cursor()
         
-        query = "UPDATE sliders SET weather = %s, transport = %s, education = %s, safety = %s, pop_density = %s, healthcare = %s, leisure = %s, COL = %s WHERE userID = %s"
+        query = "UPDATE sliders SET weather = %s, transport = %s, education = %s, crime_safety = %s, pop_density = %s, healthcare = %s, leisure = %s, COL = %s WHERE userID = %s"
         current_app.logger.info(query)
         cursor.execute(query, (weather, transport, education, safety, pop_density, healthcare, leisure, cost_of_life, userID))
         connection.commit()
