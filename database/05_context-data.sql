@@ -3,7 +3,7 @@ USE context;
 -- REAL DATA!
 
 
-INSERT INTO countries (id, name, education, avg_temp, cost_of_life, healthcare_index, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_link)
+INSERT INTO countries (id, name, education, avg_temp, cost_of_life, healthcare, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_link)
 VALUES
 (1, 'Malta', 2524.5, 19.58,55.1,53.59,1700,'English, Spanish','','','Malta is a beautiful island country located in the Mediterranean Sea. It is known for its rich history, stunning architecture, and vibrant culture.','Explore the charming streets of Valletta, visit the ancient temples of Hagar Qim, and relax on the picturesque beaches of Gozo.','https://assets.vogue.com/photos/599365b2f0b0e21484d3436e/master/w_2560%2Cc_limit/00-lede-a-travel-guide-to-malta.jpg'),
 (2, 'Cyprus', 4538.5, 18.95,57.1,53.74,136,'Greek','', 'English','Cyprus is a Mediterranean island known for its beautiful beaches, ancient ruins, and rich cultural heritage. It offers a perfect blend of history, nature, and relaxation.','Visit the UNESCO World Heritage site of Paphos, explore the stunning Troodos Mountains, and indulge in delicious Cypriot cuisine.','https://www.travelandleisure.com/thmb/_HcHZ4Gr8jbDJ5vcHYzR7a4lXvA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TAL-kourion-archaeological-site-CYPRUS0124-3e8854b03a754966a1a11e4b6dd356c3.jpg'),
@@ -75,6 +75,7 @@ UPDATE countries SET happinessIndex = 19.994285714285713 WHERE name = 'Estonia';
 UPDATE countries SET happinessIndex = 19.897142857142857 WHERE name = 'Finland';
 UPDATE countries SET happinessIndex = 19.914285714285715 WHERE name = 'France';
 UPDATE countries SET happinessIndex = 20.0 WHERE name = 'Greece';
+UPDATE countries SET happinessIndex = 19.61 WHERE name = 'Germany';
 UPDATE countries SET happinessIndex = 19.994285714285713 WHERE name = 'Hungary';
 UPDATE countries SET happinessIndex = 20.002857142857142 WHERE name = 'Ireland';
 UPDATE countries SET happinessIndex = 19.242857142857144 WHERE name = 'Italy';
@@ -97,7 +98,7 @@ UPDATE countries SET leisure = (82.0 + 74.5 + 74.2 + 63.7 + 59.6 + 55.1 + 36.2) 
 UPDATE countries SET leisure = (42.6 + 31.0 + 28.4 + 21.7 + 15.0 + 10.0 + 4.5) / 7 WHERE name = 'Bulgaria';
 UPDATE countries SET leisure = (85.9 + 73.0 + 71.9 + 66.9 + 60.2 + 48.8 + 29.4) / 7 WHERE name = 'Czech Republic';
 UPDATE countries SET leisure = (91.5 + 86.6 + 82.9 + 84.1 + 77.4 + 74.3 + 64.8) / 7 WHERE name = 'Denmark';
-UPDATE countries SET leisure = NULL WHERE name = 'Germany';  -- No data provided
+UPDATE countries SET leisure = 54.24 WHERE name = 'Germany';  -- No data provided
 UPDATE countries SET leisure = (86.9 + 79.5 + 75.4 + 70.1 + 56.8 + 45.9 + 26.2) / 7 WHERE name = 'Estonia';
 UPDATE countries SET leisure = (85.9 + 81.4 + 79.5 + 71.7 + 66.9 + 49.3 + 33.4) / 7 WHERE name = 'Ireland';
 UPDATE countries SET leisure = (69.6 + 61.7 + 47.7 + 43.8 + 36.0 + 22.3 + 10.3) / 7 WHERE name = 'Greece';
@@ -2060,4 +2061,4 @@ insert into countryRankings (countryID, rankingNum, userID, id) values (26, 26, 
 insert into countryRankings (countryID, rankingNum, userID, id) values (27, 27, 15, 27);
 
 -- REMOVE THIS
-insert into sliders (weather, transport, education, crime_safety, pop_density, healthcare, leisure, COL, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);
+insert into sliders (weather, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);

@@ -36,7 +36,7 @@ safety_val = int(slider_data[0]['safety'])
 pop_density_val = int(slider_data[0]['pop_density'])
 healthcare_val = int(slider_data[0]['healthcare'])
 leisure_val = int(slider_data[0]['leisure'])
-COL_val = int(slider_data[0]['COL'])
+COL_val = int(slider_data[0]['cost_of_life'])
 
 with col1:
     st.header("How much do you care about the following categories?")
@@ -57,7 +57,7 @@ with col1:
     # Save and Generate Ranking
     # Save button
     if st.button("Save and Generate Ranking"):
-        data = {"weather": warm_weather, "transport": robust_public_transport, "education": good_public_education, "crime_safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "COL": cost_of_living, "userID": userID}
+        data = {"weather": warm_weather, "rail_density": robust_public_transport, "education": good_public_education, "crime_safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "COL": cost_of_living, "userID": userID}
         requests.put('http://api:4000/ml/sliders', json=data)  
         
         ranking_data = requests.get(f'http://api:4000/ml/rankings/{str(userID)}/generate').json()
