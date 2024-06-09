@@ -12,7 +12,7 @@ VALUES
 (5, 'Spain', 184029.7, 14.07,48.4,53.55,97,'Spanish','Astur-Leonese, Aragonese, Fala, French, Portuguese','','Spain is a diverse country with a rich cultural heritage. It is known for its vibrant festivals, stunning architecture, and delicious cuisine.','Visit the famous Sagrada Familia in Barcelona, explore the historic streets of Seville, and indulge in tapas and paella.','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvCx-6qSsIiNNCT1nkUKDoMQH9wEmuUaE2oA&s'),
 (6, 'Italy',232109.2,13.22,58.9,72.15,195,'Italian','Ladin, Slovene','Other Italo-Dalmatian languages','Italy is a country renowned for its art, history, and cuisine. It is home to iconic landmarks such as the Colosseum, the Leaning Tower of Pisa, and the canals of Venice.','Explore the ancient ruins of Rome, take a gondola ride in Venice, and indulge in authentic Italian pasta and gelato.','https://www.travelandleisure.com/thmb/pH2s7mCAmsjcKWQHsnLz1bAgS7M=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/giotto-bell-tower-florence-EDPICKITALY0221-b5b69b7a4da348c9a4528048e8574285.jpg'),
 (7, 'Croatia',5581.2,11.96,46.9,52.4,71,'Croatian','','English','Croatia is a stunning country located on the Adriatic Sea. It is known for its beautiful coastline, historic cities, and crystal-clear waters.','Visit the historic city of Dubrovnik, explore the Plitvice Lakes National Park, and relax on the picturesque beaches of Hvar.','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTkRvasRxO07ZC0EceSfybMHmn_Oo_HEVIIw&s'),
-(8, 'France',476838.3,11.65,66,55.31,117,'French','Corsican language, Basque language, Breton language','Occitan language','France is a country known for its art, culture, and gastronomy. It is home to iconic landmarks such as the Eiffel Tower, the Louvre Museum, and the Palace of Versailles.','Explore the charming streets of Paris, visit the beautiful vineyards of Bordeaux, and indulge in delicious French cuisine.','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3Cwcwjbhob6MIwyhTy1cZs7Za56rTdZAIrw&s'),
+(8, 'France',476838.3,11.65,66,55.31,117,'French','Corsican language, Basque language, Breton language','Occitan language','France is a country known for its art, culture, and gastronomy. It is home to iconic landmarks such as the Eiffel Tower, the Louvre Museum, and the Palace of Versailles.','Explore the charming streets of Paris, visit the beautiful vineyards of Bordeaux, and indulge in delicious French cuisine.','https://www.welcometofrance.com/app/uploads/2019/12/alexander-kagan-t9Td0zfDTwI-unsplash-1920x1280.jpg'),
 (9, 'Hungary',19540.6,11.5,43.4,49.97,109,'Hungarian','Croatian','','Hungary is a country located in Central Europe. It is known for its rich history, stunning architecture, and thermal baths.','Explore the historic city of Budapest, visit the beautiful Lake Balaton, and indulge in traditional Hungarian dishes like goulash and chimney cake.','https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Budapest_Hungarian_Parliament_%2831363963556%29.jpg/800px-Budapest_Hungarian_Parliament_%2831363963556%29.jpg'),
 (10, 'Bulgaria',9457.8,11.35,38.7,47.02,61,'Bulgarian','','','Bulgaria is a country located in Southeast Europe. It is known for its beautiful landscapes, rich history, and vibrant culture.','Explore the historic city of Sofia, visit the stunning Rila Monastery, and enjoy the beautiful beaches of the Black Sea coast.',''),
 (11, 'Belgium',105815.4,10.67,63,53.99,383,'Dutch, French, German','','English', 'Belgium is a small country known for its delicious chocolates, waffles, and beers. It is home to beautiful medieval cities, stunning architecture, and vibrant cultural festivals.','Explore the historic city of Bruges, indulge in Belgian chocolates and waffles, and visit the famous Atomium in Brussels.','https://media.timeout.com/images/105237873/image.jpg'),
@@ -150,6 +150,39 @@ UPDATE countries SET square_kilos = 20273 WHERE name = 'Slovakia';
 UPDATE countries SET square_kilos = 20273 WHERE name = 'Slovenia';
 UPDATE countries SET square_kilos = 505992 WHERE name = 'Spain';
 UPDATE countries SET square_kilos = 450295 WHERE name = 'Sweden';
+
+UPDATE countries
+SET crime_safety = CASE name
+    WHEN 'Austria' THEN 3413.34
+    WHEN 'Belgium' THEN 5063.96
+    WHEN 'Bulgaria' THEN 765.12
+    WHEN 'Croatia' THEN 1079.29
+    WHEN 'Cyprus' THEN 441.56
+    WHEN 'Czech Republic' THEN 1082.52
+    WHEN 'Denmark' THEN 5446.47
+    WHEN 'Estonia' THEN 1183.07
+    WHEN 'Finland' THEN 4351.18
+    WHEN 'France' THEN 4261.53
+    WHEN 'Germany' THEN 3482.77
+    WHEN 'Greece' THEN 1337.10
+    WHEN 'Hungary' THEN 904.03
+    WHEN 'Ireland' THEN 2322.44
+    WHEN 'Italy' THEN 2744.71
+    WHEN 'Latvia' THEN 1053.39
+    WHEN 'Lithuania' THEN 776.86
+    WHEN 'Luxembourg' THEN 5132.96
+    WHEN 'Malta' THEN 1582.81
+    WHEN 'Netherlands' THEN 2062.01
+    WHEN 'Poland' THEN 1282.78
+    WHEN 'Portugal' THEN 1715.99
+    WHEN 'Romania' THEN 759.11
+    WHEN 'Slovakia' THEN 467.31
+    WHEN 'Slovenia' THEN 1724.31
+    WHEN 'Spain' THEN 2185.26
+    WHEN 'Sweden' THEN 8482.97
+    ELSE crime_safety
+END;
+
 
 
 
@@ -982,7 +1015,6 @@ insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) value
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (10193, '6', '5', '48', 82, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (7772, '6', '9', '9', 83, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3993, '6', '12', '28', 84, 'Full Household');
-insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (10541, '6', '19', '41', 85, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (6129, '6', '4', '10', 86, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (13601, '6', '11', '17', 87, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (5005, '6', '8', '25', 88, 'Full Household');
@@ -1565,7 +1597,6 @@ insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) value
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2815, '32', '2', '25', 665, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (13343, '1', '20', '30', 666, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2526, '29', '1', '27', 667, 'Full Household');
-insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (9837, '21', '11', '42', 668, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (8072, '19', '4', '4', 669, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (11178, '23', '8', '31', 670, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (12030, '48', '25', '38', 671, 'Full Household');
@@ -2029,4 +2060,4 @@ insert into countryRankings (countryID, rankingNum, userID, id) values (26, 26, 
 insert into countryRankings (countryID, rankingNum, userID, id) values (27, 27, 15, 27);
 
 -- REMOVE THIS
-insert into sliders (weather, transport, education, safety, pop_density, healthcare, leisure, COL, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);
+insert into sliders (weather, transport, education, crime_safety, pop_density, healthcare, leisure, COL, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);

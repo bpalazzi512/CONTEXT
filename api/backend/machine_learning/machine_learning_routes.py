@@ -4,6 +4,7 @@ from backend.db_connection import db
 # from backend.ml_models.model import predict
 from dotenv import load_dotenv
 from backend.ml_models.cos_model import CosineSimilarityModel as csm
+from backend.ml_models.model import CrimeModel
 import requests
 
 machine_learning = Blueprint('machine_learning', __name__)
@@ -35,6 +36,13 @@ def get_crime_training():
     theData = cursor.fetchall()
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
+
+
+@machine_learning.route('ranking/test', methods=["GET"])
+def get_test_route():
+    model = csm()
+    return jsonify(model.testMethod())
+
 
 
 # returns the crime prediction for a given country and year
@@ -76,7 +84,7 @@ def update_country_tips():
         weather = int(recieved_data["weather"])
         transport = int(recieved_data["transport"])
         education = int(recieved_data["education"])
-        safety = int(recieved_data["safety"])
+        safety = int(recieved_data["crime_safety"])
         pop_density = int(recieved_data["pop_density"])
         healthcare = int(recieved_data["healthcare"])
         leisure = int(recieved_data["leisure"])
@@ -86,7 +94,7 @@ def update_country_tips():
         connection = db.get_db()
         cursor = connection.cursor()
         
-        query = "UPDATE sliders SET weather = %s, transport = %s, education = %s, safety = %s, pop_density = %s, healthcare = %s, leisure = %s, COL = %s WHERE userID = %s"
+        query = "UPDATE sliders SET weather = %s, transport = %s, education = %s, crime_safety = %s, pop_density = %s, healthcare = %s, leisure = %s, COL = %s WHERE userID = %s"
         current_app.logger.info(query)
         cursor.execute(query, (weather, transport, education, safety, pop_density, healthcare, leisure, cost_of_life, userID))
         connection.commit()
