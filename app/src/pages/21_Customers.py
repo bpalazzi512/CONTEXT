@@ -76,7 +76,7 @@ def display_customers(df):
                 st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
             else:
                 st.error(f"Failed to delete contact for userID: {user_id}, moverID: {moverID}")
-    st.write(f'**Potential profit: ${profit:,}**')
+    st.write(f'**Potential Revenue: ${profit:,}**')
 
 
 display_customers(df)

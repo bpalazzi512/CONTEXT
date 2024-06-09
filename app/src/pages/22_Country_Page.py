@@ -28,7 +28,10 @@ st.write(f"Welcome to the country page for {country_name}!")
 if st.button('Back', 
              type='primary',
              use_container_width=True):
-    st.switch_page('pages/00_Moving_Person_Home.py')
+    if st.session_state['role'] == 'moving_person':
+      st.switch_page('pages/00_Moving_Person_Home.py')
+    elif st.session_state['role'] == 'moving_admin':
+      st.switch_page('pages/20_Admin_Home.py')
 
 
 #Image
