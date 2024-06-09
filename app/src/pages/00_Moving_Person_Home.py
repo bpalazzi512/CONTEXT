@@ -218,5 +218,4 @@ for index, row in df.iterrows():
     ).add_to(m)
 
 # Display the map in the Streamlit app
-st.header("Interactive Map of Europe Highlighting EU Countries")
 st_folium(m, width=1250, height=500)
