@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS countries (
     id INT UNIQUE NOT NULL,
     name VARCHAR(50) UNIQUE NOT NULL,
     happinessIndex DOUBLE,
+    crime_safety int,
     railwayLength INT,
     unemploymentRate DECIMAL(5, 1),
     avg_temp DECIMAL(5, 2),
