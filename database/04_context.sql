@@ -123,7 +123,7 @@ create table if not exists sliders (
     pop_density int,
     healthcare int,
     leisure int,
-    COL int,
+    cost_of_life int,
     userID int unique not null,
     check (weather between 0 and 100),
     check (transport between 0 and 100),
@@ -132,6 +132,6 @@ create table if not exists sliders (
     check (pop_density between 0 and 100),
     check (healthcare between 0 and 100),
     check (leisure between 0 and 100),
-    check (COL between 0 and 100),
+    check (cost_of_life between 0 and 100),
     foreign key (userID) references users(id)
 );

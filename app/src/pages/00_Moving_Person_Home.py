@@ -36,7 +36,7 @@ safety_val = int(slider_data[0]['safety'])
 pop_density_val = int(slider_data[0]['pop_density'])
 healthcare_val = int(slider_data[0]['healthcare'])
 leisure_val = int(slider_data[0]['leisure'])
-COL_val = int(slider_data[0]['COL'])
+COL_val = int(slider_data[0]['cost_of_life'])
 
 with col1:
     st.header("How much do you care about the following categories?")
