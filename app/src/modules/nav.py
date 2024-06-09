@@ -9,15 +9,9 @@ def HomeNav():
 def AboutPageNav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
-def TestAPI():
-    st.sidebar.page_link("pages/12_API_Test.py", label="testAPI", icon="🧠")
-
-def PredictionNav():
-    st.sidebar.page_link("pages/02_ML1.py", label="Prediction", icon='📈')
-
 
 #### ------------------------ Examples for Role of moving_person ------------------------
-def MovingNav():
+def RankingNav():
     st.sidebar.page_link("pages/00_Moving_Person_Home.py", label="Country Ranking", icon='🏆')
 
 def UserProfile():
@@ -29,12 +23,15 @@ def MoverNav():
     st.sidebar.page_link("pages/31_Moving_Company_Home.py", label="Mover Home", icon='💼')
 
 def MoverPage():
-    st.sidebar.page_link("pages/01_Moving_Company.py", label= "View Page as User", icon='🖥️')
+    st.sidebar.page_link("pages/01_Moving_Company.py", label= "View as User", icon='🖥️')
 
 
 #### ------------------------ Country Admin Role ------------------------
 def AdminPageNav():
-    st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon='🖥️')
+    st.sidebar.page_link("pages/20_Admin_Home.py", label="Edit Page", icon='🔧')
+
+def AdminViewUsers():
+    st.sidebar.page_link("pages/21_Admin_View_Users.py", label="View as User", icon='🖥️')
 
 def AdminProfileNav():
     st.sidebar.page_link("pages/25_Admin_Profile.py", label="Update Profile", icon='👤')
@@ -52,9 +49,6 @@ def SideBarLinks(show_home=False):
     if 'authenticated' not in st.session_state:
         st.session_state.authenticated = False
         st.switch_page('Home.py')
-        
-
-        
 
     # Show the other page navigators depending on the users' role.
     if st.session_state["authenticated"]:
@@ -62,7 +56,7 @@ def SideBarLinks(show_home=False):
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state['role'] == 'moving_person':
             UserProfile()
-            MovingNav()
+            RankingNav()
 
         # If the user role is usaid worker, show the Api Testing page
         if st.session_state['role'] == 'moving_company':
@@ -73,10 +67,7 @@ def SideBarLinks(show_home=False):
         if st.session_state['role'] == 'country_admin':
             AdminProfileNav()
             AdminPageNav()
-
-    # Always show the About page at the bottom of the list of links
-    HomeNav()
-    AboutPageNav()
+            AdminViewUsers()
 
     if st.session_state["authenticated"]:
         # Always show a logout button if there is a logged in user

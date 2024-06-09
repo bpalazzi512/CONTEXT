@@ -74,6 +74,5 @@ if st.button("Save"):
             "load" : move_load,
             "id" : str(userID)}
     response = requests.put(f'http://api:4000/u/user_edit', json=data)
-    st.write(data)
     if response.status_code == 200:
         st.success("Profile updated successfully!")
