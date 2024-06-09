@@ -14,10 +14,10 @@ SideBarLinks()
 userID = st.session_state['id']
 first = requests.get(f'http://api:4000/u/users/{userID}').json()[0]['firstName']
 last = requests.get(f'http://api:4000/u/users/{userID}').json()[0]['lastName']
-st.title(f"Welcome back {first} {last}")
+st.title(f"Welcome back, {first} {last}")
 st.write('')
 st.write('')
-st.write('### Explore suitable countries based on your preferences')
+st.write('### Select which percentile you would like your country to be in for each category and generate countries similar to your needs!')
 userID = st.session_state['id']
 
 col1, col2 = st.columns(2)
@@ -47,60 +47,63 @@ with col1:
 
     with col3:
         with st.container(border=True):
-            warm_weather = st.slider("High Temperature", 0, 100, weather_val)
-            weather_checkbox = st.checkbox("Include in Recommendation", value=slider_data['avg_temp_selected'], key=1)
+            warm_weather = st.slider("Warm Weather", 0, 100, weather_val)
+            weather_checkbox = st.checkbox("Include in Ranking", value=slider_data['avg_temp_selected'], key=1)
         
         with st.container(border=True):
-            robust_public_transport = st.slider("Robust Transportation", 0, 100, transport_val)
-            transport_checkbox = st.checkbox("Include in Recommendation", value=slider_data['rail_density_selected'], key=2)
+            robust_public_transport = st.slider("Public Transportation", 0, 100, transport_val)
+            transport_checkbox = st.checkbox("Include in Ranking", value=slider_data['rail_density_selected'], key=2)
 
         with st.container(border=True):
-            good_public_education = st.slider("Good public education", 0, 100, education_val)
-            education_checkbox = st.checkbox("Include in Recommendation", value=slider_data['education_selected'], key=3)
+            good_public_education = st.slider("Public Education", 0, 100, education_val)
+            education_checkbox = st.checkbox("Include in Ranking", value=slider_data['education_selected'], key=3)
 
         with st.container(border=True):
-            safety = st.slider("High Crime Rates", 0, 100, safety_val)
-            safety_checkbox = st.checkbox("Include in Recommendation", value=slider_data['crime_safety_selected'], key=4)
+            safety = st.slider("Safety", 0, 100, safety_val)
+            safety_checkbox = st.checkbox("Include in Ranking", value=slider_data['crime_safety_selected'], key=4)
 
 
     with col4:
         with st.container(border=True):
             pop_density = st.slider("Population Density", 0, 100, pop_density_val)
-            pop_density_checkbox = st.checkbox("Include in Recommendation", value=slider_data['pop_density_selected'], key=5)
+            pop_density_checkbox = st.checkbox("Include in Ranking", value=slider_data['pop_density_selected'], key=5)
         with st.container(border=True):
-            healthcare = st.slider("Good Public Healthcare", 0, 100, healthcare_val)
-            healthcare_checkbox = st.checkbox("Include in Recommendation", value=slider_data['healthcare_selected'], key=6)
+            healthcare = st.slider("Public Healthcare", 0, 100, healthcare_val)
+            healthcare_checkbox = st.checkbox("Include in Ranking", value=slider_data['healthcare_selected'], key=6)
 
         with st.container(border=True):
             leisure = st.slider("Lots of Activites", 0, 100, leisure_val)
-            leisure_checkbox = st.checkbox("Include in Recommendation", value=slider_data['leisure_selected'], key=7)
+            leisure_checkbox = st.checkbox("Include in Ranking", value=slider_data['leisure_selected'], key=7)
 
         with st.container(border=True):
             cost_of_living = st.slider("Low Cost of Living", 0, 100, COL_val)
-            COL_checkbox = st.checkbox("Include in Recommendation", value=slider_data['cost_of_life_selected'], key=8)
+            COL_checkbox = st.checkbox("Include in Ranking", value=slider_data['cost_of_life_selected'], key=8)
 
         
     logger.info('WTF is happening??')
     # Save and Generate Ranking
     # Save button
     if st.button("Save and Generate Ranking"):
-        data = {"avg_temp": warm_weather, "rail_density": robust_public_transport, "education": good_public_education, "crime_safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "cost_of_life": cost_of_living, "avg_temp_selected" : weather_checkbox, "rail_density_selected" : transport_checkbox, "education_selected" : education_checkbox, "crime_safety_selected" : safety_checkbox, "pop_density_selected" : pop_density_checkbox, "healthcare_selected" : healthcare_checkbox, "leisure_selected" : leisure_checkbox, "cost_of_life_selected" : COL_checkbox, "userID": userID}
-        requests.put('http://api:4000/ml/sliders', json=data)  
-        
-        ranking_dict = requests.get(f'http://api:4000/ml/rankings/{str(userID)}/generate').json()
-        logger.info(f'ranking_dict = {ranking_dict}')
-        # for loop which inserts each number and country id into the database
-        for i in range(1, len(ranking_dict)+1):
-            # get country id from country name
-            rankingNum = i
-            countryName = ranking_dict[str(i)]
+        if not (weather_checkbox or transport_checkbox or education_checkbox or safety_checkbox or pop_density_checkbox or healthcare_checkbox or leisure_checkbox or COL_checkbox):
+            st.error("Select at least one category!")
+        else:
+            data = {"avg_temp": warm_weather, "rail_density": robust_public_transport, "education": good_public_education, "crime_safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "cost_of_life": cost_of_living, "avg_temp_selected" : weather_checkbox, "rail_density_selected" : transport_checkbox, "education_selected" : education_checkbox, "crime_safety_selected" : safety_checkbox, "pop_density_selected" : pop_density_checkbox, "healthcare_selected" : healthcare_checkbox, "leisure_selected" : leisure_checkbox, "cost_of_life_selected" : COL_checkbox, "userID": userID}
+            requests.put('http://api:4000/ml/sliders', json=data)  
             
-            countryID = requests.get(f'http://api:4000/c/get_countryID/{countryName}').json()[0]['id']
-            
-            data = {"rankingNum": int(rankingNum), "countryID": int(countryID), "userID": int(userID)}
-            requests.put('http://api:4000/ml/rankings', json=data)      
+            ranking_dict = requests.get(f'http://api:4000/ml/rankings/{str(userID)}/generate').json()
+            logger.info(f'ranking_dict = {ranking_dict}')
+            # for loop which inserts each number and country id into the database
+            for i in range(1, len(ranking_dict)+1):
+                # get country id from country name
+                rankingNum = i
+                countryName = ranking_dict[str(i)]
+                
+                countryID = requests.get(f'http://api:4000/c/get_countryID/{countryName}').json()[0]['id']
+                
+                data = {"rankingNum": int(rankingNum), "countryID": int(countryID), "userID": int(userID)}
+                requests.put('http://api:4000/ml/rankings', json=data)      
 
-        st.success("Section updated successfully!")
+            st.success("Section updated successfully!")
 
 
 with col2:
