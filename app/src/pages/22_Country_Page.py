@@ -39,7 +39,16 @@ if st.button('Back',
 #Image
 image_url = country_data[0]['img_link']
 st.image(image_url, use_column_width=True)
+admin_data = requests.get(f'http://api:4000/u/admin_prof/{countryID}').json()
 
+first = admin_data[0]['firstName']
+last = admin_data[0]['lastName']
+#admin_bio = admin_data[0]['bio']
+
+
+st.write(f"This page is managed by {first} {last}")
+
+st.button("view admin's bio")
 
 # Country Bio
 st.subheader("Bio")

@@ -30,6 +30,16 @@ def get_admin_info(userID):
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
 
+# Get a country admin's profile rom userID
+@users.route('/admin_prof/<countryID>', methods=['GET'])
+def get_admin_prof(countryID):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * from countryAdmins ca join countries c where ca.countryID = '+ str(countryID))
+     # fetch all the data from the cursor
+    theData = cursor.fetchall()
+    current_app.logger.info(f'theData = {theData}')
+    return jsonify(theData)
+
 # Return the rankings for a given user
 @users.route('/users/<userID>/rankings', methods=['GET'])
 def get_user_rankings(userID):
