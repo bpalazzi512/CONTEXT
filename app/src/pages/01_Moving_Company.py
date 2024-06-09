@@ -21,8 +21,11 @@ routeID = st.session_state['routeID']
 countryName = st.session_state['countryName']
 fromStateName = st.session_state['stateName']
 
-data = {}
+data = requests.get(f'http://api:4000/u/users/{userID}').json()
+stateID = data[0]['homeStateID']
+fromStateName = requests.get(f'http://api:4000/c/get_stateName/{stateID}').json()[0]['stateName']
 
+data = {}
 
 st.title(f"{companyName}")
 st.write(f"Welcome our page {st.session_state['name']}, we would love to help you move from **{fromStateName}** to **{countryName}**")

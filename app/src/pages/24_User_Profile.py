@@ -57,34 +57,23 @@ home_state = st.selectbox("Home State", ["Alabama", "Alaska", "Arizona", "Arkans
                                          "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", 
                                          "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], index=home_state, placeholder="Select a state")
 
-languages = [
-    "Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Azerbaijani", "Basque", "Belarusian", "Bengali", "Bosnian",
-    "Bulgarian", "Catalan", "Cebuano", "Chichewa", "Chinese", "Corsican", "Croatian", "Czech", "Danish", "Dutch",
-    "English", "Esperanto", "Estonian", "Filipino", "Finnish", "French", "Frisian", "Galician", "Georgian", "German",
-    "Greek", "Gujarati", "Haitian Creole", "Hausa", "Hawaiian", "Hebrew", "Hindi", "Hmong", "Hungarian", "Icelandic",
-    "Igbo", "Indonesian", "Irish", "Italian", "Japanese", "Javanese", "Kannada", "Kazakh", "Khmer", "Kinyarwanda",
-    "Korean", "Kurdish (Kurmanji)", "Kyrgyz", "Lao", "Latin", "Latvian", "Lithuanian", "Luxembourgish", "Macedonian",
-    "Malagasy", "Malay", "Malayalam", "Maltese", "Maori", "Marathi", "Mongolian", "Myanmar (Burmese)", "Nepali",
-    "Norwegian", "Odia (Oriya)", "Pashto", "Persian", "Polish", "Portuguese", "Punjabi", "Romanian", "Russian",
-    "Samoan", "Scots Gaelic", "Serbian", "Sesotho", "Shona", "Sindhi", "Sinhala", "Slovak", "Slovenian", "Somali",
-    "Spanish", "Sundanese", "Swahili", "Swedish", "Tajik", "Tamil", "Tatar", "Telugu", "Thai", "Turkish", "Turkmen",
-    "Ukrainian", "Urdu", "Uyghur", "Uzbek", "Vietnamese", "Welsh", "Xhosa", "Yiddish", "Yoruba", "Zulu"
-]
+move_load = st.selectbox("Move Load", ['Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], placeholder="Select a move load")
 
-# Language dropdown
-language = st.selectbox("Preferred Language", languages, index=20, placeholder="Select a language")
+
+stateID = requests.get(f'http://api:4000/c/get_stateID/{home_state}').json()[0]['id']
 
 # Save button
 if st.button("Save"):
     # Logic to save the user profile information
-    st.success("Profile updated successfully!")
-    # For demonstration, we'll just display the entered data
-    st.write("First Name:", first_name)
-    st.write("Last Name:", last_name)
-    st.write("Email:", email)
-    st.write("Phone Number:", phone_number)
-    st.write("Age:", age)
-    st.write("Home State:", home_state)
-    st.write("Language:", language)
-
-
+    data = {"first" : first_name,
+            "last" : last_name,
+            "email" : email,
+            "phone" : phone_number,
+            "age" : str(age),
+            "stateID" : str(stateID),
+            "load" : move_load,
+            "id" : str(userID)}
+    response = requests.put(f'http://api:4000/u/user_edit', json=data)
+    st.write(data)
+    if response.status_code == 200:
+        st.success("Profile updated successfully!")

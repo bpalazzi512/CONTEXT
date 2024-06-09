@@ -14,12 +14,28 @@ SideBarLinks(show_home=True)
 
 st.title('CONTEXT')
 
-st.write('\n\n')
-st.write('### HI! As which user would you like to log in?')
+#st.write('\n')
+st.write('### HI! Log in as one of the following:')
+st.write("")
 
-if st.button("Act a Person Thinking About Moving Abroad", 
-            type = 'primary', 
-            use_container_width=True):
+col1, col2, col3 = st.columns(3)
+#cols = st.columns([2, , 3])
+image_url = 'https://i.pinimg.com/474x/97/a6/d8/97a6d89e9adc9123031ddbd64ed35d72.jpg'
+
+with col1:
+  st.image(image_url, width = 100, output_format='centered')
+  st.image(image_url, width = 100)
+  st.image(image_url, width = 100)
+with col2:
+   st.write("**Klement Gorring** is a 62 yearold person who just retired and is **thinking about moving abroad!**")
+   st.write("")
+   st.write("**Thoughtstorms** is a **moving company** that helps indivudals move from the states to the EU")
+   st.write("")
+   st.write("**Bell Stoner** is a passionate **country admin** for Portugal and gives tips frequently")
+with col3: 
+  st.write("")
+  if st.button("Person Thinking About Moving Abroad", 
+            type = 'primary', ):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'moving_person'
     st.session_state['id'] = 15
@@ -36,9 +52,11 @@ if st.button("Act a Person Thinking About Moving Abroad",
 
     st.switch_page('pages/00_Moving_Person_Home.py')
 
-
-
-if st.button('Act as a Moving Company', 
+  st.write("")
+  st.write("")
+  st.write("")
+  st.write("")
+  if st.button('Thoughtstorm Moving Company', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
@@ -65,7 +83,10 @@ if st.button('Act as a Moving Company',
 
     st.switch_page('pages/31_Moving_Company_Home.py')
 
-if st.button('Act as a Country Administrator', 
+  st.write("")
+  st.write("")
+  st.write("")
+  if st.button('Portugal Country Administrator', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True

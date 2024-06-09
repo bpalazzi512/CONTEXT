@@ -53,9 +53,41 @@ def update_user_rankings():
     db.get_db().commit()
     return jsonify({"message": "Rankings updated successfully!"})
 
-# Put (edit) users profile 
 
-# Put (edit) country admin profile 
+# edit users profile
+@users.route('/user_edit', methods = ['PUT'])
+def edit_user():
+    try:
+        recieved_data = request.json
+
+        first = str(recieved_data["first"])
+        last = str(recieved_data["last"])
+        email = str(recieved_data["email"])
+        phone = str(recieved_data["phone"])
+        age = int(recieved_data["age"])
+        stateID = int(recieved_data["stateID"])
+        load = str(recieved_data["load"])
+        id = int(recieved_data['id'])
+
+        current_app.logger.info("Updating userInfo")
+        connection = db.get_db()
+        cursor = connection.cursor()
+        
+        query = "UPDATE users SET firstName = %s, lastName = %s, email = %s, \
+            phone = %s, age = %s, homeStateID = %s, moveLoad = %s WHERE id = %s"
+        
+        cursor.execute(query, (first, last, email, phone, age, stateID, load, id))
+        connection.commit()
+        if cursor.rowcount == 0:
+            return make_response(jsonify({"error": "ID not found"}), 404)
+        return make_response(jsonify({"message": "Move load updated successfully"}), 200)
+    except Exception as e:
+        current_app.logger.error(f"Error updating moveload with routeID: {id}, error: {e}")
+        return make_response(jsonify({"error": "Internal server error"}), 500)
+    finally:
+        if cursor:
+            cursor.close()
+
 
 
 

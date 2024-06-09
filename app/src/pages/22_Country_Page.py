@@ -101,13 +101,13 @@ df = pd.DataFrame(mover_data)
 
 # Function to display the table with buttons
 def display_movers_with_buttons(df):
-  header_cols = st.columns([3, 2, 1, 2, 2])
+  header_cols = st.columns([3, 2, 2, 2, 2])
   header_cols[0].write("**Mover Name**")
   header_cols[1].write("**Cost**")
   header_cols[2].write("**Stars**")
   header_cols[3].write("**Contact**")
   for index, row in df.iterrows():
-    cols = st.columns([3, 2, 1, 2, 2])
+    cols = st.columns([3, 2, 2, 2, 2])
     cols[0].write(row["moverName"])
     cols[1].write('$' + str(row["cost"]))
     cols[2].write(row["stars"] * "⭐")
