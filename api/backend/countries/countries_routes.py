@@ -44,6 +44,17 @@ def get_countries():
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
 
+#Get country fields used for ML
+@countries.route('/country_ml_fields', methods=['GET'])
+def get_country_ml_fields():
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    # use cursor to query the database for a list of products
+    cursor.execute('SELECT name, happinessIndex, railwayLength, avg_temp, cost_of_life, healthcare_index, education, rail_density FROM countries')
+    theData = cursor.fetchall()
+    current_app.logger.info(f'theData = {theData}')
+    return jsonify(theData)
+
 # # # Get a countries ID given name
 # @countries.route('/country/<c_name>', methods=['GET'])
 # def get_countryID(c_name):

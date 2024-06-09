@@ -29,13 +29,11 @@ CREATE TABLE IF NOT EXISTS users (
     FOREIGN KEY (homeStateID) REFERENCES states(id)
 );
 
-CREATE TABLE IF NOT EXISTS countries(
+CREATE TABLE IF NOT EXISTS countries (
     id INT UNIQUE NOT NULL,
     name VARCHAR(50) UNIQUE NOT NULL,
-    -- area int,
-    -- population int,
     happinessIndex DOUBLE,
-    railwayLength int,
+    railwayLength INT,
     unemploymentRate DECIMAL(5, 1),
     avg_temp DECIMAL(5, 2),
     cost_of_life DECIMAL(5, 1),
@@ -45,14 +43,15 @@ CREATE TABLE IF NOT EXISTS countries(
     minority_lang VARCHAR(1024),
     widely_spoken_lang VARCHAR(1024),
     education DOUBLE,
-    square_kilos int,
+    square_kilos INT,
     leisure DOUBLE,
     bio VARCHAR(1024),
     tips VARCHAR(1024),
     img_link VARCHAR(1024),
-
+    rail_density DOUBLE GENERATED ALWAYS AS (railwayLength / square_kilos) VIRTUAL,
     PRIMARY KEY (id)
 );
+
 
 CREATE TABLE IF NOT EXISTS countryRankings (
     countryID int NOT NULL,

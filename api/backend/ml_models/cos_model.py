@@ -11,8 +11,8 @@ class CosineSimilarityModel:
         Initialize the CosineSimilarityModel with a dataframe.
         """
         # Fetch the data from the API
-        response = requests.get('http://api:4000/c/countries')
-        data = response.json()  # Assuming the API returns JSON
+        response = requests.get('http://api:4000/c/country_ml_fields')
+        data = response.json() 
         data = pd.DataFrame(data)
 
         self.merged_df = data
@@ -33,7 +33,7 @@ class CosineSimilarityModel:
         X = df[self.feats]
         X_scaled = self.scaler.fit_transform(X)
         X_scaled_df = pd.DataFrame(X_scaled, columns=self.feats)
-        X_scaled_df['country'] = df['country']
+        X_scaled_df['name'] = df['name']
         X_scaled_df = X_scaled_df.dropna()
         return X_scaled_df
 
