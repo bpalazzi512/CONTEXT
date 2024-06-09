@@ -42,10 +42,19 @@ def display_customers(df):
     header_cols[3].write("**Phone Number**")
     header_cols[4].write("**Date**")
 
+
+    profit = 0
     for index, row in df.iterrows():
         cols = st.columns([2, 2, 5, 3, 3, 3])
         cols[0].write(row["firstName"])
         cols[1].write(row["lastName"])
+
+        stateName = row['stateName']
+        countryName = row['name']
+        cost = row['cost']
+        profit += cost
+
+        st.write(f'*From {stateName} to {countryName} for ${cost:,}*')
         cols[2].write(row["email"])
         cols[3].write(row["phone"])
         cols[4].write(str(row["dateContacted"])[:16])
@@ -56,6 +65,8 @@ def display_customers(df):
 
 
 # Button to remove selected customers
+    st.write("")
+    st.write("")
     if st.button("Remove Selected Customers"):
       for index, checked in checkbox_states.items():
           if checked:
@@ -65,6 +76,9 @@ def display_customers(df):
                 st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
             else:
                 st.error(f"Failed to delete contact for userID: {user_id}, moverID: {moverID}")
+    st.write(f'**Potential profit: ${profit:,}**')
+
+
 display_customers(df)
 
 

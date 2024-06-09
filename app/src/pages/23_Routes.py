@@ -62,7 +62,8 @@ def display_routes(df):
         cols[0].markdown(row['stateName'])
         cols[1].markdown(row['name'])
         load = cols[2].selectbox('load',['Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], index = loadIndex, key=f"moveL_{index}")
-        cost = cols[3].text_input('cost', '$' + str(row['cost']), key=f"cost_{index}")
+        cost = cols[3].text_input('cost', '${:,.0f}'.format(row['cost']), key=f"cost_{index}")
+
         cost_number = cost.replace("$", "")
         cols[4].markdown("")
         cols[4].markdown("")

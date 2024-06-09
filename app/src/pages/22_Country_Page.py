@@ -122,7 +122,7 @@ def display_movers_with_buttons(df):
   for index, row in df.iterrows():
     cols = st.columns([3, 2, 2, 2, 2])
     cols[0].write(row["moverName"])
-    cols[1].write('$' + str(row["cost"]))
+    cols[1].write('${:,.0f}'.format(row["cost"]))
     cols[2].write(row["stars"] * "⭐")
     button_ph = cols[3].empty()
     button_viewP = cols[4].empty()
