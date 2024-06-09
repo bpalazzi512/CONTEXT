@@ -4,6 +4,7 @@ logger = logging.getLogger()
 import streamlit as st
 from modules.nav import SideBarLinks
 import requests
+import time
 
 st.set_page_config(layout = 'wide')
 
@@ -59,6 +60,8 @@ if st.button('Save'):
           "moverName" : companyName_input}
   response = requests.put('http://api:4000/mv/mc_edit', json=data)
   if response.status_code == 200:
+    time.sleep(1)  # Add a 1-second delay
+    st.experimental_rerun()
     st.success("Profile saved successfully!")
 
 
