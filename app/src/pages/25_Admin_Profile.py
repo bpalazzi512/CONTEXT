@@ -38,13 +38,18 @@ first_name = st.text_input("First Name", value=first_name)
 last_name = st.text_input("Last Name", value=last_name)
 bio = st.text_area("Bio", value=bio)
 
+
 # Save button
 if st.button("Save"):
+    data = {"first" : first_name,
+            "last" : last_name,
+            "bio" : bio,
+            "id" : str(userID)}
+    response = requests.put(f'http://api:4000/u/edit_admin_prof', json=data)
+
+    if response.status_code == 200:
     # Logic to save the user profile information
-    st.success("Profile updated successfully!")
+        st.success("Profile updated successfully!")
     # For demonstration, we'll just display the entered data
-    st.write("First Name:", first_name)
-    st.write("Last Name:", last_name)
-    st.write("Bio:", bio)
 
 
