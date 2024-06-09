@@ -69,7 +69,7 @@ def SideBarLinks(show_home=False):
             AdminPageNav()
             AdminViewUsers()
 
-    elif st.session_state["authenticated"]:
+    if st.session_state["authenticated"]:
         # Always show a logout button if there is a logged in user
         if st.sidebar.button("Logout"):
             del st.session_state['role']
