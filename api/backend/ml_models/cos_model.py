@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import StandardScaler
+from backend.db_connection import db
 import requests
 
 class CosineSimilarityModel:
@@ -11,9 +12,15 @@ class CosineSimilarityModel:
         Initialize the CosineSimilarityModel with a dataframe.
         """
         # Fetch the data from the API
-        response = requests.get('http://api:4000/c/country_ml_fields')
-        data = response.json() 
-        data = pd.DataFrame(data)
+
+
+        cursor = db.get_db().cursor()
+        cursor.execute('SELECT name as name, pop_density, crime_safety, avg_temp, cost_of_life, healthcare, education, leisure, rail_density FROM countries')
+        db_data = cursor.fetchall()
+
+        #response = requests.get('http://api:4000/c/country_ml_fields')
+        #data = response.json() 
+        data = pd.DataFrame(db_data)
 
         self.merged_df = data
 
@@ -39,6 +46,7 @@ class CosineSimilarityModel:
         X_scaled_df = X_scaled_df.dropna()
         return X_scaled_df
 
+    #works!!!
     def translate_to_percentiles(self, user_input, feature):
         """
         Translates a user input on a 0-100 scale to the corresponding percentile
@@ -54,8 +62,9 @@ class CosineSimilarityModel:
         if (feature == "COL"):
             feature = "cost_of_life"
         
+        self.merged_df[feature] = self.merged_df[feature].astype(float)
 
-        return self.merged_df[feature].quantile[user_input/100]
+        return self.merged_df[feature].quantile(user_input/100)
 
         """
         for item in self.merged_df:
@@ -65,8 +74,9 @@ class CosineSimilarityModel:
         """
 
     def testMethod(self) :
-        return self.merged_df.to_dict()
+        return self.X_scaled_df.to_dict()
 
+    #works!!!
     def get_user_percentiles(self, user_input):
         """
         Translates user inputs for all features to percentiles.
@@ -79,10 +89,19 @@ class CosineSimilarityModel:
         """
 
         percentiles = {}
+
+        for feature in user_input.keys():
+            percentiles[feature] = self.translate_to_percentiles(user_input[feature], feature)
+        
+        return percentiles
+
+        
+        """
         for item in user_input:
             for feature in item:
                 percentiles[feature] = self.translate_to_percentiles(user_input=feature, feature=feature)
             return percentiles
+        """
 
 
     def find_closest_country(self, userID, top_n=27):
@@ -96,25 +115,45 @@ class CosineSimilarityModel:
         Returns:
             list: List of the top N closest country matches
         """
-        
+
         response = requests.get(f'http://api:4000/ml/sliders/{userID}')
-        preference_data = response.json()  # Assuming the API returns JSON
+        preference_data = response.json()[0]  # Assuming the API returns JSON
+
+        #return preference_data
+
+        
 
         # Translate user inputs to percentiles
         user_percentiles = self.get_user_percentiles(preference_data)
 
+        user_percentiles_scaled = {}
+        for feature in self.feats:
+            user_percentiles_scaled[feature] = (user_percentiles[feature] - self.merged_df[feature].mean()) / self.merged_df[feature].std()
+        
+
+        
+    
+    
+
         # Create DataFrame from user percentiles
-        user_df = pd.DataFrame([user_percentiles])
+       #user_df = pd.DataFrame([user_percentiles])
+
+        #return user_df.to_dict()
 
         # Scale user preferences using the same scaler
-        user_scaled = self.scaler.transform(user_df)
+        #user_scaled = self.scaler.transform(user_df)
+
+        user_scaled = pd.DataFrame([user_percentiles_scaled])
+
+
+        #return user_scaled.to_dict()
 
         # Calculate cosine similarity
-        sim = cosine_similarity(user_scaled, self.X_scaled_df.drop(columns=['country']))
+        sim = cosine_similarity(user_scaled, self.X_scaled_df.drop(columns=['name']))
         top_matches = sim[0].argsort()[-top_n:][::-1]
 
         # Find the matching country
-        match_countries = self.X_scaled_df.iloc[top_matches]['country'].values
+        match_countries = self.X_scaled_df.iloc[top_matches]['name'].values
 
         # Output the result as a dictionary
         result_dict = {i + 1: country.title() for i, country in enumerate(match_countries)}

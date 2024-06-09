@@ -26,13 +26,13 @@ try:
     slider_data = requests.get(f'http://api:4000/ml/sliders/{userID}').json()
 except:
     st.write("**Important**: Could not connect to sample api, so using dummy data.")
-    slider_data = {"avg_temp": 50, "transport": 50, "education": 50, "safety": 50, "pop_density": 50, "healthcare": 50, "leisure": 50, "COL": 50}
+    slider_data = {"avg_temp": 50, "rail_density": 50, "education": 50, "safety": 50, "pop_density": 50, "healthcare": 50, "leisure": 50, "COL": 50}
 
 # get values from the slider data
 weather_val = int(slider_data[0]['avg_temp'])
-transport_val = int(slider_data[0]['transport'])
+transport_val = int(slider_data[0]['rail_density'])
 education_val =  int(slider_data[0]['education'])
-safety_val = int(slider_data[0]['safety'])
+safety_val = 100 - int(slider_data[0]['crime_safety'])
 pop_density_val = int(slider_data[0]['pop_density'])
 healthcare_val = int(slider_data[0]['healthcare'])
 leisure_val = int(slider_data[0]['leisure'])
@@ -43,10 +43,10 @@ with col1:
     col3, col4 = st.columns(2)
     with col3:
         # Create sliders
-        warm_weather = st.slider("Robust Public Tranport", 0, 100, weather_val)
-        robust_public_transport = st.slider("Safety", 0, 100, transport_val)
+        warm_weather = st.slider("Temperature", 0, 100, weather_val)
+        robust_public_transport = st.slider("Rail Transportation", 0, 100, transport_val)
         good_public_education = st.slider("Good public education", 0, 100, education_val)
-        safety = st.slider("Comprehension of Your Language", 0, 100, safety_val)
+        safety = st.slider("Amount of Crime", 0, 100, safety_val)
 
     with col4:
         pop_density = st.slider("Population Density", 0, 100, pop_density_val)
@@ -57,7 +57,7 @@ with col1:
     # Save and Generate Ranking
     # Save button
     if st.button("Save and Generate Ranking"):
-        data = {"avg_temp": warm_weather, "rail_density": robust_public_transport, "education": good_public_education, "crime_safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "COL": cost_of_living, "userID": userID}
+        data = {"avg_temp": warm_weather, "rail_density": robust_public_transport, "education": good_public_education, "crime_safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "cost_of_life": cost_of_living, "userID": userID}
         requests.put('http://api:4000/ml/sliders', json=data)  
         
         ranking_data = requests.get(f'http://api:4000/ml/rankings/{str(userID)}/generate').json()
@@ -96,7 +96,7 @@ with col2:
                     st.write(country_name)
                     try:
                         data = {} 
-                        data = requests.get('http://api:4000/c/country/' + country_name).json() #get countryid
+                        data = requests.get('http://api:4000/c/get_countryID/' + country_name).json() #get countryid
                         st.session_state['countryID'] = data[0]['id'] 
                         st.switch_page('pages/22_Country_Page.py')
                     except Exception as e:

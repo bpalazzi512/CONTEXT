@@ -167,17 +167,4 @@ def get_country_languages(countryID):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Put (edit) the displayed top country rankings
-@countries.route('/countries/rankings', methods=['PUT'])
-def update_rankings():
-    current_app.logger.info('PUT /countries route')
-    ranking_info = request.json
-    country_id = ranking_info['countryID']
-    rank = ranking_info('rankingNum')
 
-    query = 'UPDATE countryRanking SET rankingNum = %s where countryID = %s'
-    data = (rank, country_id)
-    cursor = db.get_db().cursor()
-    r = cursor.execute(query, data)
-    db.get_db().commit()
-    return 'ranking updated!'

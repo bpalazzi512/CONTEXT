@@ -15,17 +15,41 @@ def generate_rankings(userID):
     cos_model = csm()
     ranking_dict = cos_model.find_closest_country(userID=int(userID))
 
+    #return ranking_dict
+    
+    #return ranking_dict[1]
     # for loop which inserts each number and country id into the database
     for i in range(1, len(ranking_dict)+1):
         # get country id from country name
         rankingNum = i
-        countryName = ranking_dict[str(i)]
-        countryID = requests.get(f'http://api:4000/c/getCountryID/{countryName}').json()[0]['id']
+        countryName = ranking_dict[i]
+        
+        
+        countryID = requests.get(f'http://api:4000/c/get_countryID/{countryName}').json()[0]['id']
+        
 
-        data = {"rankingNum": rankingNum, "countryID": countryID, "userID": int(userID)}
+        data = {"rankingNum": int(rankingNum), "countryID": int(countryID), "userID": int(userID)}
         requests.put('http://api:4000/ml/rankings', json=data)
+        return data
 
     return make_response(jsonify({"message": "Rankings generated successfully"}), 200)
+
+# Put (edit) the displayed top country rankings
+@machine_learning.route('/rankings', methods=['PUT'])
+def update_rankings():
+    current_app.logger.info('PUT /countries route')
+    ranking_info = request.json
+    current_app.logger.info(ranking_info)
+    country_id = ranking_info["countryID"]
+    user_id = ranking_info['userID']
+    rank = ranking_info['rankingNum']
+
+    query = 'UPDATE countryRankings SET rankingNum = %s where countryID = %s AND userID = %s'
+    data = (rank, country_id, user_id)
+    cursor = db.get_db().cursor()
+    r = cursor.execute(query, data)
+    db.get_db().commit()
+    return 'ranking updated!'
 
 # returns the crime training data
 @machine_learning.route('crime/training', methods=['GET'])
@@ -77,24 +101,24 @@ def get_sliders(userID):
 # updates the slider data for a given user
 @machine_learning.route('/sliders', methods = ['PUT'])
 def update_country_tips():
-    
+    cursor = None
     try:
         recieved_data = request.json
 
         weather = int(recieved_data["avg_temp"])
-        transport = int(recieved_data["rail_denisity"])
+        transport = int(recieved_data["rail_density"])
         education = int(recieved_data["education"])
         safety = int(recieved_data["crime_safety"])
         pop_density = int(recieved_data["pop_density"])
         healthcare = int(recieved_data["healthcare"])
         leisure = int(recieved_data["leisure"])
-        cost_of_life = int(recieved_data["COL"])
+        cost_of_life = int(recieved_data["cost_of_life"])
         userID = int(recieved_data["userID"])
 
         connection = db.get_db()
         cursor = connection.cursor()
         
-        query = "UPDATE sliders SET avg_temp = %s, rail_density = %s, education = %s, crime_safety = %s, pop_density = %s, healthcare = %s, leisure = %s, COL = %s WHERE userID = %s"
+        query = "UPDATE sliders SET avg_temp = %s, rail_density = %s, education = %s, crime_safety = %s, pop_density = %s, healthcare = %s, leisure = %s, cost_of_life = %s WHERE userID = %s"
         current_app.logger.info(query)
         cursor.execute(query, (weather, transport, education, safety, pop_density, healthcare, leisure, cost_of_life, userID))
         connection.commit()
@@ -111,19 +135,3 @@ def update_country_tips():
 
 
 
-
-
-"""
-@machine_learning.route('/ML/<v01>/<v02>/<v03>/<v04>/<v05>', methods=['GET'])
-def predict_value(v01, v02, v03, v04, v05):
-    current_app.logger.info(f'var01 = {v01}')
-    current_app.logger.info(f'var02 = {v02}')
-
-    returnVal = predict(v01, v02, v03, v04, v05)
-    return_dict = {'result': returnVal}
-
-    the_response = make_response(jsonify(return_dict))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
-"""
