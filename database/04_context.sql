@@ -133,7 +133,4 @@ create table if not exists sliders (
     check (leisure between 0 and 100),
     check (COL between 0 and 100),
     foreign key (userID) references users(id)
-)
-
-insert into sliders (weather, transport, education, crime_safety, pop_density, healthcare, leisure, COL, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);
-
+);
