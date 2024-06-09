@@ -51,25 +51,28 @@ def delete_route(route_id):
     
     return 'Route deleted successfully!', 200
 
-# get count of routes
-@routes.route('/get_count', methods=["GET"])
-def get_count():
-    current_app.logger.info('moverContact.py: GET /moverContact')
+# get max id of routes
+@routes.route('/get_max_id', methods=["GET"])
+def get_max_id():
+    current_app.logger.info('routes.py: GET /get_max_id')
     # Execute the query
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT COUNT(*) as count FROM routes')
+    cursor.execute('SELECT MAX(id) as max_id FROM routes')
     theData = cursor.fetchall()
     return jsonify(theData)
 
 #fromStateID, toCountryID, moverID, id, moveLoad
 @routes.route('/get_count/<stateID>/<countryID>/<moverID>/<moveLoad>', methods=["GET"])
-def get_count_unique(stateID, countryID, moverID, moverLoad):
+def get_count_unique(stateID, countryID, moverID, moveLoad):
     current_app.logger.info('moverContact.py: GET /moverContact')
     # Execute the query
     cursor = db.get_db().cursor()
-    cursor.execute(f'SELECT COUNT(*) as count FROM routes wherefromStateID = {stateID} and toCountryID = {countryID} and moverID = {moverID} and moveLoad = {moverLoad}')
+    query = '''SELECT COUNT(*) as count FROM routes 
+               WHERE fromStateID = %s AND toCountryID = %s AND moverID = %s AND moveLoad = %s'''
+    cursor.execute(query, (stateID, countryID, moverID, moveLoad))
     theData = cursor.fetchall()
     return jsonify(theData)
+
 
 # Post (add) a new route
 @routes.route('/add_route', methods=['POST'])
