@@ -2059,9 +2059,3 @@ insert into countryRankings (countryID, rankingNum, userID, id) values (24, 24, 
 insert into countryRankings (countryID, rankingNum, userID, id) values (25, 25, 15, 25);
 insert into countryRankings (countryID, rankingNum, userID, id) values (26, 26, 15, 26);
 insert into countryRankings (countryID, rankingNum, userID, id) values (27, 27, 15, 27);
-
--- REMOVE THIS
-insert into sliders (avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, avg_temp_selected, rail_density_selected, education_selected, crime_safety_selected, pop_density_selected, healthcare_selected, leisure_selected, cost_of_life_selected, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 1, 1, 1, 1, 1, 1, 1, 1, 15);
---insert into sliders (avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, userID) values (100, 100, 100, 100, 100, 100, 100, 100, 16);
-
-insert into sliders (avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, avg_temp_selected, rail_density_selected, education_selected, crime_safety_selected, pop_density_selected, healthcare_selected, leisure_selected, cost_of_life_selected, userID) values (100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 16);
