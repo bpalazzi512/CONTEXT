@@ -16,6 +16,8 @@ SideBarLinks()
 
 # Page Title
 st.title("Customer Information Table")
+st.write("### List of users who are interested in moving")
+st.write("")
 
 
 # data = {
@@ -33,6 +35,8 @@ data = requests.get(f'http://api:4000/mv/moverContact/{moverID}').json()
 df = pd.DataFrame(data)
 # Dictionary to hold the checkbox states
 checkbox_states = {}
+
+
 # Function to display the table with buttons
 def display_customers(df):
     header_cols = st.columns([2, 2, 5, 3, 3, 3])
@@ -78,7 +82,7 @@ def display_customers(df):
                 st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
             else:
                 st.error(f"Failed to delete contact for userID: {user_id}, moverID: {moverID}")
-    st.write(f'**Potential Revenue: ${profit:,}**')
+    st.write(f'### Potential Revenue: ${profit:,}')
 
 
 display_customers(df)
