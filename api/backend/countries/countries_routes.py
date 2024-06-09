@@ -51,7 +51,7 @@ def get_country_ml_fields():
     cursor = db.get_db().cursor()
     # use cursor to query the database for a list of products
     cursor.execute('''
-                   SELECT name as 0name, happinessIndex, railwayLength, avg_temp, cost_of_life, healthcare_index, education, rail_density FROM countries
+                   SELECT name as 0name, happinessIndex, safety, avg_temp, cost_of_life, healthcare_index, education, rail_density FROM countries
                    ''')
     theData = cursor.fetchall()
     current_app.logger.info(f'theData = {theData}')
