@@ -15,10 +15,10 @@ st.set_page_config(layout='wide')
 SideBarLinks()
 
 companyID = st.session_state['companyID']
-companyName = st.session_state['countryName']
-userID = st.session_state['userID'] = id
+companyName = st.session_state['companyName']
+userID = st.session_state['userID'] 
 routeID = st.session_state['routeID']
-countryName = st.session_state['stateName']
+countryName = st.session_state['countryName']
 fromStateName = st.session_state['stateName']
 
 data = {}
@@ -26,7 +26,7 @@ data = {}
 
 st.title(f"{companyName}")
 st.write(f"Welcome our page {st.session_state['name']}, we would love to help you move from **{fromStateName}** to **{countryName}**")
-mcData = requests.get(f'http://api:4000/mv/moving_company{companyID}').json()
+mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
 
 if st.button(f"Join Our Mail and Call List: {companyName}"):
       data = {"userID" : userID, 
