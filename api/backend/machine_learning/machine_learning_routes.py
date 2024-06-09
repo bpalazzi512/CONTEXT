@@ -40,8 +40,8 @@ def get_crime_training():
 
 @machine_learning.route('ranking/test', methods=["GET"])
 def get_test_route():
-    #model = csm()
-    return jsonify({"dict" : 4})
+    model = csm()
+    return jsonify(model.testMethod())
 
 
 
