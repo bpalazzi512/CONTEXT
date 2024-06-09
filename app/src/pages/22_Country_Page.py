@@ -47,7 +47,7 @@ last = admin_data[0]['lastName']
 st.write(f"**This page is managed by {first} {last}**")
 
 if st.button("view admin's profile"):
-  st.session_state['adminName'] = f"f{first} {last}"
+  st.session_state['adminName'] = f"{first} {last}"
   st.session_state['countryName'] = country_name
   st.session_state['adminID'] = admin_data[0]['id']
   st.switch_page('pages/03_Admin_Page.py')

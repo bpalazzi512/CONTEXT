@@ -22,9 +22,9 @@ data = requests.get(f'http://api:4000/u/admins/{adminID}').json()
 
 bio = data[0]['bio']
 
-st.image('https://www.docsports.com/images/lib/large/square-man.jpg')
+st.image('https://i1.rgstatic.net/ii/profile.image/278414339657728-1443390559016_Q512/Mark-Fontenot.jpg', width =100)
 
-st.title(f"{adminName}: Country Admin for {countryName}")
+st.title(adminName + ": Country Admin for " + countryName)
 st.write("hi! this is my profile and personal blog! I post more updates here!")
 
 st.write('### A little about me:')

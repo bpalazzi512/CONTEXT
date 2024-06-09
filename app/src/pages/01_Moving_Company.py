@@ -20,15 +20,22 @@ userID = st.session_state['userID']
 routeID = st.session_state['routeID']
 countryName = st.session_state['countryName']
 fromStateName = st.session_state['stateName']
+name = st.session_state['name']
 
 data = requests.get(f'http://api:4000/u/users/{userID}').json()
 stateID = data[0]['homeStateID']
 fromStateName = requests.get(f'http://api:4000/c/get_stateName/{stateID}').json()[0]['stateName']
 
+if st.session_state['role'] == 'moving_company':
+   fromStateName = '(STATE)'
+   countryName = '(COUNTRY)'
+   name = '(USER)'
+
 data = {}
 
 st.title(f"{companyName}")
-st.write(f"Welcome our page {st.session_state['name']}, we would love to help you move from **{fromStateName}** to **{countryName}**")
+st.write(f"Welcome our page **{name}**, we would love to help you move from **{fromStateName}** to **{countryName}**")
+st.image('https://www.xero.com/content/dam/xero/pilot-images/guides/us-guides/moving-business-header.1695098128416.png')
 mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
 
 if st.button(f"Join Our Mail and Call List"):

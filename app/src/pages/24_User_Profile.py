@@ -55,23 +55,24 @@ home_state = st.selectbox("Home State", ["Alabama", "Alaska", "Arizona", "Arkans
                                          "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", 
                                          "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
                                          "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", 
-                                         "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], index=home_state, placeholder="Select a state")
+                                         "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], placeholder="Select a state")
 
 move_load = st.selectbox("Move Load", ['Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], placeholder="Select a move load")
 
 
-stateID = requests.get(f'http://api:4000/c/get_stateID/{home_state}').json()[0]['id']
+
 
 # Save button
 if st.button("Save"):
     # Logic to save the user profile information
+    stateID = requests.get(f'http://api:4000/c/get_stateID/{home_state}').json()[0]['id']
     data = {"first" : first_name,
             "last" : last_name,
             "email" : email,
             "phone" : phone_number,
             "age" : str(age),
             "stateID" : str(stateID),
-            "load" : move_load,
+            "load" : str(move_load),
             "id" : str(userID)}
     response = requests.put(f'http://api:4000/u/user_edit', json=data)
     if response.status_code == 200:
