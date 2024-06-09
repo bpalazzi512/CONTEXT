@@ -79,10 +79,30 @@ def get_crime_prediction_years(country):
 # returns the slider data for a given user
 @machine_learning.route('sliders/<userID>', methods=['GET'])
 def get_sliders(userID):
+
     cursor = db.get_db().cursor()
     cursor.execute(f'SELECT avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, avg_temp_selected, rail_density_selected, education_selected, crime_safety_selected, pop_density_selected, healthcare_selected, leisure_selected, cost_of_life_selected FROM sliders WHERE userID = {userID}')
     theData = cursor.fetchall()
+
+    if not theData:  # Check if theData is empty
+        # Run the additional code if theData is empty
+        post_sliders(userID)
+        theData = cursor.fetchall()
+    
     return jsonify(theData)
+
+# post sliders initialized with default values
+@machine_learning.route('sliders/<userID>', methods=['POST'])
+def post_sliders(userID):
+    connection = db.get_db()
+    cursor = connection.cursor()
+    
+    query = f"INSERT INTO sliders (userID, avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, avg_temp_selected, rail_density_selected, education_selected, crime_safety_selected, pop_density_selected, healthcare_selected, leisure_selected, cost_of_life_selected) values ('{str(userID)}', 50, 50, 50, 50, 50, 50, 50, 50, True, True, True, True, True, True, True, True)"
+    current_app.logger.info(query)
+    cursor.execute(query)
+    connection.commit()
+    return make_response(jsonify({"message": "Sliders added successfully"}), 201)
+
 
 # updates the slider data for a given user
 @machine_learning.route('/sliders', methods = ['PUT'])
@@ -110,9 +130,6 @@ def update_country_tips():
         leisure_selected = recieved_data["leisure_selected"]
         cost_of_life_selected = recieved_data["cost_of_life_selected"]
         
-
-        
-
         connection = db.get_db()
         cursor = connection.cursor()
         
