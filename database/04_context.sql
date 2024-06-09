@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS routes (
     cost INT,
     
     PRIMARY KEY (id),
-    UNIQUE KEY unique_route (fromStateID, toCountryID, moverID, moveLoad),
+    UNIQUE KEY unique_route (cost, fromStateID, toCountryID, moverID, moveLoad),
     FOREIGN KEY (fromStateID) REFERENCES states(id),
     FOREIGN KEY (toCountryID) REFERENCES countries(id),
     FOREIGN KEY (moverID) REFERENCES movers(id)

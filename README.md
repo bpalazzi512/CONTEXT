@@ -2,7 +2,8 @@
 
 ## About
 
-This is a sample app being developed for the Summer 2024 DoC in Leuven, Belgium titled Data and Software in International Government and Politics.
+
+CONTEXT is a web app whose aim is to help Americans move to Europe, developed for the Summer 2024 DoC in Leuven, Belgium.
 
 Currently, there are two major components:
 - Streamlit App (in the `./app` directory)
