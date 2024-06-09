@@ -99,7 +99,7 @@ def display_routes(df):
             
             response = requests.put(f'http://api:4000/r/routes_edit', json=data)
             if response.status_code == 200:
-                st.success(f"Edited {route_id}")
+                st.success(f"Edited route number: {route_id}")
             else:
                 st.error(f"Please change something or ensure cost is a number")
 
@@ -144,7 +144,7 @@ def add_route():
         except:
             st.write('error')
         
-        route_id = requests.get('http://api:4000/r/get_count').json()
+        route_id = requests.get('http://api:4000/r/get_max_id').json()
         #/get_count/<stateID>/<countryID>/<moverID>/<moveLoad>'
 
         
@@ -152,7 +152,7 @@ def add_route():
 
         if submit_button:
             new_data = {
-                "id": str(1 + route_id[0]['count']),
+                "id": str(1 + route_id[0]['max_id']),
                 "MoverID": str(st.session_state['id']),
                 "Origin": str(state_id[0]['id']),
                 "Destination": str(country_id[0]['id']),
@@ -164,8 +164,9 @@ def add_route():
             moveID = str(st.session_state['id'])
             #string 
             count_repeates = requests.get(f'http://api:4000/r/get_count/{stateID}/{countryID}/{moveID}/{load}').json()
-            if count_repeates[0]['count'] > 1:
-                st.error("Route already exists! just update price!")
+
+            if count_repeates[0]['count'] > 0:
+                st.error("Route already exists! Update price!")
             else:
 
                 try: 
