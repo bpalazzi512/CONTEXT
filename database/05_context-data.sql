@@ -151,6 +151,39 @@ UPDATE countries SET square_kilos = 20273 WHERE name = 'Slovenia';
 UPDATE countries SET square_kilos = 505992 WHERE name = 'Spain';
 UPDATE countries SET square_kilos = 450295 WHERE name = 'Sweden';
 
+UPDATE countries
+SET crime_safety = CASE name
+    WHEN 'Austria' THEN 3413.34
+    WHEN 'Belgium' THEN 5063.96
+    WHEN 'Bulgaria' THEN 765.12
+    WHEN 'Croatia' THEN 1079.29
+    WHEN 'Cyprus' THEN 441.56
+    WHEN 'Czech Republic' THEN 1082.52
+    WHEN 'Denmark' THEN 5446.47
+    WHEN 'Estonia' THEN 1183.07
+    WHEN 'Finland' THEN 4351.18
+    WHEN 'France' THEN 4261.53
+    WHEN 'Germany' THEN 3482.77
+    WHEN 'Greece' THEN 1337.10
+    WHEN 'Hungary' THEN 904.03
+    WHEN 'Ireland' THEN 2322.44
+    WHEN 'Italy' THEN 2744.71
+    WHEN 'Latvia' THEN 1053.39
+    WHEN 'Lithuania' THEN 776.86
+    WHEN 'Luxembourg' THEN 5132.96
+    WHEN 'Malta' THEN 1582.81
+    WHEN 'Netherlands' THEN 2062.01
+    WHEN 'Poland' THEN 1282.78
+    WHEN 'Portugal' THEN 1715.99
+    WHEN 'Romania' THEN 759.11
+    WHEN 'Slovakia' THEN 467.31
+    WHEN 'Slovenia' THEN 1724.31
+    WHEN 'Spain' THEN 2185.26
+    WHEN 'Sweden' THEN 8482.97
+    ELSE crime_safety
+END;
+
+
 
 
 INSERT INTO states (id, stateName)
