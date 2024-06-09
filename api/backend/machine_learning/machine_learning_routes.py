@@ -120,7 +120,7 @@ def update_country_tips():
 @machine_learning.route('rankings/<userID>', methods=['GET'])
 def get_rankings(userID):
     cursor = db.get_db().cursor()
-    cursor.execute(f'SELECT rankingNum, countryID FROM countryRankings WHERE userID = {userID}')
+    cursor.execute(f'SELECT rankingNum, countryID FROM countryRankings WHERE userID = {userID} ORDER BY rankingNum')
     theData = cursor.fetchall()
     return jsonify(theData)
     
