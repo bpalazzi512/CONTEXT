@@ -70,7 +70,7 @@ def get_crime_prediction_years(country):
 @machine_learning.route('sliders/<userID>', methods=['GET'])
 def get_sliders(userID):
     cursor = db.get_db().cursor()
-    cursor.execute(f'SELECT * FROM sliders WHERE userID = {userID}')
+    cursor.execute(f'SELECT weather, transport, education, crime_safety, pop_density, healthcare, leisure, cost_of_life FROM sliders WHERE userID = {userID}')
     theData = cursor.fetchall()
     return jsonify(theData)
 
