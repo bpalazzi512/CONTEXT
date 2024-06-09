@@ -22,7 +22,7 @@ last = requests.get(f'http://api:4000/u/users/{userID}').json()[0]['lastName']
 st.title(f"Welcome back, {first} {last}")
 st.write('')
 st.write('')
-st.write('### Select which percentile you would like your country to be in for each category and generate countries similar to your needs!')
+st.write('### Update your preferences to explore compatible countries!')
 userID = st.session_state['id']
 
 col1, col2 = st.columns(2)
