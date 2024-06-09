@@ -115,7 +115,21 @@ class CosineSimilarityModel:
         """
 
         response = requests.get(f'http://api:4000/ml/sliders/{userID}')
-        preference_data = response.json()[0] 
+        preference_data = response.json()[0]
+
+        
+        #remove boolean values to see if we should use them and values that shouldnt be used
+        dropped = ['name']
+        keys = list(preference_data.keys()).copy()
+        for key in keys:
+            if "_selected" not in key:
+                selected = key + "_selected"
+                if not preference_data[selected]:
+                    dropped.append(key)
+                    del preference_data[key]
+                del preference_data[selected]
+
+
 
         #return preference_data
 
@@ -124,7 +138,7 @@ class CosineSimilarityModel:
         user_percentiles = self.get_user_percentiles(preference_data)
 
         user_percentiles_scaled = {}
-        for feature in self.feats:
+        for feature in user_percentiles.keys():
             user_percentiles_scaled[feature] = (user_percentiles[feature] - self.merged_df[feature].mean()) / self.merged_df[feature].std()
         
 
@@ -142,7 +156,7 @@ class CosineSimilarityModel:
         #return user_scaled.to_dict()
 
         # Calculate cosine similarity
-        sim = cosine_similarity(user_scaled, self.X_scaled_df.drop(columns=['name']))
+        sim = cosine_similarity(user_scaled, self.X_scaled_df.drop(columns=dropped))
         top_matches = sim[0].argsort()[-top_n:][::-1]
 
         # Find the matching country

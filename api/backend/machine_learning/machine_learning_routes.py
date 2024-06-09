@@ -78,7 +78,7 @@ def get_crime_prediction_years(country):
 @machine_learning.route('sliders/<userID>', methods=['GET'])
 def get_sliders(userID):
     cursor = db.get_db().cursor()
-    cursor.execute(f'SELECT avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life FROM sliders WHERE userID = {userID}')
+    cursor.execute(f'SELECT avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, avg_temp_selected, rail_density_selected, education_selected, crime_safety_selected, pop_density_selected, healthcare_selected, leisure_selected, cost_of_life_selected FROM sliders WHERE userID = {userID}')
     theData = cursor.fetchall()
     return jsonify(theData)
 
@@ -99,12 +99,24 @@ def update_country_tips():
         cost_of_life = int(recieved_data["cost_of_life"])
         userID = int(recieved_data["userID"])
 
+        weather_selected = recieved_data["avg_temp_selected"]
+        transport_selected = recieved_data["rail_density_selected"]
+        education_selected = recieved_data["education_selected"]
+        safety_selected = recieved_data["crime_safety_selected"]
+        pop_density_selected = recieved_data["pop_density_selected"]
+        healthcare_selected = recieved_data["healthcare_selected"]
+        leisure_selected = recieved_data["leisure_selected"]
+        cost_of_life_selected = recieved_data["cost_of_life_selected"]
+        
+
+        
+
         connection = db.get_db()
         cursor = connection.cursor()
         
-        query = "UPDATE sliders SET avg_temp = %s, rail_density = %s, education = %s, crime_safety = %s, pop_density = %s, healthcare = %s, leisure = %s, cost_of_life = %s WHERE userID = %s"
+        query = "UPDATE sliders SET avg_temp = %s, rail_density = %s, education = %s, crime_safety = %s, pop_density = %s, healthcare = %s, leisure = %s, cost_of_life = %s, avg_temp_selected = %s, rail_density_selected = %s, education_selected = %s, crime_safety_selected = %s, pop_density_selected = %s, healthcare_selected = %s, leisure_selected = %s, cost_of_life_selected = %s WHERE userID = %s"
         current_app.logger.info(query)
-        cursor.execute(query, (weather, transport, education, safety, pop_density, healthcare, leisure, cost_of_life, userID))
+        cursor.execute(query, (weather, transport, education, safety, pop_density, healthcare, leisure, cost_of_life, weather_selected, transport_selected, education_selected, safety_selected, pop_density_selected, healthcare_selected, leisure_selected, cost_of_life_selected, userID))
         connection.commit()
         if cursor.rowcount == 0:
             return make_response(jsonify({"error": "ID not found"}), 404)
