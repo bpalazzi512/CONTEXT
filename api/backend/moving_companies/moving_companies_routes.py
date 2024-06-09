@@ -117,67 +117,34 @@ def get_users(moverID):
     theData = cursor.fetchall()
     return jsonify(theData)
 
-    # id INT UNIQUE NOT NULL,
-    # email VARCHAR(50) NOT NULL,
-    # moverName VARCHAR(50) NOT NULL,
-    # phone VARCHAR(50) NOT NULL,
-    # bio VARCHAR(500),
-    # stars int,
-    # numReviews int,
 
 @moving_company.route('/mc_edit', methods=['PUT'])
 def update_company():
     try:
         recieved_data = request.json
 
-        load = str(recieved_data["moveLoad"])
-        cost = int(recieved_data["cost"])
-        routeID = int(recieved_data["id"])
-        
+        moverID = int(recieved_data['moverID'])
+        email = str(recieved_data["email"])
+        moverName = str(recieved_data["moverName"])
+        phone = str(recieved_data["phone"])
+        bio = str(recieved_data['bio'])
 
-        current_app.logger.info("Updating route: " + str(routeID) + " and tips: " + load)
+
+        current_app.logger.info("Updating " + moverName)
         connection = db.get_db()
         cursor = connection.cursor()
         
-        query = "UPDATE routes SET moveLoad = %s, cost = %s WHERE id = %s"
-        current_app.logger.info(f'Updating tips with countryID: {routeID}')
-        cursor.execute(query, (load, cost, routeID))
+        query = "UPDATE movers SET email = %s, moverName = %s, phone = %s, bio = %s WHERE id = %s"
+        current_app.logger.info(f'Updating tips with countryID: {moverID}')
+        cursor.execute(query, (email, moverName, phone, bio, moverID))
         connection.commit()
         if cursor.rowcount == 0:
             return make_response(jsonify({"error": "ID not found"}), 404)
         return make_response(jsonify({"message": "Move load updated successfully"}), 200)
     except Exception as e:
-        current_app.logger.error(f"Error updating moveload with routeID: {routeID}, error: {e}")
+        current_app.logger.error(f"Error updating moveload with routeID: {moverID}, error: {e}")
         return make_response(jsonify({"error": "Internal server error"}), 500)
     finally:
         if cursor:
             cursor.close()
 
-
-# # Put (edit) tips of a country as admin
-# @routes.route('/routes_edit', methods = ['PUT'])
-# def update_route_load():
-#     try:
-#         recieved_data = request.json
-
-#         load = str(recieved_data["moveLoad"])
-#         cost = int(recieved_data["cost"])
-#         routeID = int(recieved_data["id"])
-
-#         current_app.logger.info("Updating route: " + str(routeID) + " and tips: " + load)
-#         connection = db.get_db()
-#         cursor = connection.cursor()
-        
-#         query = "UPDATE routes SET moveLoad = %s, cost = %s WHERE id = %s"
-#         current_app.logger.info(f'Updating tips with countryID: {routeID}')
-#         cursor.execute(query, (load, cost, routeID))
-#         connection.commit()
-#         if cursor.rowcount == 0:
-#             return make_response(jsonify({"error": "ID not found"}), 404)
-#         return make_response(jsonify({"message": "Move load updated successfully"}), 200)
-#     except Exception as e:
-#         current_app.logger.error(f"Error updating moveload with routeID: {routeID}, error: {e}")
-#         return make_response(jsonify({"error": "Internal server error"}), 500)
-#     finally:
-#         if cursor:
-#             cursor.close()

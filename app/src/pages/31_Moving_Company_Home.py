@@ -14,9 +14,10 @@ st.title(f"Welcome back {st.session_state['name']} Admin")
 st.write('Thank you for choosing to work with CONTEXT!')
 st.write('')
 
-comapnyID = st.session_state['id']
-mcData = requests.get(f'http://api:4000/mv/moving_company/{comapnyID}').json()
+companyID = st.session_state['id']
+mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
 
+#companyID = mcData[0]['id']
 companyName = mcData[0]['moverName']
 email = mcData[0]['email']
 phone = mcData[0]['phone']
@@ -42,32 +43,26 @@ with col2:
     st.switch_page('pages/23_Routes.py')
 
 st.write('### Company Profile')
-#cost = cols[3].text_input('cost', '$' + str(row['cost']), key=f"cost_{index}")
-st.text_input('Company Name', companyName)
-st.text_input('Email', email)
-st.text_input('phone', phone)
-st.text_area('bio', bio)
+
+companyName_input = st.text_input('Company Name', companyName)
+email_input = st.text_input('Email', email)
+phone_input = st.text_input('phone', phone)
+bio_input = st.text_area('bio', bio)
 
 st.write("Stars: "+ ("⭐" * numStars) + "   " +str(numReviews) + " reviews")
 
 if st.button('Save'):
-  
-  st.success("Profile saved successfully!")
+  data = {"moverID": str(companyID),
+          "email" : email_input,
+          "phone" : phone_input,
+          "bio" : bio_input,
+          "moverName" : companyName_input}
+  response = requests.put('http://api:4000/mv/mc_edit', json=data)
+  if response.status_code == 200:
+    st.success("Profile saved successfully!")
 
 
 
-        # if edit_buttons[index]:
-        #     data = {"moveLoad": load, "cost": cost_number, "id": str(route_id)}
-            
-        #     response = requests.put(f'http://api:4000/r/routes_edit', json=data)
-        #     if response.status_code == 200:
-                
-        #         st.success(f"Edited route number: {route_id}")
-                
-        #         time.sleep(1)  # Add a 1-second delay
-        #         st.experimental_rerun()
-        #     else:
-        #         st.error(f"Please change something or ensure cost is a number")
 
 
 
