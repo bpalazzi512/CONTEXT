@@ -51,7 +51,7 @@ def SideBarLinks(show_home=False):
         st.switch_page('Home.py')
 
     # Show the other page navigators depending on the users' role.
-    if st.session_state["authenticated"]:
+    elif st.session_state["authenticated"]:
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state['role'] == 'moving_person':
@@ -69,10 +69,15 @@ def SideBarLinks(show_home=False):
             AdminPageNav()
             AdminViewUsers()
 
-    if st.session_state["authenticated"]:
+    elif st.session_state["authenticated"]:
         # Always show a logout button if there is a logged in user
         if st.sidebar.button("Logout"):
             del st.session_state['role']
             del st.session_state['authenticated']
             st.switch_page('Home.py')
+    
+    # user not selected yet
+    else:
+        HomeNav()
+        AboutPageNav()
 
