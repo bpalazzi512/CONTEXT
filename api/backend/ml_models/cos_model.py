@@ -16,7 +16,9 @@ class CosineSimilarityModel:
         data = pd.DataFrame(data)
 
         self.merged_df = data
-        self.feats = data.columns[1::]
+
+        
+        self.feats = self.merged_df.drop(columns=["name"]).columns #data.columns[1::]
         self.scaler = StandardScaler()
         self.X_scaled_df = self._scale_features(data)
 
@@ -33,7 +35,7 @@ class CosineSimilarityModel:
         X = df[self.feats]
         X_scaled = self.scaler.fit_transform(X)
         X_scaled_df = pd.DataFrame(X_scaled, columns=self.feats)
-        X_scaled_df['0name'] = df['0name']
+        X_scaled_df['name'] = df['name']
         X_scaled_df = X_scaled_df.dropna()
         return X_scaled_df
 
@@ -53,6 +55,7 @@ class CosineSimilarityModel:
             feature = "cost_of_life"
         
 
+        return self.merged_df[feature].quantile[user_input/100]
 
         """
         for item in self.merged_df:
@@ -60,8 +63,9 @@ class CosineSimilarityModel:
             input_percentile_value = np.percentile(float(item[feature]), user_input)
             return input_percentile_value
         """
+
     def testMethod(self) :
-        return self.merged_df
+        return self.merged_df.to_dict()
 
     def get_user_percentiles(self, user_input):
         """
@@ -92,6 +96,7 @@ class CosineSimilarityModel:
         Returns:
             list: List of the top N closest country matches
         """
+        
         response = requests.get(f'http://api:4000/ml/sliders/{userID}')
         preference_data = response.json()  # Assuming the API returns JSON
 
