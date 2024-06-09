@@ -2061,4 +2061,4 @@ insert into countryRankings (countryID, rankingNum, userID, id) values (26, 26, 
 insert into countryRankings (countryID, rankingNum, userID, id) values (27, 27, 15, 27);
 
 -- REMOVE THIS
-insert into sliders (weather, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);
+insert into sliders (avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life, userID) values (50, 50, 50, 50, 50, 50, 50, 50, 15);

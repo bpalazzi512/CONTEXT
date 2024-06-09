@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS routes (
 );
 
 create table if not exists sliders (
-    weather int,
+    avg_temp int,
     rail_density int,
     education int,
     crime_safety int,
@@ -125,7 +125,7 @@ create table if not exists sliders (
     leisure int,
     cost_of_life int,
     userID int unique not null,
-    check (weather between 0 and 100),
+    check (avg_temp between 0 and 100),
     check (rail_density between 0 and 100),
     check (education between 0 and 100),
     check (crime_safety between 0 and 100),

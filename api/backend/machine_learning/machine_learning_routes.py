@@ -70,7 +70,7 @@ def get_crime_prediction_years(country):
 @machine_learning.route('sliders/<userID>', methods=['GET'])
 def get_sliders(userID):
     cursor = db.get_db().cursor()
-    cursor.execute(f'SELECT weather, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life FROM sliders WHERE userID = {userID}')
+    cursor.execute(f'SELECT avg_temp, rail_density, education, crime_safety, pop_density, healthcare, leisure, cost_of_life FROM sliders WHERE userID = {userID}')
     theData = cursor.fetchall()
     return jsonify(theData)
 
@@ -81,7 +81,7 @@ def update_country_tips():
     try:
         recieved_data = request.json
 
-        weather = int(recieved_data["weather"])
+        weather = int(recieved_data["avg_temp"])
         transport = int(recieved_data["rail_denisity"])
         education = int(recieved_data["education"])
         safety = int(recieved_data["crime_safety"])
@@ -94,7 +94,7 @@ def update_country_tips():
         connection = db.get_db()
         cursor = connection.cursor()
         
-        query = "UPDATE sliders SET weather = %s, rail_density = %s, education = %s, crime_safety = %s, pop_density = %s, healthcare = %s, leisure = %s, COL = %s WHERE userID = %s"
+        query = "UPDATE sliders SET avg_temp = %s, rail_density = %s, education = %s, crime_safety = %s, pop_density = %s, healthcare = %s, leisure = %s, COL = %s WHERE userID = %s"
         current_app.logger.info(query)
         cursor.execute(query, (weather, transport, education, safety, pop_density, healthcare, leisure, cost_of_life, userID))
         connection.commit()
