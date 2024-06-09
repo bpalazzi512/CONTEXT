@@ -21,10 +21,14 @@ routeID = st.session_state['routeID']
 countryName = st.session_state['stateName']
 fromStateName = st.session_state['stateName']
 
-
 data = {}
 
-if st.button(f"Contact {companyName}"):
+
+st.title(f"{companyName}")
+st.write(f"Welcome our page {st.session_state['name']}, we would love to help you move from **{fromStateName}** to **{countryName}**")
+mcData = requests.get(f'http://api:4000/mv/moving_company{companyID}').json()
+
+if st.button(f"Join Our Mail and Call List: {companyName}"):
       data = {"userID" : userID, 
               "moverID" : companyID, 
               "routeID" : routeID
@@ -37,15 +41,19 @@ if st.button(f"Contact {companyName}"):
       with modal.container():
         st.markdown("Expect to hear from us shortly")
 
-    # id INT UNIQUE NOT NULL,
-    # email VARCHAR(50) NOT NULL,
-    # moverName VARCHAR(50) NOT NULL,
-    # phone VARCHAR(50) NOT NULL,
-    # bio VARCHAR(500),
-    # stars int,
-    # numReviews int,
 
-st.title(f"{companyName}")
-st.write(f"Welcome our page {st.session_state['name']}, we would love to help you move from {fromStateName} to {countryName}")
+email = mcData[0]['email']
+phone = mcData[0]['phone']
+bio = mcData[0]['bio']
+numStars = mcData[0]['stars']
+numReviews = mcData[0]['numReviews']
 
-st.write 
+st.write('## learn more about us below!')
+st.write(bio)
+st.write('## Hesitant to contact us?')
+st.write(f'Phone: {phone}')
+st.write(f'email: {email}')
+st.write("Stars: "+ ("⭐" * numStars) + "    " +str(numReviews) + " reviews")
+
+
+
