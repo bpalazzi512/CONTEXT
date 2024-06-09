@@ -6,6 +6,7 @@ import plotly.express as px
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
+import time  # Import the time module
 
 st.set_page_config(layout='wide')
 
@@ -22,23 +23,7 @@ except:
 
 df = pd.DataFrame(data)
 
-# # init fields with random data
-# email = "test@gmail.com"
-# age = 25
-# phone = "123-456-7890"
-# first_name = "John"
-# last_name = "Doe"
-# home_state = "California"
-# move_load = "Full Household"
 
-# for index, rows in df.iterrows():
-#     email = rows['email']
-#     age = rows['age']
-#     phone = rows['phone']
-#     first_name = rows['firstName']
-#     last_name = rows['lastName']
-#     home_state = rows['homeStateID']
-#     move_load = rows['moveLoad']
 
 
 
@@ -91,6 +76,8 @@ def display_routes(df):
             response = requests.delete(f'http://api:4000/r/del_routes/{route_id}')
             if response.status_code == 200:
                 st.success(f"Deleted route {route_id}")
+                time.sleep(1)  # Add a 1-second delay
+                st.experimental_rerun()
             else:
                 st.error(f"Failed delete route {route_id}")
 
@@ -99,13 +86,15 @@ def display_routes(df):
             
             response = requests.put(f'http://api:4000/r/routes_edit', json=data)
             if response.status_code == 200:
+                
                 st.success(f"Edited route number: {route_id}")
+                
+                time.sleep(1)  # Add a 1-second delay
+                st.experimental_rerun()
             else:
                 st.error(f"Please change something or ensure cost is a number")
 
-# Page Title
-st.title(f"Routes for {st.session_state['name']}")
-display_routes(df)
+
 
 userID = st.session_state['id']
 origin = 'Utah'
@@ -181,4 +170,13 @@ def add_route():
                 else:
                         st.error("Failed to add route. Please try again.")
 
+
+# Page Title
+st.title(f"Routes for {st.session_state['name']}")
+st.write('## See, Edit, and Delete existing routes:')
 add_route()
+st.write("")
+st.write("## Existing Routes:")
+st.write("")
+display_routes(df)
+

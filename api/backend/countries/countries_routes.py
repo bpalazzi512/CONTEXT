@@ -32,6 +32,17 @@ def get_stateID(state):
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
 
+#get stateID given state name
+@countries.route('/get_stateName/<stateID>', methods=['GET'])
+def get_stateName(stateID):
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+    # use cursor to query the database for a list of products
+    cursor.execute(f'SELECT stateName FROM states where id = {stateID}')
+    theData = cursor.fetchall()
+    current_app.logger.info(f'theData = {theData}')
+    return jsonify(theData)
+
 
 # Get all countries from the DB
 @countries.route('/countries', methods=['GET'])

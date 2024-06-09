@@ -73,6 +73,8 @@ except:
   user_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
 stateID = user_data[0]['homeStateID']
+stateName = requests.get(f'http://api:4000/c/get_stateName/{stateID}').json()[0]['stateName']
+st.write(stateName)
 countryID = country_data[0]['id']
 
 mover_data = {}
@@ -83,31 +85,37 @@ except:
   st.write("**Important**: Could not connect to sample api, so using dummy data.")
   mover_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
-# mover_data = {
-#     "Mover Name": ["Fontemoves", "Speedy Movers", "Global Transport"],
-#     "Quote": ["$3000", "$3200", "$3100"],
-#     "Stars": ["⭐⭐⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐⭐"]
-# }
 
 # Create a DataFrame
 df = pd.DataFrame(mover_data)
 
 # Function to display the table with buttons
 def display_movers_with_buttons(df):
-  header_cols = st.columns([3, 2, 1, 2])
+  header_cols = st.columns([3, 2, 1, 2, 2])
   header_cols[0].write("**Mover Name**")
   header_cols[1].write("**Cost**")
   header_cols[2].write("**Stars**")
   header_cols[3].write("**Contact**")
   for index, row in df.iterrows():
-    cols = st.columns([3, 2, 1, 2])
+    cols = st.columns([3, 2, 1, 2, 2])
     cols[0].write(row["moverName"])
     cols[1].write('$' + str(row["cost"]))
     cols[2].write(row["stars"] * "⭐")
     button_ph = cols[3].empty()
+
+
+    if button_ph.button('View Page', key=index):
+      st.session_state['userID'] = id
+      st.session_state['moverID'] = row['id']
+      st.session_state['routeID'] = row['r.id']
+      st.session_state['countryName'] = country_name
+      st.session_state['stateName'] = stateName
+
+      st.switch_page('pages/01_Moving_Company.py')
+
   
     if button_ph.button("Contact Mover", key=index):
-      data = {"userID" : st.session_state['id'], 
+      data = {"userID" : id, 
               "moverID" : row["id"], 
               "routeID" : row["r.id"]
               }
