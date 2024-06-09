@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS countries (
     unemploymentRate DECIMAL(5, 1),
     avg_temp DECIMAL(5, 2),
     cost_of_life DECIMAL(5, 1),
-    healthcare_index DECIMAL(5, 2),
+    healthcare DECIMAL(5, 2),
     pop_density INT,
     official_lang VARCHAR(1024),
     minority_lang VARCHAR(1024),

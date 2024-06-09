@@ -3,7 +3,7 @@ USE context;
 -- REAL DATA!
 
 
-INSERT INTO countries (id, name, education, avg_temp, cost_of_life, healthcare_index, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_link)
+INSERT INTO countries (id, name, education, avg_temp, cost_of_life, healthcare, pop_density, official_lang, minority_lang, widely_spoken_lang, bio, tips, img_link)
 VALUES
 (1, 'Malta', 2524.5, 19.58,55.1,53.59,1700,'English, Spanish','','','Malta is a beautiful island country located in the Mediterranean Sea. It is known for its rich history, stunning architecture, and vibrant culture.','Explore the charming streets of Valletta, visit the ancient temples of Hagar Qim, and relax on the picturesque beaches of Gozo.','https://assets.vogue.com/photos/599365b2f0b0e21484d3436e/master/w_2560%2Cc_limit/00-lede-a-travel-guide-to-malta.jpg'),
 (2, 'Cyprus', 4538.5, 18.95,57.1,53.74,136,'Greek','', 'English','Cyprus is a Mediterranean island known for its beautiful beaches, ancient ruins, and rich cultural heritage. It offers a perfect blend of history, nature, and relaxation.','Visit the UNESCO World Heritage site of Paphos, explore the stunning Troodos Mountains, and indulge in delicious Cypriot cuisine.','https://www.travelandleisure.com/thmb/_HcHZ4Gr8jbDJ5vcHYzR7a4lXvA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TAL-kourion-archaeological-site-CYPRUS0124-3e8854b03a754966a1a11e4b6dd356c3.jpg'),
