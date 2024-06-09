@@ -1,10 +1,3 @@
-'''
-cosine similarity class testframe
-uses code initialized in cosine_sim_test.py
-author: seamus coyne
-date: jun. 8 2024
-'''
-
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -13,21 +6,13 @@ import requests
 
 class CosineSimilarityModel:
 
-    def __init__(self, db):
+    def __init__(self):
         """
         Initialize the CosineSimilarityModel with a dataframe.
-
-        Parameters:
-            db: Database connection object
         """
         # Fetch the data from the API
-        data = {}
-        try:
-            data = requests.get('http://api:4000/c/countries')
-        except:
-            pass
-
-        # Create DataFrame from the fetched data
+        response = requests.get('http://api:4000/c/countries')
+        data = response.json()  # Assuming the API returns JSON
         data = pd.DataFrame(data)
 
         self.merged_df = data
@@ -80,26 +65,22 @@ class CosineSimilarityModel:
         """
         percentiles = {}
         for feature in user_input:
-            percentiles[feature] = self.translate_to_percentiles(user_input[feature], feature)
+            percentiles[feature] = self.translate_to_percentiles(user_input=user_input[feature], feature=feature)
         return percentiles
 
-    def find_closest_country(self, userID=15, top_n=27):
+    def find_closest_country(self, userID, top_n=27):
         """
         Find the top N closest countries based on user preferences.
 
         Parameters:
-            user_pref (dict): Dictionary of user preference inputs
-            top_n (int): Number of closest matches to be used (default is 5)
+            userID (str): User ID to fetch preferences
+            top_n (int): Number of closest matches to be used (default is 27)
 
         Returns:
             list: List of the top N closest country matches
         """
-
-        preference_data = {}
-        try:
-            preference_data = requests.get(f'http://api:4000/ml/sliders/{userID}')
-        except:
-            pass
+        response = requests.get(f'http://api:4000/ml/sliders/{userID}')
+        preference_data = response.json()  # Assuming the API returns JSON
 
         # Translate user inputs to percentiles
         user_percentiles = self.get_user_percentiles(preference_data)
@@ -122,3 +103,7 @@ class CosineSimilarityModel:
 
         return result_dict
 
+# Example usage:
+# cos_model = CosineSimilarityModel()
+# result = cos_model.find_closest_country("some_user_id")
+# print(result)

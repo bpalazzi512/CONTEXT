@@ -11,7 +11,8 @@ machine_learning = Blueprint('machine_learning', __name__)
 # generate the rankings for a given user
 @machine_learning.route('/rankings/<userID>/generate', methods = ['GET'])
 def generate_rankings(userID):
-    ranking_dict = csm.find_closest_country(userID)
+    cos_model = csm()
+    ranking_dict = cos_model.find_closest_country(userID=int(userID))
 
     # for loop which inserts each number and country id into the database
     for i in range(1, len(ranking_dict)+1):
@@ -20,7 +21,7 @@ def generate_rankings(userID):
         countryName = ranking_dict[str(i)]
         countryID = requests.get(f'http://api:4000/c/getCountryID/{countryName}').json()[0]['id']
 
-        data = {"rankingNum": rankingNum, "countryID": countryID, "userID": userID}
+        data = {"rankingNum": rankingNum, "countryID": countryID, "userID": int(userID)}
         requests.put('http://api:4000/ml/rankings', json=data)
 
     return make_response(jsonify({"message": "Rankings generated successfully"}), 200)

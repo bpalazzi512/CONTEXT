@@ -59,8 +59,8 @@ with col1:
     if st.button("Save and Generate Ranking"):
         data = {"weather": warm_weather, "transport": robust_public_transport, "education": good_public_education, "safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "COL": cost_of_living, "userID": userID}
         requests.put('http://api:4000/ml/sliders', json=data)  
-
-        ranking_data = requests.get(f'http://api:4000/ml/rankings/{userID}/generate').json()
+        
+        ranking_data = requests.get(f'http://api:4000/ml/rankings/{str(userID)}/generate').json()
         requests.put('http://api:4000/ml/rankings', json=ranking_data)      
 
         st.success("Section updated successfully!")
