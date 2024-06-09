@@ -4,6 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import StandardScaler
 from backend.db_connection import db
 import requests
+from flask import current_app
 
 class CosineSimilarityModel:
 
@@ -60,9 +61,9 @@ class CosineSimilarityModel:
             float: Translated percentile value
         """
         
-        self.merged_df[feature] = self.merged_df[feature].astype(float)
+        self.X_scaled_df[feature] = self.X_scaled_df[feature].astype(float)
 
-        return self.merged_df[feature].quantile(user_input/100)
+        return self.X_scaled_df[feature].quantile(user_input/100)
 
         """
         for item in self.merged_df:
@@ -117,6 +118,8 @@ class CosineSimilarityModel:
         response = requests.get(f'http://api:4000/ml/sliders/{userID}')
         preference_data = response.json()[0]
 
+
+
         
         #remove boolean values to see if we should use them and values that shouldnt be used
         dropped = ['name']
@@ -131,32 +134,44 @@ class CosineSimilarityModel:
 
 
 
-        #return preference_data
+     
 
 
         # Translate user inputs to percentiles
         user_percentiles = self.get_user_percentiles(preference_data)
 
-        user_percentiles_scaled = {}
-        for feature in user_percentiles.keys():
-            user_percentiles_scaled[feature] = (user_percentiles[feature] - self.merged_df[feature].mean()) / self.merged_df[feature].std()
+
+
+        user_scaled = pd.DataFrame([user_percentiles])
+
+
         
 
-        # Create DataFrame from user percentiles
-       #user_df = pd.DataFrame([user_percentiles])
+        # Calculate cosine similarity, absolute difference if dimension is 1
+        if user_scaled.shape[1] == 1:
+            differences = None
+            val = user_scaled.iloc[0, 0]
+            for feature in user_scaled.columns:
+                
+                differences = abs(val -  self.X_scaled_df[feature])
+            differences = differences.tolist()
+            sorted_differences = differences.copy()
+            
+            sorted_differences.sort()
+            
+        
 
-        #return user_df.to_dict()
+            result_dict = {}
+            i = 1
+            countries = self.X_scaled_df["name"].tolist()
+            for value in sorted_differences:
+                result_dict[i] = countries[differences.index(value)]
+                i += 1
+            return result_dict
+            
 
-        # Scale user preferences using the same scaler
-        #user_scaled = self.scaler.transform(user_df)
-
-        user_scaled = pd.DataFrame([user_percentiles_scaled])
-
-
-        #return user_scaled.to_dict()
-
-        # Calculate cosine similarity
         sim = cosine_similarity(user_scaled, self.X_scaled_df.drop(columns=dropped))
+       
         top_matches = sim[0].argsort()[-top_n:][::-1]
 
         # Find the matching country

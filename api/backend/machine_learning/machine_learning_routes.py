@@ -23,6 +23,7 @@ def update_rankings():
     current_app.logger.info('PUT /countries route')
     ranking_info = request.json
     current_app.logger.info(ranking_info)
+    
     country_id = ranking_info["countryID"]
     user_id = ranking_info["userID"]
     rank = ranking_info['rankingNum']
@@ -33,6 +34,7 @@ def update_rankings():
     query = 'UPDATE countryRankings SET rankingNum = %s where countryID = %s AND userID = %s'
     cursor.execute(query, (str(rank), str(country_id), str(user_id)))
     connection.commit()
+    
     return 'ranking updated!'
 
 # returns the crime training data
