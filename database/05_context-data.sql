@@ -75,6 +75,7 @@ UPDATE countries SET happinessIndex = 19.994285714285713 WHERE name = 'Estonia';
 UPDATE countries SET happinessIndex = 19.897142857142857 WHERE name = 'Finland';
 UPDATE countries SET happinessIndex = 19.914285714285715 WHERE name = 'France';
 UPDATE countries SET happinessIndex = 20.0 WHERE name = 'Greece';
+UPDATE countries SET happinessIndex = 19.61 WHERE name = 'Germany';
 UPDATE countries SET happinessIndex = 19.994285714285713 WHERE name = 'Hungary';
 UPDATE countries SET happinessIndex = 20.002857142857142 WHERE name = 'Ireland';
 UPDATE countries SET happinessIndex = 19.242857142857144 WHERE name = 'Italy';
