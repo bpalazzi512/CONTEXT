@@ -34,12 +34,13 @@ if st.button(f"Join Our Mail and Call List"):
               "routeID" : routeID
               }
       try:
-        requests.post('http://api:4000/mv/userContact', json=data)
+        response = requests.post('http://api:4000/mv/userContact', json=data)
         modal = Modal(key="success", title="Thank you for choosing " + companyName + "!")
       except:
         modal = Modal(key="something went wrong!", title="ERROR!")
       with modal.container():
         st.markdown("Expect to hear from us shortly")
+      st.write(response)
 
 
 email = mcData[0]['email']

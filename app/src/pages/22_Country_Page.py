@@ -10,6 +10,7 @@ import requests
 import json
 from datetime import datetime
 import time
+import matplotlib.pyplot as plt
 # Show appropriate sidebar links for the role of the currently logged in user
 st.set_page_config(layout='wide')
 SideBarLinks()
@@ -49,18 +50,28 @@ st.subheader("Tips / Extra Info")
 st.markdown(country_data[0]['tips'])
 
 st.subheader("Stats")
-try:
-  crime_prediction = requests.get(f'http://api:4000/ml/crime/predict/{country_name}').json()
-  df = pd.DataFrame(crime_prediction)
+
+col1, col2 = st.columns(2)
+crime_prediction = requests.get(f'http://api:4000/ml/crime/predict/{country_name}').json()
+df = pd.DataFrame(crime_prediction)
+with col1:
   formatted_df = df.style.format({"Year": "{:.0f}".format, 'Predicted Number of Crimes (Per 100k People)' : "{:,.0f}".format})
   st.dataframe(formatted_df, column_order=['Year', 'Predicted Number of Crimes (Per 100k People)'], hide_index = True)
 
+with col2:
+  fig, ax = plt.subplots()
+  ax.plot(df['Year'], df['Predicted Number of Crimes (Per 100k People)'], marker='o', linestyle='-')
+  ax.set_title('Crime Prediction')
+  ax.set_xlabel('Year')
+  ax.set_ylabel('Predicted Number of Crimes (Per 100k People)')
+  ax.grid(True)
+  
+  st.pyplot(fig)
 
-except:
-  st.write("Could not load crime predictions at this time")
 
-# Mover Data Table
-st.markdown("## Explore Compatible Movers to this Destination")
+
+
+
 
 user_data = {}
 
@@ -74,7 +85,6 @@ except:
 
 stateID = user_data[0]['homeStateID']
 stateName = requests.get(f'http://api:4000/c/get_stateName/{stateID}').json()[0]['stateName']
-st.write(stateName)
 countryID = country_data[0]['id']
 
 mover_data = {}
@@ -102,14 +112,15 @@ def display_movers_with_buttons(df):
     cols[1].write('$' + str(row["cost"]))
     cols[2].write(row["stars"] * "⭐")
     button_ph = cols[3].empty()
-
-
-    if button_ph.button('View Page', key=index):
+    button_viewP = cols[4].empty()
+    
+    if button_viewP.button('View Page', key=f'view_page{index}'):
       st.session_state['userID'] = id
-      st.session_state['moverID'] = row['id']
       st.session_state['routeID'] = row['r.id']
       st.session_state['countryName'] = country_name
       st.session_state['stateName'] = stateName
+      st.session_state['companyName'] = row['moverName']
+      st.session_state['companyID'] = row['id']
 
       st.switch_page('pages/01_Moving_Company.py')
 
@@ -125,9 +136,12 @@ def display_movers_with_buttons(df):
       except:
         modal = Modal(key="something went wrong!", title="ERROR!")
       with modal.container():
-        st.markdown("Expect to hear from them shortly")
+         st.markdown("Expect to hear from them shortly")
             
-
+# Mover Data Table
+st.markdown(f"### Explore Compatible Moving Companies")
+st.markdown(f"#### that operate from {stateName} to {country_name}")
+st.write("")
 
 # Display the DataFrame as a custom table with buttons
 display_movers_with_buttons(df)

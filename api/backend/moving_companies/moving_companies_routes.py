@@ -111,9 +111,9 @@ def delete_mover_contact(userID, moverID):
 def get_users(moverID):
     current_app.logger.info('moverContact.py: GET /moverContact')
     cursor = db.get_db().cursor()
-    cursor.execute(f'select u.id, u.firstName, u.lastName, u.email, u.phone, mc.dateContacted \
-                   from users u join moverContacts mc on u.id = mc.userID \
-                   where mc.moverID = {moverID} order by mc.dateContacted desc')
+    cursor.execute(f'select s.stateName, c.name, r.cost, u.id, u.firstName, u.lastName, u.email, u.phone, mc.dateContacted \
+                   from users u join moverContacts mc on u.id = mc.userID join states s on s.id = u.homeStateID join routes r on s.id = r.fromStateID join countries c on c.id = r.toCountryID \
+                   where mc.moverID = {moverID} order by mc.dateContacted')
     theData = cursor.fetchall()
     return jsonify(theData)
 

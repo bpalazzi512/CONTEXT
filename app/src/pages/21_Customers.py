@@ -35,23 +35,23 @@ df = pd.DataFrame(data)
 checkbox_states = {}
 # Function to display the table with buttons
 def display_customers(df):
-    header_cols = st.columns([2, 2, 5, 3, 4, 2])
-    header_cols[0].write("**First Name**")
-    header_cols[1].write("**Last Name**")
+    header_cols = st.columns([2, 2, 5, 3, 3, 3])
+    header_cols[0].write("**First**")
+    header_cols[1].write("**Last**")
     header_cols[2].write("**Email**")
     header_cols[3].write("**Phone Number**")
     header_cols[4].write("**Date**")
 
     for index, row in df.iterrows():
-        cols = st.columns([2, 2, 5, 3, 4, 2])
+        cols = st.columns([2, 2, 5, 3, 3, 3])
         cols[0].write(row["firstName"])
         cols[1].write(row["lastName"])
         cols[2].write(row["email"])
         cols[3].write(row["phone"])
-        cols[4].write('$' + str(row["dateContacted"]))
+        cols[4].write(str(row["dateContacted"])[:16])
         button_ph = cols[5].empty()
         #cols[4].checkbox("Contacted", value=False, key=f"checkbox_{index}")
-        checkbox_states[index] = cols[4].checkbox("Contacted", value=False, key=f"checkbox_{index}")
+        checkbox_states[index] = cols[5].checkbox("Contacted", value=False, key=f"checkbox_{index}")
 
 
 
