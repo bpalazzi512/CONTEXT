@@ -28,7 +28,7 @@ st.title(f"{companyName}")
 st.write(f"Welcome our page {st.session_state['name']}, we would love to help you move from **{fromStateName}** to **{countryName}**")
 mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
 
-if st.button(f"Join Our Mail and Call List: {companyName}"):
+if st.button(f"Join Our Mail and Call List"):
       data = {"userID" : userID, 
               "moverID" : companyID, 
               "routeID" : routeID
