@@ -8,7 +8,6 @@ st.write("# About this App")
 
 st.markdown (
     """
-
     Welcome to CONTEXT, a comprehensive platform designed to help retirees 
     and expatriates find their ideal country to move to. This project aims to provide valuable 
     insights into various countries, considering multiple factors such as happiness index, crime safety, 
