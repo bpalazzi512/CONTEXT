@@ -88,6 +88,34 @@ def edit_user():
         if cursor:
             cursor.close()
 
+# edit admin profile 
+@users.route('/edit_admin_prof', methods = ['PUT'])
+def edit_admin_prof():
+    try:
+        recieved_data = request.json
+
+        first = str(recieved_data["first"])
+        last = str(recieved_data["last"])
+        bio = str(recieved_data["bio"])
+        id = str(recieved_data["id"])
+
+        connection = db.get_db()
+        cursor = connection.cursor()
+        
+        query = "UPDATE countryAdmins SET firstName = %s, lastName = %s, bio = %s WHERE id = %s"
+        
+        cursor.execute(query, (first, last, bio, id))
+        connection.commit()
+        if cursor.rowcount == 0:
+            return make_response(jsonify({"error": "ID not found"}), 404)
+        return make_response(jsonify({"message": "Move load updated successfully"}), 200)
+    except Exception as e:
+        current_app.logger.error(f"Error updating moveload with routeID: {id}, error: {e}")
+        return make_response(jsonify({"error": "Internal server error"}), 500)
+    finally:
+        if cursor:
+            cursor.close()
+
 
 
 
