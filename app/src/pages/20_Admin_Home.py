@@ -29,7 +29,7 @@ except:
   country_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
 country_name = country_data[0]['name']
-adminName = st.session_state['name']
+adminName = user_data[0]['firstName'] + " " + user_data[0]['lastName']
 
 # Country Name
 st.title(f"{country_name} | Admin {adminName}")

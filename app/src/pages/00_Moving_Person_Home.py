@@ -11,8 +11,10 @@ st.set_page_config(layout = 'wide')
 
 # Show appropriate sidebar links for the role of the currently logged in user
 SideBarLinks()
-
-st.title(f"Welcome back {st.session_state['name']}")
+userID = st.session_state['id']
+first = requests.get(f'http://api:4000/u/users/{userID}').json()[0]['firstName']
+last = requests.get(f'http://api:4000/u/users/{userID}').json()[0]['lastName']
+st.title(f"Welcome back {first} {last}")
 st.write('')
 st.write('')
 st.write('### Explore suitable countries based on your preferences')

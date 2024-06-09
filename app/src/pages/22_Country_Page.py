@@ -41,9 +41,9 @@ last = admin_data[0]['lastName']
 #admin_bio = admin_data[0]['bio']
 
 
-st.write(f"This page is managed by {first} {last}")
+st.write(f"**This page is managed by {first} {last}**")
 
-st.button("view admin's bio")
+st.button("view admin's profile")
 
 # Country Bio
 st.subheader("Bio")
