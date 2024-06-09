@@ -69,11 +69,11 @@ with col1:
   population = country_data[0]['pop_density'] * area
   avg_temp = country_data[0]['avg_temp']
 
-  st.write(f"**Area**: {area} sq km")
+  st.write(f"**Area**: {area:,} sq km")
   st.write(f"**Official Language(s)**: {official_languages}")
   st.write(f"**Average Temp (C)**: {avg_temp}")
   st.write(f"**Happiness Index**: {round(happy, 2)} (European Average = 19.61)")
-  st.write(f"**Population**: {population}")
+  st.write(f"**Population**: {population:,}")
 
 with col2:
   fig, ax = plt.subplots()
