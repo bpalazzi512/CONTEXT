@@ -125,6 +125,10 @@ class CosineSimilarityModel:
         dropped = ['name']
         keys = list(preference_data.keys()).copy()
         for key in keys:
+
+            
+            if key == "crime_safety":
+                preference_data["crime_safety"] = 100 - preference_data["crime_safety"] 
             if "_selected" not in key:
                 selected = key + "_selected"
                 if not preference_data[selected]:
