@@ -9,7 +9,7 @@ st.write("# About this App")
 st.markdown (
     """
 
-    Welcome to Explore Your Future Home, a comprehensive platform designed to help retirees 
+    Welcome to CONTEXT, a comprehensive platform designed to help retirees 
     and expatriates find their ideal country to move to. This project aims to provide valuable 
     insights into various countries, considering multiple factors such as happiness index, crime safety, 
     leisure activities, cost of living, and more. Whether you’re planning your retirement abroad or simply 
