@@ -13,14 +13,22 @@ Our platform is ever-growing and evolving, with country pages continuously maint
 
 This app is being built as an exemplar for Northeastern University's 
 Summer 2024 Dialogue of Civilization Program titled *Data and 
-Software in International Government and Politics*.  The program is bein
+Software in International Government and Politics*.  The program is being
 led by Dr. Mark Fontenot and Dr. Eric Gerber from the Khoury College of
 Computer Sciences.  
 
-Currently, there are two major components:
+Currently, there are three major components:
 - Streamlit App (in the `./app` directory)
 - Flask REST api (in the `./api` directory)
 - MySQL setup files (in the `./database` directory)
+
+
+To Run the Project locally:
+1. Clone the Repository
+2. Update .env.template in api directory
+3. Change .env.template to .env
+4. Run the following commands in order: "docker compose build", "docker compose up"
+5. Wait a few moments, then access the app at localhost:8501
 
 ![logo](app/src/assets/logo.png)
 
