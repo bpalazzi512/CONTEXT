@@ -81,8 +81,7 @@ def get_sliders(userID):
     if not theData:  # Check if theData is empty
         # Run the additional code if theData is empty
         post_sliders(userID)
-        theData = cursor.fetchall()
-    
+            
     return jsonify(theData)
 
 # post sliders initialized with default values
