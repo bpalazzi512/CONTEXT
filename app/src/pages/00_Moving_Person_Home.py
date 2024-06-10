@@ -6,9 +6,9 @@ import plotly.express as px
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
-import folium
-from streamlit_folium import st_folium
-import geopandas as gpd
+# import folium
+# from streamlit_folium import st_folium
+# import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
@@ -138,84 +138,84 @@ with col2:
                         st.write(f"An error occurred: {e}")
 
 
-# Load GeoJSON data
-@st.cache_data
-def load_geojson():
-    geojson_path = "https://raw.githubusercontent.com/leakyMirror/map-of-europe/master/GeoJSON/europe.geojson"
-    geo_data = gpd.read_file(geojson_path)
-    return geo_data
+# # Load GeoJSON data
+# @st.cache_data
+# def load_geojson():
+#     geojson_path = "https://raw.githubusercontent.com/leakyMirror/map-of-europe/master/GeoJSON/europe.geojson"
+#     geo_data = gpd.read_file(geojson_path)
+#     return geo_data
 
-geo_data = load_geojson().copy()
+# geo_data = load_geojson().copy()
 
-# Get the country rankings data
-userID = st.session_state['id']
-data = requests.get(f'http://api:4000/ml/rankings/{str(userID)}').json()
-df = pd.DataFrame(data)
+# # Get the country rankings data
+# userID = st.session_state['id']
+# data = requests.get(f'http://api:4000/ml/rankings/{str(userID)}').json()
+# df = pd.DataFrame(data)
 
-# Estimated coordinates for each country
-country_coordinates = {
-    'Austria': [47.5162, 14.5501],
-    'Belgium': [50.8503, 4.3517],
-    'Bulgaria': [42.7339, 25.4858],
-    'Croatia': [45.1000, 15.2000],
-    'Cyprus': [35.1264, 33.4299],
-    'Czech Republic': [49.8175, 15.4730],
-    'Denmark': [56.2639, 9.5018],
-    'Estonia': [58.5953, 25.0136],
-    'Finland': [61.9241, 25.7482],
-    'France': [46.6034, 1.8883],
-    'Germany': [51.1657, 10.4515],
-    'Greece': [39.0742, 21.8243],
-    'Hungary': [47.1625, 19.5033],
-    'Ireland': [53.1424, -7.6921],
-    'Italy': [41.8719, 12.5674],
-    'Latvia': [56.8796, 24.6032],
-    'Lithuania': [55.1694, 23.8813],
-    'Luxembourg': [49.8153, 6.1296],
-    'Malta': [35.9375, 14.3754],
-    'Netherlands': [52.1326, 5.2913],
-    'Poland': [51.9194, 19.1451],
-    'Portugal': [39.3999, -8.2245],
-    'Romania': [45.9432, 24.9668],
-    'Slovakia': [48.6690, 19.6990],
-    'Slovenia': [46.1512, 14.9955],
-    'Spain': [40.4637, -3.7492],
-    'Sweden': [60.1282, 18.6435]
-}
+# # Estimated coordinates for each country
+# country_coordinates = {
+#     'Austria': [47.5162, 14.5501],
+#     'Belgium': [50.8503, 4.3517],
+#     'Bulgaria': [42.7339, 25.4858],
+#     'Croatia': [45.1000, 15.2000],
+#     'Cyprus': [35.1264, 33.4299],
+#     'Czech Republic': [49.8175, 15.4730],
+#     'Denmark': [56.2639, 9.5018],
+#     'Estonia': [58.5953, 25.0136],
+#     'Finland': [61.9241, 25.7482],
+#     'France': [46.6034, 1.8883],
+#     'Germany': [51.1657, 10.4515],
+#     'Greece': [39.0742, 21.8243],
+#     'Hungary': [47.1625, 19.5033],
+#     'Ireland': [53.1424, -7.6921],
+#     'Italy': [41.8719, 12.5674],
+#     'Latvia': [56.8796, 24.6032],
+#     'Lithuania': [55.1694, 23.8813],
+#     'Luxembourg': [49.8153, 6.1296],
+#     'Malta': [35.9375, 14.3754],
+#     'Netherlands': [52.1326, 5.2913],
+#     'Poland': [51.9194, 19.1451],
+#     'Portugal': [39.3999, -8.2245],
+#     'Romania': [45.9432, 24.9668],
+#     'Slovakia': [48.6690, 19.6990],
+#     'Slovenia': [46.1512, 14.9955],
+#     'Spain': [40.4637, -3.7492],
+#     'Sweden': [60.1282, 18.6435]
+# }
 
-# Create a color map
-cmap = plt.get_cmap('RdYlGn_r')
-norm = mcolors.Normalize(vmin=1, vmax=len(df))
+# # Create a color map
+# cmap = plt.get_cmap('RdYlGn_r')
+# norm = mcolors.Normalize(vmin=1, vmax=len(df))
 
-def get_color(rank):
-    return mcolors.to_hex(cmap(norm(rank)))
+# def get_color(rank):
+#     return mcolors.to_hex(cmap(norm(rank)))
 
-# Create a Folium map centered on Europe
-m = folium.Map(location=[54.5260, 15.2551], zoom_start=4)
+# # Create a Folium map centered on Europe
+# m = folium.Map(location=[54.5260, 15.2551], zoom_start=4)
 
-# Add GeoJSON layer to the map with color based on ranking
-for index, row in df.iterrows():
-    country_name = requests.get(f'http://api:4000/c/countries/{row["countryID"]}').json()[0]['name']
-    ranking = index + 1
-    color = get_color(ranking)
-    geo_data[geo_data['NAME'] == country_name].apply(
-        lambda x: folium.GeoJson(
-            x.geometry,
-            style_function=lambda feature, color=color: {
-                'fillColor': color,
-                'color': 'black',
-                'weight': 2,
-                'fillOpacity': 0.5,
-            }
-        ).add_to(m),
-        axis=1
-    )
-    coordinates = country_coordinates.get(country_name, [0, 0])
-    folium.Marker(
-        location=coordinates,
-        popup=f"#{ranking} - {country_name}",
-        icon=folium.Icon(color='blue', icon='info-sign')
-    ).add_to(m)
+# # Add GeoJSON layer to the map with color based on ranking
+# for index, row in df.iterrows():
+#     country_name = requests.get(f'http://api:4000/c/countries/{row["countryID"]}').json()[0]['name']
+#     ranking = index + 1
+#     color = get_color(ranking)
+#     geo_data[geo_data['NAME'] == country_name].apply(
+#         lambda x: folium.GeoJson(
+#             x.geometry,
+#             style_function=lambda feature, color=color: {
+#                 'fillColor': color,
+#                 'color': 'black',
+#                 'weight': 2,
+#                 'fillOpacity': 0.5,
+#             }
+#         ).add_to(m),
+#         axis=1
+#     )
+#     coordinates = country_coordinates.get(country_name, [0, 0])
+#     folium.Marker(
+#         location=coordinates,
+#         popup=f"#{ranking} - {country_name}",
+#         icon=folium.Icon(color='blue', icon='info-sign')
+#     ).add_to(m)
 
-# Display the map in the Streamlit app
-st_folium(m, width=1250, height=500)
+# # Display the map in the Streamlit app
+# st_folium(m, width=1250, height=500)
