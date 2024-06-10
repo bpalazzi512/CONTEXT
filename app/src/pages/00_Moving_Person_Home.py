@@ -81,13 +81,13 @@ with col1:
             leisure_checkbox = st.checkbox("Include in Ranking", value=slider_data['leisure_selected'], key=7)
 
         with st.container(border=True):
-            cost_of_living = st.slider("Low Cost of Living", 0, 100, COL_val)
+            cost_of_living = st.slider("Cost of Living", 0, 100, COL_val)
             COL_checkbox = st.checkbox("Include in Ranking", value=slider_data['cost_of_life_selected'], key=8)
 
         
     logger.info('WTF is happening??')
     # Save and Generate Ranking
-    # Save button
+    # Save button!
     if st.button("Save and Generate Ranking"):
         if not (weather_checkbox or transport_checkbox or education_checkbox or safety_checkbox or pop_density_checkbox or healthcare_checkbox or leisure_checkbox or COL_checkbox):
             st.error("Select at least one category!")
