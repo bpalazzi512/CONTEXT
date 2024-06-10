@@ -1,42 +1,29 @@
 import logging
 import requests
-logger = logging.getLogger()
-from streamlit_modal import Modal
 import streamlit as st
 from modules.nav import SideBarLinks
 import pandas as pd
 import time
 
-st.set_page_config(layout = 'wide')
+st.set_page_config(layout='wide')
 
 SideBarLinks()
 
-# Sample data for customers
 # Set page title
-# st.set_page_config(page_title="Customer Information Table")
-
-# Page Title
 st.title("Customer Information Table")
 st.write("### List of users who are interested in moving")
 st.write("")
 
-
-# data = {
-#     "Customer Name": ["Alice Johnson", "Bob Smith", "Charlie Brown", "David Wilson"],
-#     "Email": ["alice@example.com", "bob@example.com", "charlie@example.com", "david@example.com"],
-#     "Phone Number": ["123-456-7890", "234-567-8901", "345-678-9012", "456-789-0123"]
-# }
-
+# Fetch data from API
 data = {}
 moverID = st.session_state['id']
 data = requests.get(f'http://api:4000/mv/moverContact/{moverID}').json()
 
-
-
 df = pd.DataFrame(data)
-# Dictionary to hold the checkbox states
-checkbox_states = {}
 
+# Initialize checkbox states in session state if not already done
+if 'checkbox_states' not in st.session_state:
+    st.session_state['checkbox_states'] = {}
 
 # Function to display the table with buttons
 def display_customers(df):
@@ -46,7 +33,6 @@ def display_customers(df):
     header_cols[2].write("**Email**")
     header_cols[3].write("**Phone Number**")
     header_cols[4].write("**Date**")
-
 
     profit = 0
     for index, row in df.iterrows():
@@ -65,32 +51,42 @@ def display_customers(df):
         cols[2].write(row["email"])
         cols[3].write(row["phone"])
         cols[4].write(str(row["dateContacted"])[:16])
-        button_ph = cols[5].empty()
-        #cols[4].checkbox("Contacted", value=False, key=f"checkbox_{index}")
-        checkbox_states[index] = cols[5].checkbox("Contacted", value=False, key=f"checkbox_{index}")
+        
+        # Generate a unique key for each checkbox
+        checkbox_key = f"checkbox_{index}_{row['id']}"
+        
+        # Initialize the checkbox state in session state if not already done
+        if checkbox_key not in st.session_state['checkbox_states']:
+            st.session_state['checkbox_states'][checkbox_key] = False
+        
+        # Create the checkbox and store its state
+        checkbox_states[checkbox_key] = cols[5].checkbox("Contacted", value=st.session_state['checkbox_states'][checkbox_key], key=checkbox_key)
+        
+        # Update the session state with the current value of the checkbox
+        st.session_state['checkbox_states'][checkbox_key] = checkbox_states[checkbox_key]
 
-
-# Button to remove selected customers
     st.write("")
     st.write("")
     if st.button("Remove Selected Customers"):
-        for index, checked in checkbox_states.items():
+        for key, checked in checkbox_states.items():
             if checked:
+                index = int(key.split('_')[1])  # Extract index from key
                 user_id = df.at[index, 'id']
                 response = requests.delete(f'http://api:4000/mv/userContact/{user_id}/{moverID}')
-                checkbox_states[index] = False
+                
                 if response.status_code == 200:
                     st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
-      
+                    # Remove the entry from session state
+                    del st.session_state['checkbox_states'][key]
                 else:
                     st.error(f"Failed to delete contact for userID: {user_id}, moverID: {moverID}")
         time.sleep(1)  # Add a 1-second delay
         st.experimental_rerun()
+
     st.write(f'### Potential Revenue: ${profit:,}')
 
+# Initialize checkbox states dictionary
+checkbox_states = {}
 
+# Display the customers
 display_customers(df)
-
-
-
-
