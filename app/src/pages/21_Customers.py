@@ -75,19 +75,19 @@ def display_customers(df):
     st.write("")
     st.write("")
     if st.button("Remove Selected Customers"):
-      for index, checked in checkbox_states.items():
-          if checked:
-            user_id = df.at[index, 'id']
-            response = requests.delete(f'http://api:4000/mv/userContact/{user_id}/{moverID}')
-            if response.status_code == 200:
+        for index, checked in checkbox_states.items():
+            if checked:
+                user_id = df.at[index, 'id']
+                response = requests.delete(f'http://api:4000/mv/userContact/{user_id}/{moverID}')
+                if response.status_code == 200:
 
-                st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
+                    st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
                 
       
-            else:
-                st.error(f"Failed to delete contact for userID: {user_id}, moverID: {moverID}")
-      time.sleep(1)  # Add a 1-second delay
-      st.experimental_rerun()
+                else:
+                    st.error(f"Failed to delete contact for userID: {user_id}, moverID: {moverID}")
+        time.sleep(1)  # Add a 1-second delay
+        st.experimental_rerun()
     st.write(f'### Potential Revenue: ${profit:,}')
 
 
