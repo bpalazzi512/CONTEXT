@@ -1935,6 +1935,52 @@ insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) value
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3502, '16', '2', '6', 999, 'Full Household');
 insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (11390, '7', '25', '3', 1000, 'Full Household');
 
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (1843, '6', '1', '2', 1001, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2376, '6', '2', '2', 1002, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (4120, '6', '3', '2', 1003, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2981, '6', '4', '2', 1004, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3284, '6', '5', '2', 1005, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (1453, '6', '6', '2', 1006, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (1924, '6', '7', '2', 1007, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2135, '6', '8', '2', 1008, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3465, '6', '9', '2', 1009, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2893, '6', '10', '2', 1010, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3671, '6', '11', '2', 1011, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (4512, '6', '12', '2', 1012, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3291, '6', '13', '2', 1013, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2174, '6', '14', '2', 1014, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2441, '6', '15', '2', 1015, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3008, '6', '16', '2', 1016, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (1857, '6', '17', '2', 1017, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2093, '6', '18', '2', 1018, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2647, '6', '19', '2', 1019, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3112, '6', '20', '2', 1020, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3918, '6', '21', '2', 1021, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3567, '6', '22', '2', 1022, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (4335, '6', '23', '2', 1023, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3847, '6', '24', '2', 1024, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2193, '6', '25', '2', 1025, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2751, '6', '26', '2', 1026, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2398, '5', '1', '2', 1027, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3287, '5', '2', '2', 1028, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2843, '5', '3', '2', 1029, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3445, '5', '4', '2', 1030, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2956, '5', '5', '2', 1031, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3697, '5', '6', '2', 1032, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (1973, '5', '7', '2', 1033, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2384, '5', '8', '2', 1034, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2913, '5', '9', '2', 1035, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3874, '5', '10', '2', 1036, 'Full Household');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2049, '5', '11', '2', 1037, 'Excess Baggage');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2635, '5', '12', '2', 1038, 'Excess Baggage');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3298, '5', '13', '2', 1039, 'Excess Baggage');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3107, '5', '14', '2', 1040, 'Excess Baggage');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2397, '5', '15', '2', 1041, 'Excess Baggage');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (1821, '5', '16', '2', 1042, 'Excess Baggage');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (2976, '5', '17', '2', 1043, 'Excess Baggage');
+insert into routes (cost, fromStateID, toCountryID, moverID, id, moveLoad) values (3549, '5', '18', '2', 1044, 'Excess Baggage');
+
+
 
 insert into moverContacts (userID, moverID, dateContacted, routeID) values ('1', '2', '2023-06-01 12:30:00', '101');
 insert into moverContacts (userID, moverID, dateContacted, routeID) values ('2', '2', '2023-06-02 13:45:00', '102');
