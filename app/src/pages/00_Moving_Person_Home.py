@@ -139,7 +139,7 @@ with col2:
 
 
 # Load GeoJSON data using pygeoj
-#@st.cache_data
+@st.cache_data
 def load_geojson():
     geojson_url = "https://raw.githubusercontent.com/leakyMirror/map-of-europe/master/GeoJSON/europe.geojson"
     response = requests.get(geojson_url).json()

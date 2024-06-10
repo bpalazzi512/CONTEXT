@@ -80,7 +80,10 @@ def get_sliders(userID):
 
     if not theData:  # Check if theData is empty
         # Run the additional code if theData is empty
-        theData = post_sliders(userID)
+        post_sliders(userID)
+        #cursor.execute()
+        current_app.logger.info("got here baby")
+        theData = [{'avg_temp' : 50, 'rail_density' : 50, 'education' : 50, 'crime_safety' : 50, 'pop_density' : 50, 'healthcare' : 50, 'leisure' : 50, 'cost_of_life' : 50, 'avg_temp_selected' : True, 'rail_density_selected' : True, 'education_selected' : True, 'crime_safety_selected' : True, 'pop_density_selected' : True, 'healthcare_selected' : True, 'leisure_selected' : True, 'cost_of_life_selected' : True}]
 
     return jsonify(theData)
 
