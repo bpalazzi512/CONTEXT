@@ -2,9 +2,6 @@
 
 ## About
 
-![logo](app/src/assets/logo.png)
-
-
 Welcome to CONTEXT, a comprehensive platform designed to help retirees 
 and expatriates find their ideal country to move to. This project aims to provide valuable 
 insights into various countries, considering multiple factors such as happiness index, crime safety, 
@@ -24,6 +21,9 @@ Currently, there are two major components:
 - Streamlit App (in the `./app` directory)
 - Flask REST api (in the `./api` directory)
 - MySQL setup files (in the `./database` directory)
+
+![logo](app/src/assets/logo.png)
+
 
 
  
