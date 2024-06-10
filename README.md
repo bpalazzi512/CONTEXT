@@ -2,7 +2,8 @@
 
 ## About
 
-![logo](assets/logo.png)
+![logo](app/src/assets/logo.png)
+
 
 Welcome to CONTEXT, a comprehensive platform designed to help retirees 
 and expatriates find their ideal country to move to. This project aims to provide valuable 
