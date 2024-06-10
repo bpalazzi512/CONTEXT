@@ -45,7 +45,8 @@ with col2:
 with col3: 
   st.write("")
   if st.button("Sign in as Klement Gorring", 
-            type = 'primary', ):
+            type = 'primary', 
+            use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'moving_person'
     st.session_state['id'] = 15
