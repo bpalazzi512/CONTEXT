@@ -139,7 +139,7 @@ with col2:
 
 
 # Load GeoJSON data using pygeoj
-@st.cache_data
+#@st.cache_data
 def load_geojson():
     geojson_url = "https://raw.githubusercontent.com/leakyMirror/map-of-europe/master/GeoJSON/europe.geojson"
     response = requests.get(geojson_url).json()
@@ -216,6 +216,7 @@ for index, row in df.iterrows():
                 popup=f"#{ranking} - {country_name}",
                 icon=folium.Icon(color='blue', icon='info-sign')
             ).add_to(m)
+    
 
 # Display the map in the Streamlit app
 st_folium(m, width=1250, height=500)

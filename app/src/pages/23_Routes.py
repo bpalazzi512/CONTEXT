@@ -64,11 +64,11 @@ def display_routes(df):
         cols[0].markdown(f"**{stateName}**")
         cols[1].markdown(f"**{countryName}**")
         load = cols[2].selectbox('load',['Full Household', 'Part Household', 'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], index = loadIndex, key=f"moveL_{index}")
-        cost = cols[3].text_input('cost', '$' + str(row['cost']), key=f"cost_{index}")
+        cost = cols[3].number_input('cost($)', value=row['cost'], key=f"cost_{index}")
 
-        cost_number = cost.replace("$", "")
+        #cost_number = cost.replace("$", "")
         #cost_number = cost.replace(",", "")
-
+ 
         cols[4].markdown("")
         cols[4].markdown("")
         cols[5].markdown("")
@@ -87,7 +87,7 @@ def display_routes(df):
                 st.error(f"Failed delete route {route_id}")
 
         if edit_buttons[index]:
-            data = {"moveLoad": load, "cost": cost_number, "id": str(route_id)}
+            data = {"moveLoad": load, "cost": cost, "id": str(route_id)}
             
             response = requests.put(f'http://api:4000/r/routes_edit', json=data)
             if response.status_code == 200:
@@ -124,8 +124,8 @@ def add_route():
                                                    'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden'], placeholder = "")
         load = st.selectbox('Load', ['Full Household', 'Part Household', 
                                      'Personal Effects Only', 'Excess Baggage', 'Vehicle Only'], placeholder = "choose")
-        rate = st.text_input('Rate', '$')
-        rate_value = rate.replace("$", "")
+        rate = st.number_input('Rate($)', value=0, key="rate")
+        
  
         submit_button = st.button(label='Add Route')
         try:
@@ -151,7 +151,7 @@ def add_route():
                 "Origin": str(state_id[0]['id']),
                 "Destination": str(country_id[0]['id']),
                 "Load": load,
-                "Rate": rate_value
+                "Rate": int(rate)
             }
             stateID =str(state_id[0]['id'])
             countryID =str(country_id[0]['id'])
@@ -160,7 +160,7 @@ def add_route():
             count_repeates = requests.get(f'http://api:4000/r/get_count/{stateID}/{countryID}/{moveID}/{load}').json()
 
             if count_repeates[0]['count'] > 0:
-                st.error("Route already exists! Update price!")
+                st.error("Route already exists!")
             else:
 
                 try: 
@@ -171,7 +171,7 @@ def add_route():
                         st.success("Route added successfully!")
                         new_df = pd.DataFrame([new_data])
                         global df
-                        df = pd.concat([df, new_df], ignore_index=True)
+                        df = pd.DataFrame(requests.get(f'http://api:4000/r/all_routes/{moverID}').json())
                 else:
                         st.error("Failed to add route. Please try again.")
 
