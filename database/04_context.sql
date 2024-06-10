@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS countries (
     happinessIndex DOUBLE,
     crime_safety DOUBLE,
     railwayLength INT,
-    unemploymentRate DECIMAL(5, 1),
     avg_temp DECIMAL(5, 2),
     cost_of_life DECIMAL(5, 1),
     healthcare DECIMAL(5, 2),
