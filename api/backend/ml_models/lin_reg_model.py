@@ -6,8 +6,8 @@ import json
 
 
 
-#df_crime_input = pd.read_csv("Phase 3/Data/crime_training.csv")
 
+#represents the the linear regression crime model
 class CrimeModel:
     def __init__(self):
         
@@ -55,60 +55,26 @@ class CrimeModel:
 
         return Xnew  
     
-    def inferenceTest(self):
-        return list(self.regression)
+    
 
 
 
     def line_of_best_fit(self, X, y):
+        """
+        finds line of best fit
+
+        Args:
+           X (np.array) - array of independent values
+           y (np.array) - response array
+        
+        Returns:
+            np.array - linear regression vector
+        """
         X = self.add_bias_column(X)
         return np.matmul(np.linalg.inv(np.matmul(X.T, X)), np.matmul(X.T, y))
 
     
 
-    def train():
-        """
-
-        trains time series model based on crime per year per country
-
-        Args:
-        crime_df (dataframe) - dataframe with three columns: country, year, and amount of crime per 100k people
-        
-        Returns:
-        regression (array) - array representing intercept and slopes of linear regression
-        
-        """
-
-
-
-        """
-        df_crime_scaled = pd.DataFrame()
-
-        df_crime_scaled["country"] = df_crime_input["country"]
-        df_crime_scaled["year"] = df_crime_input["year"]
-        df_crime_scaled["amount"] = (df_crime_input["amount"] - df_crime_input["amount"].mean()) / df_crime_input["amount"].std()
-
-
-        df_crime_dummies = df_crime_scaled.join(pd.get_dummies(df_crime_scaled["country"], drop_first=True, dtype='int'))
-        
-        crime_arr = np.array(df_crime_dummies.drop(columns=["country"]))
-
-        
-        
-
-        X_left = crime_arr[:, 0:1]
-        X_right = crime_arr[:, 2:]
-
-        
-
-        X = np.hstack((X_left, X_right))
-        
-
-        y = crime_arr[:, 1:2]
-        
-        regression = line_of_best_fit(X, y)
-        return regression
-        """
 
 
     def predict (self, country, year):
@@ -118,9 +84,7 @@ class CrimeModel:
         Args:
         - country (int) - which country wanted for prediction
         - year (int) - which year we wanted for prediction
-        - regression (array) - linear regression intercept and slopes (scaled)
-        - mean (int) - mean of original data
-        - std (int) - std of original data
+        
 
         Returns:
         - answer (int) - predicted value for crimes per 100k people 
