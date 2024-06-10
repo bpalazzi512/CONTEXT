@@ -13,9 +13,10 @@ import time
 # Show appropriate sidebar links for the role of the currently logged in user
 st.set_page_config(layout='wide')
 SideBarLinks()
-
 companyID = st.session_state['companyID']
-companyName = st.session_state['companyName']
+mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
+
+companyName = mcData[0]['moverName']
 userID = st.session_state['userID'] 
 routeID = st.session_state['routeID']
 countryName = st.session_state['countryName']
@@ -36,7 +37,7 @@ data = {}
 st.title(f"{companyName}")
 st.write(f"Welcome to our page **{name}**, we would love to help you move from **{fromStateName}** to **{countryName}**")
 st.image('https://www.xero.com/content/dam/xero/pilot-images/guides/us-guides/moving-business-header.1695098128416.png')
-mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
+
 
 if st.button(f"Join Our Mail and Call List"):
       data = {"userID" : userID, 
