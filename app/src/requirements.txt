@@ -16,4 +16,4 @@ scikit-learn
 shap
 folium
 streamlit_folium
-# geopandas
+pygeoj
