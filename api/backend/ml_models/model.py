@@ -4,8 +4,7 @@ from backend.db_connection import db
 from dotenv import load_dotenv
 import json
 
-countries = "Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden"
-eu_countries = countries.split(", ")
+
 
 #df_crime_input = pd.read_csv("Phase 3/Data/crime_training.csv")
 
@@ -133,7 +132,7 @@ class CrimeModel:
 
         encoding = [0] * (len(self.countries))
 
-        if country in countries:
+        if country in self.countries:
             encoding[self.countries.index(country)] = 1
         
 

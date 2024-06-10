@@ -9,7 +9,7 @@ from modules.nav import SideBarLinks
 import folium
 from streamlit_folium import st_folium
 # import geopandas as gpd
-#import pygeoj
+import pygeoj
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
@@ -141,13 +141,13 @@ with col2:
 
 # Load GeoJSON data using pygeoj
 #@st.cache_data
-#def load_geojson():
-#    geojson_url = "https://raw.githubusercontent.com/leakyMirror/map-of-europe/master/GeoJSON/europe.geojson"
-#    response = requests.get(geojson_url).json()
-#    geo_data = pygeoj.load(data=response)
-#    return geo_data
+def load_geojson():
+    geojson_url = "https://raw.githubusercontent.com/leakyMirror/map-of-europe/master/GeoJSON/europe.geojson"
+    response = requests.get(geojson_url).json()
+    geo_data = pygeoj.load(data=response)
+    return geo_data
 
-#geo_data = load_geojson()
+geo_data = load_geojson()
 
 # Get the country rankings data
 userID = st.session_state.get('id', 1)  # Default to 1 if not set
@@ -200,29 +200,24 @@ for index, row in df.iterrows():
     country_name = requests.get(f'http://api:4000/c/countries/{row["countryID"]}').json()[0]['name']
     ranking = index + 1
     color = get_color(ranking)
-    #for feature in geo_data:
-        #if feature.properties['NAME'] == country_name:
-            #folium.GeoJson(
-            #    feature.geometry,
-            #    style_function=lambda x, color=color: {
-            #        'fillColor': color,
-            #        'color': 'black',
-            #        'weight': 2,
-            #        'fillOpacity': 0.5,
-            #    }
-            #).add_to(m)
-            #coordinates = country_coordinates.get(country_name, [0, 0])
-            #folium.Marker(
-            #    location=coordinates,
-            #    popup=f"#{ranking} - {country_name}",
-            #    icon=folium.Icon(color='blue', icon='info-sign')
-            #).add_to(m)
-    coordinates = country_coordinates.get(country_name, [0, 0])
-    folium.Marker(
-         location=coordinates,
-         popup=f"#{ranking} - {country_name}",
-         icon=folium.Icon(color='blue', icon='info-sign')
-     ).add_to(m)
+    for feature in geo_data:
+        if feature.properties['NAME'] == country_name:
+            folium.GeoJson(
+                feature.geometry,
+                style_function=lambda x, color=color: {
+                    'fillColor': color,
+                    'color': 'black',
+                    'weight': 2,
+                    'fillOpacity': 0.5,
+                }
+            ).add_to(m)
+            coordinates = country_coordinates.get(country_name, [0, 0])
+            folium.Marker(
+                location=coordinates,
+                popup=f"#{ranking} - {country_name}",
+                icon=folium.Icon(color='blue', icon='info-sign')
+            ).add_to(m)
+    
 
 # Display the map in the Streamlit app
 st_folium(m, width=1250, height=500)
