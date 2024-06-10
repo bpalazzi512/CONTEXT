@@ -5,6 +5,7 @@ from streamlit_modal import Modal
 import streamlit as st
 from modules.nav import SideBarLinks
 import pandas as pd
+import time
 
 st.set_page_config(layout = 'wide')
 
@@ -79,9 +80,14 @@ def display_customers(df):
             user_id = df.at[index, 'id']
             response = requests.delete(f'http://api:4000/mv/userContact/{user_id}/{moverID}')
             if response.status_code == 200:
+
                 st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")
+                
+      
             else:
                 st.error(f"Failed to delete contact for userID: {user_id}, moverID: {moverID}")
+      time.sleep(1)  # Add a 1-second delay
+      st.experimental_rerun()
     st.write(f'### Potential Revenue: ${profit:,}')
 
 
