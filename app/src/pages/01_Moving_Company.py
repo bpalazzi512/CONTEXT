@@ -34,7 +34,7 @@ if st.session_state['role'] == 'moving_company':
 data = {}
 
 st.title(f"{companyName}")
-st.write(f"Welcome our page **{name}**, we would love to help you move from **{fromStateName}** to **{countryName}**")
+st.write(f"Welcome to our page **{name}**, we would love to help you move from **{fromStateName}** to **{countryName}**")
 st.image('https://www.xero.com/content/dam/xero/pilot-images/guides/us-guides/moving-business-header.1695098128416.png')
 mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
 

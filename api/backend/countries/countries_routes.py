@@ -68,17 +68,6 @@ def get_country_ml_fields():
     current_app.logger.info(f'theData = {theData}')
     return jsonify(theData)
 
-# # # Get a countries ID given name
-# @countries.route('/country/<c_name>', methods=['GET'])
-# def get_countryID(c_name):
-#     # get a cursor object from the database
-#     cursor = db.get_db().cursor()
-#     # use cursor to query the database for a list of products
-#     cursor.execute('SELECT id FROM countries where name = ' + ' \'' + c_name + '\'')
-#     theData = cursor.fetchall()
-#     current_app.logger.info(f'theData = {theData}')
-#     return jsonify(theData)
-
 
 # Get a selected country's details from a countryID
 @countries.route('/countries/<countryID>', methods=['GET'])

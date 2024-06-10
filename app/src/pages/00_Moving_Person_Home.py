@@ -192,31 +192,44 @@ def get_color(rank):
     return mcolors.to_hex(cmap(norm(rank)))
 
 # Create a Folium map centered on Europe
-m = folium.Map(location=[54.5260, 15.2551], zoom_start=4)
+
+
+def create_map():
+    #if 'map' not in st.session_state or st.session_state.map is None:
+    m = folium.Map(location=[54.5260, 15.2551], zoom_start=4)
+    for index, row in df.iterrows():
+        country_name = requests.get(f'http://api:4000/c/countries/{row["countryID"]}').json()[0]['name']
+        ranking = index + 1
+        color = get_color(ranking)
+        for feature in geo_data:
+            if feature.properties['NAME'] == country_name:
+                folium.GeoJson(
+                    feature.geometry,
+                    style_function=lambda x, color=color: {
+                        'fillColor': color,
+                        'color': 'black',
+                        'weight': 2,
+                        'fillOpacity': 0.5,
+                    }
+                ).add_to(m)
+                coordinates = country_coordinates.get(country_name, [0, 0])
+                folium.Marker(
+                    location=coordinates,
+                    popup=f"#{ranking} - {country_name}",
+                    icon=folium.Icon(color='blue', icon='info-sign')
+                ).add_to(m)
+    st.session_state.map = m
+    return m
+    #return st.session_state.map
+        
+        
+def show_map():
+    m = create_map()
+    st_folium(m, width=1250, height=500, returned_objects=[])
 
 # Add GeoJSON layer to the map with color based on ranking
-for index, row in df.iterrows():
-    country_name = requests.get(f'http://api:4000/c/countries/{row["countryID"]}').json()[0]['name']
-    ranking = index + 1
-    color = get_color(ranking)
-    for feature in geo_data:
-        if feature.properties['NAME'] == country_name:
-            folium.GeoJson(
-                feature.geometry,
-                style_function=lambda x, color=color: {
-                    'fillColor': color,
-                    'color': 'black',
-                    'weight': 2,
-                    'fillOpacity': 0.5,
-                }
-            ).add_to(m)
-            coordinates = country_coordinates.get(country_name, [0, 0])
-            folium.Marker(
-                location=coordinates,
-                popup=f"#{ranking} - {country_name}",
-                icon=folium.Icon(color='blue', icon='info-sign')
-            ).add_to(m)
+
+show_map()
     
 
 # Display the map in the Streamlit app
-st_folium(m, width=1250, height=500)
