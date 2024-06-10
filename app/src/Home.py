@@ -35,7 +35,7 @@ with col1:
 
 
 with col2:
-   st.write("**Klement Gorring** is a 62 yearold person who just retired and is **thinking about moving abroad!**")
+   st.write("**Klement Gorring** is a 62 year old person who just retired and is **thinking about moving abroad!**")
    st.write("")
    st.write("")
    st.write("**Thoughtstorms** is a **moving company** that helps indivudals move from the states to the EU")
@@ -44,7 +44,7 @@ with col2:
    st.write("**Bell Stoner** is a passionate **country admin** for Portugal and gives tips frequently")
 with col3: 
   st.write("")
-  if st.button("Person Thinking About Moving Abroad", 
+  if st.button("Sign in as Klement Gorring", 
             type = 'primary', ):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'moving_person'
@@ -66,7 +66,7 @@ with col3:
   st.write("")
   st.write("")
   st.write("")
-  if st.button('Thoughtstorm Moving Company', 
+  if st.button('Sign in as Thoughtstorms', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
@@ -96,7 +96,7 @@ with col3:
   st.write("")
   st.write("")
   st.write("")
-  if st.button('Portugal Country Administrator', 
+  if st.button('Sign in as Bell Stoner', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
