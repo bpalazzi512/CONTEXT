@@ -19,17 +19,6 @@ def get_routes(moverID):
     return jsonify(theData)
 
 
-# # get a specfic route info (*) given routeID
-# @routes.route('/routes/<routeID>', methods=['GET'])
-# def get_routes(moverID):
-#     current_app.logger.info('moverContact.py: GET /moverContact')
-#     cursor = db.get_db().cursor()
-#     cursor.execute(f'select s.stateName, c.name, r.moveLoad, r.cost \
-#                    from states s join routes r on s.id = r.fromStateID \
-#                    join countries c on c.id = r.toCountryID \
-#                    where r.moverID = {moverID} order by s.stateName')
-#     theData = cursor.fetchall()
-#     return jsonify(theData)
 
 # Delete a route
 @routes.route('/del_routes/<route_id>', methods=['DELETE'])

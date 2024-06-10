@@ -76,6 +76,7 @@ with col1:
   population = country_data[0]['pop_density'] * area
   avg_temp = country_data[0]['avg_temp']
 
+
   st.write(f"**Area**: {area:,} sq km")
   st.write(f"**Official Language(s)**: {official_languages}")
   st.write(f"**Average Temp (C)**: {avg_temp}")
@@ -106,14 +107,12 @@ except:
 stateID = user_data[0]['homeStateID']
 stateName = requests.get(f'http://api:4000/c/get_stateName/{stateID}').json()[0]['stateName']
 countryID = country_data[0]['id']
+load = user_data[0]['moveLoad']
+
 
 mover_data = {}
 
-try:
-   mover_data = requests.get(f'http://api:4000/mv/moving_company/{stateID}/{countryID}').json()
-except:
-  st.write("**Important**: Could not connect to sample api, so using dummy data.")
-  mover_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
+mover_data = requests.get(f'http://api:4000/mv/moving_company/{stateID}/{countryID}/{load}').json()
 
 
 # Create a DataFrame

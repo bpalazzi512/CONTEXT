@@ -17,12 +17,16 @@ def get_mover(moverID):
     return jsonify(theData)
 
 # Get a list of all moving companies for a given route 
-@moving_company.route('/moving_company/<stateID>/<countryID>', methods=['GET'])
-def get_mc_for_route(stateID, countryID):
+@moving_company.route('/moving_company/<stateID>/<countryID>/<moveLoad>', methods=['GET'])
+def get_mc_for_route(stateID, countryID, moveLoad):
     current_app.logger.info('moving_company.py: GET /moving_company')
     cursor = db.get_db().cursor()
-    cursor.execute('select * from movers m join routes r on m.id = r.moverID \
-                   where r.fromStateID = ' + str(stateID) + ' and r.toCountryID = ' + str(countryID))
+    query = 'select * from movers m join routes r on m.id = r.moverID \
+                   where r.fromStateID = %s and \
+                    r.toCountryID = %s and r.moveLoad = %s'
+    
+
+    cursor.execute(query, (stateID, countryID, moveLoad))
     json_data = []
     theData = cursor.fetchall()
 
