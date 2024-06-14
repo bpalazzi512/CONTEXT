@@ -9,6 +9,7 @@ from backend.moving_companies.moving_companies_routes import moving_company
 from backend.users.users_routes import users
 from backend.machine_learning.machine_learning_routes import machine_learning
 from backend.routes.routes_routes import routes
+from backend.sliders.sliders_routes import sliders
 import os
 from dotenv import load_dotenv
 
@@ -35,28 +36,12 @@ def create_app():
     # Initialize the database object with the settings above. 
     db.init_app(app)
 
-    # Add the default route
-    # Can be accessed from a web browser
-    # http://ip_address:port/
-    # Example: localhost:8001
+    # Add default
     @app.route("/")
     def welcome():
-        return "<h1>Welcome to the Summer 2024 Belgium DoC Boilerplate App</h1>"
+        return "<h1>Connected to API</h1>"
     
-    # Example route for testing streamlit
-    @app.route("/data")
-    def getData():
-        data = {              
-                "user1": {
-                    "Name": "Mark Fontenot",
-                    "Course": "CS 3200",
-                },
-                "user2": {
-                    "Name": "Eric Gerber",
-                    "Course": "DS 3000",
-                }
-            }
-        return data
+    
     
     app.logger.info('current_app(): registering blueprints with app object.')
     # Register the routes from each Blueprint with the app object
@@ -66,6 +51,7 @@ def create_app():
     app.register_blueprint(users, url_prefix='/u')
     app.register_blueprint(machine_learning, url_prefix='/ml')
     app.register_blueprint(routes, url_prefix = '/r')
+    app.register_blueprint(sliders, url_prefix = '/s')
 
 
     # Don't forget to return the app object

@@ -11,7 +11,7 @@ countries = Blueprint('countries', __name__)
 
 
 #get countryID given country name
-@countries.route('/get_countryID/<country>', methods=['GET'])
+@countries.route('/country/<country>/id', methods=['GET'])
 def get_countryID(country):
     # get a cursor object from the database
     cursor = db.get_db().cursor()
@@ -22,7 +22,7 @@ def get_countryID(country):
     return jsonify(theData)
 
 #get stateID given state name
-@countries.route('/get_stateID/<state>', methods=['GET'])
+@countries.route('/state/<state>/id', methods=['GET'])
 def get_stateID(state):
     # get a cursor object from the database
     cursor = db.get_db().cursor()
@@ -33,7 +33,7 @@ def get_stateID(state):
     return jsonify(theData)
 
 #get stateID given state name
-@countries.route('/get_stateName/<stateID>', methods=['GET'])
+@countries.route('/state/<stateID>/name', methods=['GET'])
 def get_stateName(stateID):
     # get a cursor object from the database
     cursor = db.get_db().cursor()
@@ -56,7 +56,7 @@ def get_countries():
     return jsonify(theData)
 
 #Get country fields used for ML
-@countries.route('/country_ml_fields', methods=['GET'])
+@countries.route('/countries/ml', methods=['GET'])
 def get_country_ml_fields():
     # get a cursor object from the database
     cursor = db.get_db().cursor()

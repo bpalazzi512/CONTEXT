@@ -52,7 +52,7 @@ elif load == 'Excess Baggage':
 else:
     loadIndex = 4
 
-state_name = requests.get(f'http://api:4000/c/get_stateName/{home_state}').json()[0]['stateName']
+state_name = requests.get(f'http://api:4000/c/state/{home_state}/name').json()[0]['stateName']
 
 home_state_data = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", 
                                          "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", 
@@ -83,7 +83,7 @@ move_load = st.selectbox("Move Load", ['Full Household', 'Part Household', 'Pers
 # Save button
 if st.button("Save"):
     # Logic to save the user profile information
-    stateID = requests.get(f'http://api:4000/c/get_stateID/{home_state}').json()[0]['id']
+    stateID = requests.get(f'http://api:4000/c/state/{home_state}/id').json()[0]['id']
     data = {"first" : first_name,
             "last" : last_name,
             "email" : email,

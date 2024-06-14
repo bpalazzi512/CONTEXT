@@ -30,7 +30,7 @@ col1, col2 = st.columns(2)
 # load user slider data 
 slider_data = {}
 try:
-    slider_data = requests.get(f'http://api:4000/ml/sliders/{userID}').json()[0]
+    slider_data = requests.get(f'http://api:4000/s/sliders/{userID}').json()[0]
 except:
     st.write("**Important**: Could not connect to sample api, so using dummy data.")
     slider_data = {"avg_temp": 50, "rail_density": 50, "education": 50, "crime_safety": 50, "pop_density": 50, "healthcare": 50, "leisure": 50, "COL": 50}
@@ -93,7 +93,7 @@ with col1:
             st.error("Select at least one category!")
         else:
             data = {"avg_temp": warm_weather, "rail_density": robust_public_transport, "education": good_public_education, "crime_safety": safety, "pop_density": pop_density, "healthcare": healthcare, "leisure": leisure, "cost_of_life": cost_of_living, "avg_temp_selected" : weather_checkbox, "rail_density_selected" : transport_checkbox, "education_selected" : education_checkbox, "crime_safety_selected" : safety_checkbox, "pop_density_selected" : pop_density_checkbox, "healthcare_selected" : healthcare_checkbox, "leisure_selected" : leisure_checkbox, "cost_of_life_selected" : COL_checkbox, "userID": userID}
-            requests.put('http://api:4000/ml/sliders', json=data)  
+            requests.put('http://api:4000/s/sliders', json=data)  
             
             ranking_dict = requests.get(f'http://api:4000/ml/rankings/{str(userID)}/generate').json()
             logger.info(f'ranking_dict = {ranking_dict}')
@@ -103,7 +103,7 @@ with col1:
                 rankingNum = i
                 countryName = ranking_dict[str(i)]
                 
-                countryID = requests.get(f'http://api:4000/c/get_countryID/{countryName}').json()[0]['id']
+                countryID = requests.get(f'http://api:4000/c/country/{countryName}/id').json()[0]['id']
                 
                 data = {"rankingNum": int(rankingNum), "countryID": int(countryID), "userID": int(userID)}
                 requests.put('http://api:4000/ml/rankings', json=data)      
@@ -131,7 +131,7 @@ with col2:
                     st.write(country_name)
                     try:
                         data = {} 
-                        data = requests.get('http://api:4000/c/get_countryID/' + country_name).json() #get countryid
+                        data = requests.get('http://api:4000/c/country/' + country_name  + "/id").json() #get countryid
                         st.session_state['countryID'] = data[0]['id'] 
                         st.switch_page('pages/22_Country_Page.py')
                     except Exception as e:

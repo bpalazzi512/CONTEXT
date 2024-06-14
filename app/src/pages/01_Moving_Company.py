@@ -25,7 +25,7 @@ name = st.session_state['name']
 
 data = requests.get(f'http://api:4000/u/users/{userID}').json()
 stateID = data[0]['homeStateID']
-fromStateName = requests.get(f'http://api:4000/c/get_stateName/{stateID}').json()[0]['stateName']
+fromStateName = requests.get(f'http://api:4000/c/state/{stateID}/name').json()[0]['stateName']
 
 if st.session_state['role'] == 'moving_company':
    fromStateName = '(STATE)'

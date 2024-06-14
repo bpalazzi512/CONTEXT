@@ -47,7 +47,7 @@ def display_routes(df):
         load = row['moveLoad']
         if load == 'Full Household':
             loadIndex = 0
-        elif load == 'Part HouseHold':
+        elif load == 'Part Household':
             loadIndex = 1
         elif load == 'Personal Effects Only':
             loadIndex = 2
@@ -129,12 +129,12 @@ def add_route():
  
         submit_button = st.button(label='Add Route')
         try:
-            country_id = requests.get(f'http://api:4000/c/get_countryID/{destination}').json()
+            country_id = requests.get(f'http://api:4000/c/country/{destination}/id').json()
         except:
             st.write('error')
         
         try:
-            state_id = requests.get(f'http://api:4000/c/get_stateID/{origin}').json()
+            state_id = requests.get(f'http://api:4000/c/state/{origin}/id').json()
         except:
             st.write('error')
         
@@ -165,15 +165,17 @@ def add_route():
 
                 try: 
                     response = requests.post("http://api:4000/r/add_route", json=new_data)
-                except:
-                    st.write("Did not add!")
-                if response.status_code == 201 or response.status_code == 200:
+                    if response.status_code == 201 or response.status_code == 200:
                         st.success("Route added successfully!")
                         new_df = pd.DataFrame([new_data])
                         global df
                         df = pd.DataFrame(requests.get(f'http://api:4000/r/all_routes/{moverID}').json())
-                else:
+                    else:
                         st.error("Failed to add route. Please try again.")
+                except:
+                    st.write("Did not add!")
+                
+                
 
 
 # Page Title

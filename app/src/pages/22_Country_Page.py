@@ -105,7 +105,7 @@ except:
   user_data = {"name":"Dummy Country", "z": {"b": "456", "c": "goodbye"}}
 
 stateID = user_data[0]['homeStateID']
-stateName = requests.get(f'http://api:4000/c/get_stateName/{stateID}').json()[0]['stateName']
+stateName = requests.get(f'http://api:4000/c/state/{stateID}/name').json()[0]['stateName']
 countryID = country_data[0]['id']
 load = user_data[0]['moveLoad']
 
