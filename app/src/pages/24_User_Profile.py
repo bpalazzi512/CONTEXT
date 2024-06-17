@@ -96,4 +96,4 @@ if st.button("Save"):
     if response.status_code == 200:
         st.success("Profile updated successfully!")
         time.sleep(1)  # Add a 1-second delay
-        st.experimental_rerun()
+        st.rerun()

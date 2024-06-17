@@ -13,8 +13,8 @@ def get_mover(moverID):
     current_app.logger.info('moving_company.py: GET /moving_company')
     cursor = db.get_db().cursor()
     cursor.execute('select * from movers where id = ' + str(moverID))
-    theData = cursor.fetchall()
-    return jsonify(theData)
+    data = cursor.fetchall()
+    return jsonify(data)
 
 # Get a list of all moving companies for a given route 
 @moving_company.route('/moving_company/<stateID>/<countryID>/<moveLoad>', methods=['GET'])
@@ -27,10 +27,9 @@ def get_mc_for_route(stateID, countryID, moveLoad):
     
 
     cursor.execute(query, (stateID, countryID, moveLoad))
-    json_data = []
-    theData = cursor.fetchall()
+    data = cursor.fetchall()
 
-    return jsonify(theData)
+    return jsonify(data)
 
 
 # Get a list of all the countryIDs a moving company can move to
@@ -42,13 +41,13 @@ def get_mover_country(moverID):
                    join countries c on c.id = r.countryID where r.moverID = {0}'.format(moverID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
+    data = cursor.fetchall()
+    for row in data:
         json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
+    response = make_response(jsonify(json_data))
+    response.status_code = 200
+    response.mimetype = 'application/json'
+    return response
 
 # Get a list of all the stateIDs a moving company can move from
 @moving_company.route('/moving_company/<moverID>/states', methods=['GET'])
@@ -59,18 +58,18 @@ def get_country(moverID):
                    join states s on s.id = r.stateID where r.moverID = {0}'.format(moverID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
+    data = cursor.fetchall()
+    for row in data:
         json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
+    response = make_response(jsonify(json_data))
+    response.status_code = 200
+    response.mimetype = 'application/json'
+    return response
 
 
 
 # Post (add) user to moverContacts 
-@moving_company.route('/userContact', methods=['POST'])
+@moving_company.route('/contact', methods=['POST'])
 def add_user_contact():
     # collecting data from the request object 
     the_data = request.json
@@ -98,10 +97,8 @@ def add_user_contact():
     return 'Success!'
 
 # Delete a user from moverContact
-@moving_company.route('/userContact/<userID>/<moverID>', methods=['DELETE'])
+@moving_company.route('/contact/<userID>/<moverID>', methods=['DELETE'])
 def delete_mover_contact(userID, moverID):
-    #user_id = request.args.get('userID')
-    #mover_id = request.args.get('moverID')
     
     cursor = db.get_db().cursor()
     cursor.execute(f'DELETE FROM moverContacts WHERE userID = {userID} AND moverID = {moverID}')
@@ -111,7 +108,7 @@ def delete_mover_contact(userID, moverID):
 
 
 # Get a list of all users (name, email, phone) that contacts a moving company by date
-@moving_company.route('/moverContact/<moverID>', methods=['GET'])
+@moving_company.route('/contacts/<moverID>', methods=['GET'])
 def get_users(moverID):
     current_app.logger.info('moverContact.py: GET /moverContact')
     cursor = db.get_db().cursor()
@@ -122,7 +119,7 @@ def get_users(moverID):
     return jsonify(theData)
 
 
-@moving_company.route('/mc_edit', methods=['PUT'])
+@moving_company.route('/moving_company/edit', methods=['PUT'])
 def update_company():
     try:
         recieved_data = request.json

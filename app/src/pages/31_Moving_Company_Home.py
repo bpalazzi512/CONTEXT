@@ -58,11 +58,12 @@ if st.button('Save'):
           "phone" : phone_input,
           "bio" : bio_input,
           "moverName" : companyName_input}
-  response = requests.put('http://api:4000/mv/mc_edit', json=data)
+  response = requests.put('http://api:4000/mv/moving_company/edit', json=data)
   if response.status_code == 200:
-    time.sleep(1)  # Add a 1-second delay
-    st.experimental_rerun()
     st.success("Profile saved successfully!")
+    time.sleep(1)  # Add a 1-second delay
+    st.rerun()
+    
 
 
 

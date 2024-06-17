@@ -82,7 +82,7 @@ def display_routes(df):
             if response.status_code == 200:
                 st.success(f"Deleted route {route_id}")
                 time.sleep(1)  # Add a 1-second delay
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.error(f"Failed delete route {route_id}")
 
@@ -95,7 +95,7 @@ def display_routes(df):
                 st.success(f"Edited route number: {route_id}")
                 
                 time.sleep(1)  # Add a 1-second delay
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.error(f"Please change something or ensure cost is a number")
 

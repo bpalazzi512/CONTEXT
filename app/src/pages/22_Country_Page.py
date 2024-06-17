@@ -150,7 +150,7 @@ def display_movers_with_buttons(df):
               "routeID" : row["r.id"]
               }
       try:
-        requests.post('http://api:4000/mv/userContact', json=data)
+        requests.post('http://api:4000/mv/contact', json=data)
         modal = Modal(key="success", title="The Mover Has been Succesfully Contacted!")
       except:
         modal = Modal(key="something went wrong!", title="ERROR!")
