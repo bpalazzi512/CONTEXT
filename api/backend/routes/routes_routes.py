@@ -6,7 +6,7 @@ from backend.db_connection import db
 
 routes = Blueprint('routes', __name__)
 # get all routes (state, country, load, rate) of given moverID 
-@routes.route('/all_routes/<moverID>', methods=['GET'])
+@routes.route('/routes/<moverID>', methods=['GET'])
 def get_routes(moverID):
     current_app.logger.info('moverContact.py: GET /moverContact')
     cursor = db.get_db().cursor()
@@ -21,7 +21,7 @@ def get_routes(moverID):
 
 
 # Delete a route
-@routes.route('/del_routes/<route_id>', methods=['DELETE'])
+@routes.route('/routes/delete/<route_id>', methods=['DELETE'])
 def delete_route(route_id):
     # Log the incoming request
     current_app.logger.info(f'Request to delete route with ID: {route_id}')
@@ -40,15 +40,6 @@ def delete_route(route_id):
     
     return 'Route deleted successfully!', 200
 
-# get max id of routes
-@routes.route('/get_max_id', methods=["GET"])
-def get_max_id():
-    current_app.logger.info('routes.py: GET /get_max_id')
-    # Execute the query
-    cursor = db.get_db().cursor()
-    cursor.execute('SELECT MAX(id) as max_id FROM routes')
-    theData = cursor.fetchall()
-    return jsonify(theData)
 
 #fromStateID, toCountryID, moverID, id, moveLoad
 @routes.route('/get_count/<stateID>/<countryID>/<moverID>/<moveLoad>', methods=["GET"])
@@ -75,7 +66,6 @@ def add_route():
     
 
     #extracting the variable
-    id = the_data['id']
     cost = the_data['Rate']
     load = the_data['Load']
     fromStateID = the_data['Origin']
@@ -84,8 +74,7 @@ def add_route():
 
 
     # Constructing the query
-    query = 'insert ignore into routes (id, cost, moveLoad, fromStateID, toCountryID, moverID) values ('
-    query += str(id) + ', '
+    query = 'insert ignore into routes (cost, moveLoad, fromStateID, toCountryID, moverID) values ('
     query += str(cost) + ', \''
     query += str(load) + '\', '
     query += str(fromStateID) + ', '

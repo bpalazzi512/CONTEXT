@@ -11,13 +11,13 @@ USE context ;
 -- USE context!;
 
 CREATE TABLE IF NOT EXISTS states (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     stateName VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) NOT NULL,
-    id INT UNIQUE NOT NULL,
+    id INT UNIQUE NOT NULL AUTO_INCREMENT,
     age INT NOT NULL,
     phone VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS countries (
-    id INT UNIQUE NOT NULL,
+    id INT UNIQUE NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) UNIQUE NOT NULL,
     happinessIndex DOUBLE,
     crime_safety DOUBLE,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS countryRankings (
     countryID int NOT NULL,
     rankingNum int,
     userID int NOT NULL,
-    id INT UNIQUE NOT NULL,
+    id INT UNIQUE NOT NULL AUTO_INCREMENT,
 
     PRIMARY KEY(id),
     FOREIGN KEY (countryID) REFERENCES countries(id),
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS countryRankings (
 );
 
 CREATE TABLE IF NOT EXISTS movers (
-    id INT UNIQUE NOT NULL,
+    id INT UNIQUE NOT NULL AUTO_INCREMENT,
     email VARCHAR(50) NOT NULL,
     moverName VARCHAR(50) NOT NULL,
     phone VARCHAR(50) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS moverContacts (
 );
 
 CREATE TABLE IF NOT EXISTS countryAdmins (
-    id INT UNIQUE NOT NULL,
+    id INT UNIQUE NOT NULL AUTO_INCREMENT,
     firstName VARCHAR(50),
     lastName VARCHAR(50),
     bio VARCHAR(500),

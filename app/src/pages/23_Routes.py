@@ -17,7 +17,7 @@ SideBarLinks()
 data = {}
 moverID = st.session_state['id']
 try:
-    data = requests.get(f'http://api:4000/r/all_routes/{moverID}').json()
+    data = requests.get(f'http://api:4000/r/routes/{moverID}').json()
 except:
     st.write("error!")
 
@@ -78,7 +78,7 @@ def display_routes(df):
         route_id = df['id'][index]
 
         if del_buttons[index]:
-            response = requests.delete(f'http://api:4000/r/del_routes/{route_id}')
+            response = requests.delete(f'http://api:4000/r/routes/delete/{route_id}')
             if response.status_code == 200:
                 st.success(f"Deleted route {route_id}")
                 time.sleep(1)  # Add a 1-second delay
@@ -138,7 +138,7 @@ def add_route():
         except:
             st.write('error')
         
-        route_id = requests.get('http://api:4000/r/get_max_id').json()
+        
         #/get_count/<stateID>/<countryID>/<moverID>/<moveLoad>'
 
         
@@ -146,7 +146,7 @@ def add_route():
 
         if submit_button:
             new_data = {
-                "id": str(1 + route_id[0]['max_id']),
+                
                 "MoverID": str(st.session_state['id']),
                 "Origin": str(state_id[0]['id']),
                 "Destination": str(country_id[0]['id']),
@@ -167,9 +167,8 @@ def add_route():
                     response = requests.post("http://api:4000/r/add_route", json=new_data)
                     if response.status_code == 201 or response.status_code == 200:
                         st.success("Route added successfully!")
-                        new_df = pd.DataFrame([new_data])
                         global df
-                        df = pd.DataFrame(requests.get(f'http://api:4000/r/all_routes/{moverID}').json())
+                        df = pd.DataFrame(requests.get(f'http://api:4000/r/routes/{moverID}').json())
                     else:
                         st.error("Failed to add route. Please try again.")
                 except:
