@@ -89,7 +89,7 @@ def display_routes(df):
         if edit_buttons[index]:
             data = {"moveLoad": load, "cost": cost, "id": str(route_id)}
             
-            response = requests.put(f'http://api:4000/r/routes_edit', json=data)
+            response = requests.put(f'http://api:4000/r/routes', json=data)
             if response.status_code == 200:
                 
                 st.success(f"Edited route number: {route_id}")
@@ -157,18 +157,16 @@ def add_route():
             countryID =str(country_id[0]['id'])
             moveID = str(st.session_state['id'])
             #string 
-            count_repeates = requests.get(f'http://api:4000/r/get_count/{stateID}/{countryID}/{moveID}/{load}').json()
+            count_repeats = requests.get(f'http://api:4000/r/routes/count?stateID={stateID}&countryID={countryID}&moverID={moveID}&moveLoad={load}').json()
 
-            if count_repeates[0]['count'] > 0:
+            if count_repeats[0]['count'] > 0:
                 st.error("Route already exists!")
             else:
 
                 try: 
-                    response = requests.post("http://api:4000/r/add_route", json=new_data)
+                    response = requests.post("http://api:4000/r/routes", json=new_data)
                     if response.status_code == 201 or response.status_code == 200:
                         st.success("Route added successfully!")
-                        global df
-                        df = pd.DataFrame(requests.get(f'http://api:4000/r/routes/{moverID}').json())
                     else:
                         st.error("Failed to add route. Please try again.")
                 except:

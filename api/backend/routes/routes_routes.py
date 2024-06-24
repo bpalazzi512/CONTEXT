@@ -40,11 +40,15 @@ def delete_route(route_id):
     
     return 'Route deleted successfully!', 200
 
-
 #fromStateID, toCountryID, moverID, id, moveLoad
-@routes.route('/get_count/<stateID>/<countryID>/<moverID>/<moveLoad>', methods=["GET"])
-def get_count_unique(stateID, countryID, moverID, moveLoad):
+@routes.route('/routes/count', methods=["GET"])
+def get_route():
     current_app.logger.info('moverContact.py: GET /moverContact')
+    stateID = request.args.get("stateID")
+    countryID = request.args.get("countryID")
+    moverID = request.args.get("moverID")
+    moveLoad = request.args.get("moveLoad")
+
     # Execute the query
     cursor = db.get_db().cursor()
     query = '''SELECT COUNT(*) as count FROM routes 
@@ -54,8 +58,11 @@ def get_count_unique(stateID, countryID, moverID, moveLoad):
     return jsonify(theData)
 
 
+
+
+
 # Post (add) a new route
-@routes.route('/add_route', methods=['POST'])
+@routes.route('/routes', methods=['POST'])
 def add_route():
     
     # collecting data from the request object 
@@ -74,12 +81,7 @@ def add_route():
 
 
     # Constructing the query
-    query = 'insert ignore into routes (cost, moveLoad, fromStateID, toCountryID, moverID) values ('
-    query += str(cost) + ', \''
-    query += str(load) + '\', '
-    query += str(fromStateID) + ', '
-    query += str(toCountryID) + ', '
-    query += str(moverID) + ')'
+    query = f'insert ignore into routes (cost, moveLoad, fromStateID, toCountryID, moverID) values ({cost}, \'{load}\', {fromStateID}, {toCountryID}, {moverID})'
     current_app.logger.info(query)
 
     # executing and committing the insert statement 
@@ -90,7 +92,7 @@ def add_route():
     return 'Success!'
 
 # Put (edit) tips of a country as admin
-@routes.route('/routes_edit', methods = ['PUT'])
+@routes.route('/routes', methods = ['PUT'])
 def update_route_load():
     try:
         recieved_data = request.json
