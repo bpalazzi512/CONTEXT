@@ -16,7 +16,7 @@ st.write('Thank you for choosing to work with CONTEXT!')
 st.write('')
 
 companyID = st.session_state['id']
-mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
+mcData = requests.get(f'http://api:4000/mv/moving/{companyID}').json()
 
 #companyID = mcData[0]['id']
 companyName = mcData[0]['moverName']
@@ -58,7 +58,7 @@ if st.button('Save'):
           "phone" : phone_input,
           "bio" : bio_input,
           "moverName" : companyName_input}
-  response = requests.put('http://api:4000/mv/moving_company/edit', json=data)
+  response = requests.put('http://api:4000/mv/moving', json=data)
   if response.status_code == 200:
     st.success("Profile saved successfully!")
     time.sleep(1)  # Add a 1-second delay

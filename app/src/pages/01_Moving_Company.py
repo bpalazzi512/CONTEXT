@@ -14,7 +14,7 @@ import time
 st.set_page_config(layout='wide')
 SideBarLinks()
 companyID = st.session_state['companyID']
-mcData = requests.get(f'http://api:4000/mv/moving_company/{companyID}').json()
+mcData = requests.get(f'http://api:4000/mv/moving/{companyID}').json()
 
 companyName = mcData[0]['moverName']
 userID = st.session_state['userID'] 
@@ -45,7 +45,7 @@ if st.button(f"Join Our Mail and Call List"):
               "routeID" : routeID
               }
       try:
-        response = requests.post('http://api:4000/mv/contact', json=data)
+        response = requests.post('http://api:4000/mv/moving/contacts', json=data)
         modal = Modal(key="success", title="Thank you for choosing " + companyName + "!")
       except:
         modal = Modal(key="something went wrong!", title="ERROR!")

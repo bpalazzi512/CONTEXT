@@ -78,7 +78,7 @@ def display_routes(df):
         route_id = df['id'][index]
 
         if del_buttons[index]:
-            response = requests.delete(f'http://api:4000/r/routes/delete/{route_id}')
+            response = requests.delete(f'http://api:4000/r/routes/{route_id}')
             if response.status_code == 200:
                 st.success(f"Deleted route {route_id}")
                 time.sleep(1)  # Add a 1-second delay

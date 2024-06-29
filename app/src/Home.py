@@ -87,7 +87,7 @@ with col3:
 
     # make session state user name
     try:
-        st.session_state['name'] = requests.get(f'http://api:4000/mv/moving_company/{id}').json()[0]['moverName']
+        st.session_state['name'] = requests.get(f'http://api:4000/mv/moving/{id}').json()[0]['moverName']
     except:
         st.write("**Important**: Could not connect to sample api, so using dummy data.")
         pass

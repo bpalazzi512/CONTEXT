@@ -17,7 +17,7 @@ st.write("")
 # Fetch data from API
 data = {}
 moverID = st.session_state['id']
-data = requests.get(f'http://api:4000/mv/contacts/{moverID}').json()
+data = requests.get(f'http://api:4000/mv/moving/{moverID}/contacts').json()
 
 df = pd.DataFrame(data)
 
@@ -72,7 +72,8 @@ def display_customers(df):
             if checked:
                 index = int(key.split('_')[1])  # Extract index from key
                 user_id = df.at[index, 'id']
-                response = requests.delete(f'http://api:4000/mv/contact/{user_id}/{moverID}')
+                data = {"userID": user_id, "moverID": moverID}
+                response = requests.delete('http://api:4000/mv/moving/contacts', json=data)
                 
                 if response.status_code == 200:
                     st.success(f"Deleted contact for userID: {user_id}, moverID: {moverID}")

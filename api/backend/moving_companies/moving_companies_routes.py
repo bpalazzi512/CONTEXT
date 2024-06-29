@@ -8,32 +8,17 @@ from backend.db_connection import db
 moving_company = Blueprint('moving_company', __name__)
 
 # get moving company for given id
-@moving_company.route('/moving_company/<moverID>', methods=['GET'])
+@moving_company.route('/moving/<moverID>', methods=['GET'])
 def get_mover(moverID):
-    current_app.logger.info('moving_company.py: GET /moving_company')
+    current_app.logger.info(f'/moving/{moverID} GET request recieved')
     cursor = db.get_db().cursor()
     cursor.execute('select * from movers where id = ' + str(moverID))
     data = cursor.fetchall()
     return jsonify(data)
 
-# Get a list of all moving companies for a given route 
-@moving_company.route('/moving_company/<stateID>/<countryID>/<moveLoad>', methods=['GET'])
-def get_mc_for_route(stateID, countryID, moveLoad):
-    current_app.logger.info('moving_company.py: GET /moving_company')
-    cursor = db.get_db().cursor()
-    query = 'select * from movers m join routes r on m.id = r.moverID \
-                   where r.fromStateID = %s and \
-                    r.toCountryID = %s and r.moveLoad = %s'
-    
-
-    cursor.execute(query, (stateID, countryID, moveLoad))
-    data = cursor.fetchall()
-
-    return jsonify(data)
-
 
 # Get a list of all the countryIDs a moving company can move to
-@moving_company.route('/moving_company/<moverID>/countries', methods=['GET'])
+@moving_company.route('/moving/<moverID>/countries', methods=['GET'])
 def get_mover_country(moverID):
     current_app.logger.info('GET /moving_company/<moverID> route')
     cursor = db.get_db().cursor()
@@ -50,7 +35,7 @@ def get_mover_country(moverID):
     return response
 
 # Get a list of all the stateIDs a moving company can move from
-@moving_company.route('/moving_company/<moverID>/states', methods=['GET'])
+@moving_company.route('/moving/<moverID>/states', methods=['GET'])
 def get_country(moverID):
     current_app.logger.info('GET /moving_company/<moverID> route')
     cursor = db.get_db().cursor()
@@ -69,16 +54,16 @@ def get_country(moverID):
 
 
 # Post (add) user to moverContacts 
-@moving_company.route('/contact', methods=['POST'])
+@moving_company.route('/moving/contacts', methods=['POST'])
 def add_user_contact():
     # collecting data from the request object 
-    the_data = request.json
-    current_app.logger.info(the_data)
+    data = request.json
+    
 
     #extracting the variable
-    userID = the_data['userID']
-    moverID = the_data['moverID']
-    routeID = the_data['routeID']
+    userID = data['userID']
+    moverID = data['moverID']
+    routeID = data['routeID']
 
     # Constructing the query
     query = 'insert into moverContacts (userID, moverID, routeID) values ('
@@ -97,8 +82,12 @@ def add_user_contact():
     return 'Success!'
 
 # Delete a user from moverContact
-@moving_company.route('/contact/<userID>/<moverID>', methods=['DELETE'])
-def delete_mover_contact(userID, moverID):
+@moving_company.route('/moving/contacts', methods=['DELETE'])
+def delete_mover_contact():
+
+    data = request.json
+    userID = data['userID']
+    moverID = data['moverID']
     
     cursor = db.get_db().cursor()
     cursor.execute(f'DELETE FROM moverContacts WHERE userID = {userID} AND moverID = {moverID}')
@@ -108,7 +97,7 @@ def delete_mover_contact(userID, moverID):
 
 
 # Get a list of all users (name, email, phone) that contacts a moving company by date
-@moving_company.route('/contacts/<moverID>', methods=['GET'])
+@moving_company.route('/moving/<moverID>/contacts', methods=['GET'])
 def get_users(moverID):
     current_app.logger.info('moverContact.py: GET /moverContact')
     cursor = db.get_db().cursor()
@@ -119,8 +108,9 @@ def get_users(moverID):
     return jsonify(theData)
 
 
-@moving_company.route('/moving_company/edit', methods=['PUT'])
+@moving_company.route('/moving', methods=['PUT'])
 def update_company():
+    cursor = None
     try:
         recieved_data = request.json
 
@@ -146,6 +136,7 @@ def update_company():
         current_app.logger.error(f"Error updating moveload with routeID: {moverID}, error: {e}")
         return make_response(jsonify({"error": "Internal server error"}), 500)
     finally:
-        if cursor:
+        if cursor is not None:
             cursor.close()
+            
 

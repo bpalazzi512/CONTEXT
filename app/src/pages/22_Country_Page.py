@@ -112,7 +112,7 @@ load = user_data[0]['moveLoad']
 
 mover_data = {}
 
-mover_data = requests.get(f'http://api:4000/mv/moving_company/{stateID}/{countryID}/{load}').json()
+mover_data = requests.get((f'http://api:4000/r/routes/companies?stateID={stateID}&countryID={countryID}&moveLoad={load}').replace(" ", "+")).json()
 
 
 # Create a DataFrame
@@ -150,7 +150,7 @@ def display_movers_with_buttons(df):
               "routeID" : row["r.id"]
               }
       try:
-        requests.post('http://api:4000/mv/contact', json=data)
+        requests.post('http://api:4000/mv/moving/contacts', json=data)
         modal = Modal(key="success", title="The Mover Has been Succesfully Contacted!")
       except:
         modal = Modal(key="something went wrong!", title="ERROR!")

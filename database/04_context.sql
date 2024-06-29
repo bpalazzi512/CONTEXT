@@ -8,7 +8,7 @@ USE context ;
 
 -- DROP DATABASE IF EXISTS context;
 -- CREATE DATABASE IF NOT EXISTS context;
--- USE context!;
+-- USE context!
 
 CREATE TABLE IF NOT EXISTS states (
     id INT PRIMARY KEY AUTO_INCREMENT,
